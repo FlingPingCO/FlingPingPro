@@ -6,7 +6,7 @@ const FAQs = () => {
   const faqItems = [
     {
       question: "What is FlingPing.co?",
-      answer: "FlingPing.co is your bold, secure partner in smarter sexual health. Designed to empower you with tools to stay informed and in control, it reimagines how technology can keep you ahead of the curve."
+      answer: "<span className=\"text-teal\">FlingPing<span className=\"text-coral\">.co</span></span> is your bold, secure partner in smarter sexual health. Designed to empower you with tools to stay informed and in control, it reimagines how technology can keep you ahead of the curve."
     },
     {
       question: "Who are the Flingers?",
@@ -26,7 +26,7 @@ const FAQs = () => {
     },
     {
       question: "What if I don't have someone's phone number?",
-      answer: "That's the beauty of FlingPing.co—you don't need their number, name, or any personal information. The app creates anonymous connections through Bluetooth pairing, so you can stay informed without the awkward exchanges."
+      answer: "That's the beauty of <span className=\"text-teal\">FlingPing<span className=\"text-coral\">.co</span></span>—you don't need their number, name, or any personal information. The app creates anonymous connections through Bluetooth pairing, so you can stay informed without the awkward exchanges."
     },
     {
       question: "Is my information really anonymous?",
@@ -34,7 +34,7 @@ const FAQs = () => {
     },
     {
       question: "How many Founding Flinger spots are available?",
-      answer: "We're limiting Founding Flinger membership to just 250 people. Once these spots are filled, the only way to access FlingPing.co will be through our regular subscription model."
+      answer: "We're limiting Founding Flinger membership to just 250 people. Once these spots are filled, the only way to access <span className=\"text-teal\">FlingPing<span className=\"text-coral\">.co</span></span> will be through our regular subscription model."
     },
     {
       question: "When will the app be available?",
@@ -60,7 +60,7 @@ const FAQs = () => {
         <h1 className="text-4xl md:text-5xl text-center mb-8">Frequently Asked Questions</h1>
         
         <p className="text-lg text-center mb-12 max-w-2xl mx-auto">
-          Get answers to common questions about FlingPing.co, our Founding Flinger program, 
+          Get answers to common questions about <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>, our Founding Flinger program, 
           and how our technology is revolutionizing sexual health communication.
         </p>
         
