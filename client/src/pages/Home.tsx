@@ -129,12 +129,12 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
               
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                 <Link href="#founding-flinger">
-                  <Button className="bg-coral text-[#3c3c3c] hover:bg-coral/90 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto">
+                  <Button variant="outline" className="border-2 border-coral text-coral hover:bg-coral hover:text-[#3c3c3c] transition-all duration-300 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto">
                     Become a Founding Flinger
                   </Button>
                 </Link>
                 <Link href="/how-it-works">
-                  <Button variant="outline" className="border-2 border-teal text-teal hover:bg-teal hover:text-[#3c3c3c] transition-all duration-300 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto">
+                  <Button className="bg-teal text-[#3c3c3c] hover:bg-teal/90 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto">
                     How It Works
                   </Button>
                 </Link>
@@ -210,10 +210,12 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
             
             <div className="flex flex-col md:flex-row">
               <div className="md:w-1/2 md:pr-12">
-                <div className="text-center md:text-left h-full">
-                  <div className="bg-[#f4e9d9] rounded-3xl p-8 text-left mb-6 h-full flex flex-col">
-                    <div className="inline-block bg-coral text-[#3c3c3c] text-2xl md:text-3xl font-bold px-6 py-3 rounded-full mb-6 whitespace-nowrap">
-                      Lifetime Access for $99
+                <div className="text-center h-full">
+                  <div className="bg-[#f4e9d9] rounded-3xl p-8 mb-6 h-full flex flex-col">
+                    <div className="flex justify-center mb-6">
+                      <div className="bg-coral text-[#3c3c3c] text-2xl font-bold px-6 py-3 rounded-full whitespace-nowrap">
+                        Lifetime Access for $99
+                      </div>
                     </div>
                     
                     <h4 className="font-bold text-xl mb-4 text-teal">Limited Time Founding Flinger Offer</h4>
