@@ -86,7 +86,7 @@ const Legal = () => {
                 <AccordionContent className="text-sand px-4 pb-4 space-y-4">
                   <h3 className="text-lg font-medium text-primary">1. Information We Collect</h3>
                   <p>
-                    At FlingPing.co, we're committed to minimizing data collection. We collect only what's 
+                    At <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>, we're committed to minimizing data collection. We collect only what's 
                     necessary to provide our service, such as:
                   </p>
                   <ul className="list-disc pl-6 space-y-2">
@@ -140,7 +140,7 @@ const Legal = () => {
                   <p>
                     Due to the limited and exclusive nature of our Founding Flinger program, the $99 
                     lifetime membership is non-refundable. This one-time payment provides perpetual 
-                    access to all core features of FlingPing.co.
+                    access to all core features of <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>.
                   </p>
                   
                   <h3 className="text-lg font-medium text-primary">Standard Subscriptions</h3>
@@ -172,7 +172,7 @@ const Legal = () => {
                   <h3 className="text-lg font-medium text-primary">What Are Cookies</h3>
                   <p>
                     Cookies are small pieces of data stored on your device that help us improve your 
-                    experience with FlingPing.co by remembering your preferences and how you use our site.
+                    experience with <span className="text-teal">FlingPing<span className="text-coral">.co</span></span> by remembering your preferences and how you use our site.
                   </p>
                   
                   <h3 className="text-lg font-medium text-primary">How We Use Cookies</h3>
