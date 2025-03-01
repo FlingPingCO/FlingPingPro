@@ -129,34 +129,31 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
               
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                 <Link href="#founding-flinger">
-                  <Button className="bg-coral text-[#3c3c3c] hover:bg-coral/90 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto">
+                  <Button variant="outline" className="border-2 border-teal text-teal hover:bg-teal hover:text-[#3c3c3c] transition-all duration-300 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto">
                     Become a Founding Flinger
                   </Button>
                 </Link>
                 <Link href="/how-it-works">
-                  <Button variant="outline" className="border-2 border-teal text-teal hover:bg-teal hover:text-dark transition-all duration-300 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto">
+                  <Button className="bg-coral text-[#3c3c3c] hover:bg-coral/90 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto">
                     How It Works
                   </Button>
                 </Link>
               </div>
             </div>
             <div className="md:w-1/2 mt-12 md:mt-0">
-              <img 
-                src="https://images.unsplash.com/photo-1516834474-48c0abc2a902?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                alt="People walking in city - everyday life" 
-                className="rounded-xl shadow-2xl w-full"
-              />
-              <div className="grid grid-cols-2 gap-2 mt-2">
-                <img 
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                  alt="Portrait of confident person" 
-                  className="rounded-xl shadow-lg w-full h-32 object-cover"
-                />
-                <img 
-                  src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                  alt="People at cafe" 
-                  className="rounded-xl shadow-lg w-full h-32 object-cover"
-                />
+              <div className="rounded-xl bg-dark border-2 border-teal shadow-2xl w-full p-6 flex flex-col items-center justify-center">
+                <div className="text-teal text-5xl mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-24 w-24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl text-center mb-2 text-coral">Secure. Anonymous. Simple.</h3>
+                <p className="text-center text-sand mb-4">No awkward conversations or uncomfortable reveals.</p>
+                <div className="flex justify-center">
+                  <div className="flex items-center justify-center w-12 h-12 rounded-full bg-dark border border-coral text-coral text-lg mr-2">1</div>
+                  <div className="flex items-center justify-center w-12 h-12 rounded-full bg-coral text-[#3c3c3c] text-lg mr-2">2</div>
+                  <div className="flex items-center justify-center w-12 h-12 rounded-full bg-dark border border-coral text-coral text-lg">3</div>
+                </div>
               </div>
             </div>
           </div>
@@ -214,37 +211,37 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
             <div className="flex flex-col md:flex-row">
               <div className="md:w-1/2 md:pr-12">
                 <div className="text-center md:text-left">
-                  <div className="inline-block bg-coral text-[#3c3c3c] text-2xl md:text-3xl font-bold px-6 py-3 rounded-full mb-6">
-                    Lifetime Access for $99
-                  </div>
-                  
-                  <div className="bg-sand bg-opacity-10 p-6 rounded-xl mb-6 border border-sand">
+                  <div className="bg-[#f4e9d9] rounded-3xl p-8 text-left mb-6">
+                    <div className="inline-block bg-coral text-[#3c3c3c] text-2xl md:text-3xl font-bold px-6 py-3 rounded-full mb-6">
+                      Lifetime Access for $99
+                    </div>
+                    
                     <h4 className="font-bold text-xl mb-4 text-teal">Limited Time Founding Flinger Offer</h4>
-                    <p className="mb-4">Join now during our early launch phase and become part of our history!</p>
-                    <div className="flex items-center">
+                    
+                    <ul className="space-y-4 text-lg text-[#3c3c3c]">
+                      <li className="flex items-start">
+                        <span className="text-coral mr-2">✓</span>
+                        <span>Lifetime Membership - Pay once and unlock a lifetime of <span className="text-teal">Fling<span className="text-coral">.co</span></span>'s core features.</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-coral mr-2">✓</span>
+                        <span>Be a Founding Flinger - Get exclusive early access and shape <span className="text-teal">Fling<span className="text-coral">.co</span></span> with your feedback.</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-coral mr-2">✓</span>
+                        <span>Support Innovation - Be part of the movement creating digital herd immunity.</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-coral mr-2">✓</span>
+                        <span>Limited Time Flinger Swag - Exclusive to founding members only.</span>
+                      </li>
+                    </ul>
+                    
+                    <div className="flex items-center justify-center mt-6">
                       <div className="text-2xl font-bold text-coral line-through opacity-75 mr-3">$199</div>
                       <div className="text-2xl font-bold text-teal">$99</div>
                     </div>
                   </div>
-                  
-                  <ul className="space-y-4 text-lg">
-                    <li className="flex items-start">
-                      <span className="text-coral mr-2">✓</span>
-                      <span>Lifetime Membership - Pay once and unlock a lifetime of FlingPing.co's core features.</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-coral mr-2">✓</span>
-                      <span>Be a Founding Flinger - Get exclusive early access and shape FlingPing.co with your feedback.</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-coral mr-2">✓</span>
-                      <span>Support Innovation - Be part of the movement creating digital herd immunity.</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-coral mr-2">✓</span>
-                      <span>Limited Time Flinger Swag - Exclusive to founding members only.</span>
-                    </li>
-                  </ul>
                 </div>
               </div>
               
@@ -317,6 +314,18 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
               }
             ]}
           />
+          
+          <div className="mt-16 flex justify-center">
+            <div className="bg-[#f4e9d9] rounded-full px-8 py-6 max-w-2xl text-center">
+              <h3 className="text-teal text-2xl font-bold mb-3">Still have questions?</h3>
+              <p className="text-[#3c3c3c] mb-4">We're here to help. Reach out to our team for any questions not covered in our FAQs.</p>
+              <Link href="/contact">
+                <a className="inline-block bg-coral text-[#3c3c3c] hover:bg-coral/90 transition-all duration-300 font-poppins font-medium text-center px-8 py-3 rounded-full">
+                  Contact Us
+                </a>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </>
