@@ -33,7 +33,6 @@ const Navbar = () => {
         <Link href="/">
           <div className="flex items-center cursor-pointer">
             <img src={logo} alt="FlingPing.co Logo" className="h-10 mr-2" />
-            <span className="logo-text-primary">Fling<span className="logo-text-primary">Ping</span><span className="logo-text-secondary">.co</span></span>
           </div>
         </Link>
         

@@ -11,7 +11,6 @@ const Footer = () => {
             <Link href="/">
               <div className="flex items-center justify-center mb-4 cursor-pointer">
                 <img src={logo} alt="FlingPing.co Logo" className="h-10 mr-2" />
-                <span className="logo-text-primary">Fling<span className="logo-text-primary">Ping</span><span className="logo-text-secondary">.co</span></span>
               </div>
             </Link>
             <p className="max-w-md mx-auto text-sand text-center">
@@ -31,25 +30,25 @@ const Footer = () => {
             </div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center md:text-left">
-            <div>
-              <h4 className="text-coral font-bold mb-4">Navigation</h4>
-              <ul className="space-y-2">
-                <li><Link href="/"><span className="nav-link cursor-pointer">Home</span></Link></li>
-                <li><Link href="/about"><span className="nav-link cursor-pointer">About</span></Link></li>
-                <li><Link href="/how-it-works"><span className="nav-link cursor-pointer">How It Works</span></Link></li>
-                <li><Link href="/faqs"><span className="nav-link cursor-pointer">FAQs</span></Link></li>
-                <li><Link href="/contact"><span className="nav-link cursor-pointer">Contact</span></Link></li>
-              </ul>
+          <div className="w-full max-w-2xl mx-auto">
+            <div className="text-center mb-4">
+              <h4 className="text-coral font-medium text-xl inline-block">Navigation</h4>
+            </div>
+            <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-8">
+              <Link href="/"><span className="text-sand hover:text-primary cursor-pointer">Home</span></Link>
+              <Link href="/about"><span className="text-sand hover:text-primary cursor-pointer">About</span></Link>
+              <Link href="/how-it-works"><span className="text-sand hover:text-primary cursor-pointer">How It Works</span></Link>
+              <Link href="/faqs"><span className="text-sand hover:text-primary cursor-pointer">FAQs</span></Link>
+              <Link href="/contact"><span className="text-sand hover:text-primary cursor-pointer">Contact</span></Link>
             </div>
             
-            <div>
-              <h4 className="text-coral font-bold mb-4">Legal</h4>
-              <ul className="space-y-2">
-                <li><Link href="/legal#terms"><span className="nav-link cursor-pointer">Terms of Service</span></Link></li>
-                <li><Link href="/legal#privacy"><span className="nav-link cursor-pointer">Privacy Policy</span></Link></li>
-                <li><Link href="/legal#refund"><span className="nav-link cursor-pointer">Refund Policy</span></Link></li>
-              </ul>
+            <div className="text-center mb-4">
+              <h4 className="text-coral font-medium text-xl inline-block">Legal</h4>
+            </div>
+            <div className="flex flex-wrap justify-center gap-x-8 gap-y-2">
+              <Link href="/legal#refund"><span className="text-sand hover:text-primary cursor-pointer">Refund Policy</span></Link>
+              <Link href="/legal#terms"><span className="text-sand hover:text-primary cursor-pointer">Terms of Service</span></Link>
+              <Link href="/legal#privacy"><span className="text-sand hover:text-primary cursor-pointer">Privacy Policy</span></Link>
             </div>
           </div>
         </div>
