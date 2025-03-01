@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 const HowItWorks = () => {
   return (
-    <div className="py-16 bg-dark">
+    <div className="py-16 bg-background">
       <div className="container mx-auto px-4">
         <h1 className="text-4xl md:text-5xl text-center mb-12"><span className="text-coral">How</span> <span className="text-teal">FlingPing<span className="text-coral">.co</span></span> <span className="text-coral">works?</span></h1>
         
@@ -21,7 +21,7 @@ const HowItWorks = () => {
             {/* Step 1 */}
             <div className="flex flex-col md:flex-row items-center">
               <div className="md:w-1/2 md:pr-12 text-right">
-                <h3 className="text-2xl mb-4">Sign Up & Get Your PP</h3>
+                <h3 className="text-2xl mb-4"><span className="text-teal">Sign Up</span> & <span className="text-coral">Get Your PP</span></h3>
                 <p className="text-lg mb-4">Create your account and receive your unique Ping Pin (PP). It's your key to safe encounters and private notifications.</p>
                 <p className="text-lg">Your PP is completely anonymous—we don't need your real name, phone number, or any identifying details that might make things awkward later.</p>
               </div>
@@ -37,14 +37,14 @@ const HowItWorks = () => {
             {/* Step 2 */}
             <div className="flex flex-col md:flex-row-reverse items-center">
               <div className="md:w-1/2 md:pl-12">
-                <h3 className="text-2xl mb-4">Pound That PP</h3>
+                <h3 className="text-2xl mb-4"><span className="text-coral">Pound</span> That <span className="text-teal">PP</span></h3>
                 <p className="text-lg mb-4">Before the fun starts, make sure to pound your PP with your partner's. This secure Bluetooth connection ensures you're both linked anonymously in our system.</p>
                 <p className="text-lg">Think of it as the grown-up way to say, "We're all good here." It's responsible, it's easy, and it doesn't kill the mood.</p>
               </div>
               <div className="md:w-1/2 md:pr-12 mt-6 md:mt-0">
                 <img 
-                  src="/attached_assets/a-hand-pushing-a-button-on-a-phone.png" 
-                  alt="Hand pushing button on phone" 
+                  src="/attached_assets/wifi-signal-in-two-phones-pairing Background Removed.png" 
+                  alt="Two phones connecting with WiFi" 
                   className="rounded-xl w-full max-w-sm mx-auto"
                 />
               </div>
@@ -53,7 +53,7 @@ const HowItWorks = () => {
             {/* Step 3 */}
             <div className="flex flex-col md:flex-row items-center">
               <div className="md:w-1/2 md:pr-12 text-right">
-                <h3 className="text-2xl mb-4">Stay In The Loop</h3>
+                <h3 className="text-2xl mb-4"><span className="text-teal">Stay</span> In The <span className="text-coral">Loop</span></h3>
                 <p className="text-lg mb-4">If someone reports an issue later, you'll receive a discreet, anonymous notification. No awkward texts, no uncomfortable conversations—just the information you need to stay healthy.</p>
                 <p className="text-lg">Our system maintains privacy while still providing critical information. You'll know what you need to know, when you need to know it.</p>
               </div>
@@ -69,7 +69,7 @@ const HowItWorks = () => {
             {/* Step 4 */}
             <div className="flex flex-col md:flex-row-reverse items-center">
               <div className="md:w-1/2 md:pl-12">
-                <h3 className="text-2xl mb-4">Take Action With Confidence</h3>
+                <h3 className="text-2xl mb-4"><span className="text-coral">Take Action</span> With <span className="text-teal">Confidence</span></h3>
                 <p className="text-lg mb-4">Armed with information, you can make smart decisions about your health. We provide resources to find testing centers, treatment options, and everything else you need.</p>
                 <p className="text-lg">No shame, no blame—just practical next steps to keep you at your healthiest.</p>
               </div>
@@ -85,7 +85,16 @@ const HowItWorks = () => {
         </div>
         
         <div className="text-center mt-20">
-          <h2 className="text-3xl mb-8">Ready to Flip the Script?</h2>
+          <h2 className="text-3xl mb-8"><span className="text-coral">Ready</span> to <span className="text-teal">Flip</span> the <span className="text-coral">Script?</span></h2>
+          
+          <div className="flex justify-center mb-8">
+            <img 
+              src="/attached_assets/Friends_NoBG.png" 
+              alt="Friends high-fiving" 
+              className="h-[200px] md:h-[240px] object-contain mx-auto"
+            />
+          </div>
+          
           <p className="text-lg mb-8 max-w-2xl mx-auto">
             Join the 250 Founding Flingers who are revolutionizing sexual health with technology that keeps you informed, empowered, and protected.
           </p>
