@@ -9,10 +9,8 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2 items-center">
           <div className="text-center md:text-left">
             <Link href="/">
-              <div className="inline-flex items-center cursor-pointer">
-                <div className="text-lg font-medium">
-                  <span className="text-teal">FlingPing</span><span className="text-coral">.co</span>
-                </div>
+              <div className="flex items-center cursor-pointer">
+                <img src={logo} alt="FlingPing.co Logo" className="h-8 mr-1" />
               </div>
             </Link>
           </div>
