@@ -12,7 +12,7 @@ const About = () => {
             <h2 className="text-3xl md:text-4xl mb-6">Our Mission</h2>
             <p className="text-lg mb-4">We're on a mission to revolutionize how people approach sexual health in a digital age. By combining technology with accountability, we're creating a safer, smarter community.</p>
             <p className="text-lg mb-4"><span className="text-teal">FlingPing<span className="text-coral">.co</span></span> was born from a simple idea: what if we could make responsible sexual health as easy as sending a text? No awkward conversations, no forgotten names, no guesswork—just peace of mind.</p>
-            <p className="text-lg">It's more than just an app—we're building what we like to call "digital herd immunity," a system where everyone stays one step ahead of STDs, effortlessly and anonymously.</p>
+            <p className="text-lg">It's more than just an app—we're building what we like to call "digital heard awareness," a system where everyone stays one step ahead of STDs, effortlessly and anonymously.</p>
           </div>
           <div className="md:w-1/2 mb-12 md:mb-0 order-1 md:order-2">
             <img 
