@@ -16,9 +16,9 @@ const About = () => {
           </div>
           <div className="md:w-1/2 mb-12 md:mb-0 order-1 md:order-2">
             <img 
-              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-              alt="Team collaboration" 
-              className="rounded-xl shadow-2xl w-full"
+              src="/attached_assets/a-doctor Background Removed.png" 
+              alt="Doctor illustration" 
+              className="rounded-xl w-full max-w-md mx-auto md:max-w-full"
             />
           </div>
         </div>
