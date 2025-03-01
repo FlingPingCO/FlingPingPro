@@ -130,7 +130,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
 
           <div className="flex flex-col md:flex-row items-center">
             <div className="md:w-1/2 md:pr-12">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Welcome to <span className="text-teal">FlingPing<span className="text-coral">.co</span></span></h1>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4"><span className="text-teal">Welcome to FlingPing<span className="text-coral">.co</span></span></h1>
               <h2 className="text-2xl md:text-3xl text-coral mb-6">Flip the Script on Sexual Health.</h2>
               <p className="text-lg mb-8">The First App to Outsmart STDs – Smart, Private, and Empowering.</p>
               <p className="mb-8 text-lg">FlingPing.co is the bold, game-changing app that turns awkward conversations into confidence and empowerment. Say goodbye to uncomfortable "uh-oh" moments and hello to a smarter, safer, and discreet way to stay ahead of your sexual health.</p>
@@ -150,7 +150,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
             </div>
             <div className="md:w-1/2 mt-12 md:mt-0 flex justify-center">
               <div className="relative">
-                <img src={friendsHighFive} alt="Friends high five" className="h-64 object-contain mx-auto" />
+                <img src={friendsHighFive} alt="Friends high five" className="h-[192px] md:h-[384px] object-contain mx-auto" />
               </div>
             </div>
           </div>
@@ -163,7 +163,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
           <h2 className="text-3xl md:text-4xl text-center mb-12">Why <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>?</h2>
           
           <div className="flex justify-center mb-12">
-            <img src={womanWalkingDog} alt="Daily life with FlingPing" className="h-52 object-contain" />
+            <img src={womanWalkingDog} alt="Daily life with FlingPing" className="h-[156px] md:h-[312px] object-contain" />
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -267,7 +267,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
                     </div>
                     
                     <div className="flex justify-center mt-6">
-                      <img src={womanShopping} alt="Founding Flinger" className="h-24 object-contain" />
+                      <img src={womanShopping} alt="Founding Flinger" className="h-[72px] md:h-[144px] object-contain" />
                     </div>
                   </div>
                 </div>
@@ -291,7 +291,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
           <h2 className="text-3xl md:text-4xl text-center mb-8">Why Our Early Adopters Love <span className="text-teal">FlingPing<span className="text-coral">.co</span></span></h2>
           
           <div className="flex justify-center mb-12">
-            <img src={deliveryDriver} alt="FlingPing delivers peace of mind" className="h-44 object-contain" />
+            <img src={deliveryDriver} alt="FlingPing delivers peace of mind" className="h-[132px] md:h-[264px] object-contain" />
           </div>
           
           <div className="mx-auto max-w-5xl">
@@ -330,7 +330,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
           <h2 className="text-3xl md:text-4xl text-center mb-8">Frequently Asked Questions</h2>
           
           <div className="flex justify-center mb-12">
-            <img src={collegeStudents} alt="Students using FlingPing" className="h-44 object-contain" />
+            <img src={collegeStudents} alt="Students using FlingPing" className="h-[132px] md:h-[264px] object-contain" />
           </div>
           
           <FAQAccordion 
