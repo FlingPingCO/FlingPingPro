@@ -111,7 +111,7 @@ const SignupForm = () => {
             
             <Button 
               type="submit" 
-              className="w-full mt-4 sm:mt-6 bg-coral hover:bg-coral/90 text-background font-poppins font-medium text-center px-4 sm:px-6 py-2 sm:py-3 rounded-full text-base sm:text-lg shadow-lg border-2 border-coral transition-colors duration-300"
+              className="w-full mt-4 sm:mt-6 bg-coral hover:bg-coral/90 text-[#3c3c3c] font-poppins font-medium text-center px-4 sm:px-6 py-2 sm:py-3 rounded-full text-base sm:text-lg shadow-lg border-2 border-coral transition-colors duration-300"
             >
               Secure My Spot for $99
             </Button>
