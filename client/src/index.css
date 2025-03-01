@@ -127,7 +127,7 @@
   }
   
   .btn-primary {
-    @apply bg-secondary text-foreground hover:bg-yellow hover:text-dark transition-all duration-300 rounded-full font-poppins font-medium;
+    @apply bg-secondary text-[#3c3c3c] hover:bg-yellow hover:text-[#3c3c3c] transition-all duration-300 rounded-full font-poppins font-medium;
   }
   
   .nav-link {

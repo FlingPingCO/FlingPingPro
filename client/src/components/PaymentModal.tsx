@@ -92,14 +92,14 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, formData }
             <Button 
               variant="outline" 
               onClick={onClose}
-              className="flex-1 border-coral text-sand hover:bg-coral hover:text-sand text-xs sm:text-sm py-1 sm:py-2 h-auto"
+              className="flex-1 border-coral text-sand hover:bg-coral hover:text-[#3c3c3c] text-xs sm:text-sm py-1 sm:py-2 h-auto"
               disabled={isProcessing}
             >
               Cancel
             </Button>
             <Button 
               onClick={handleProceedToPayment}
-              className="flex-1 btn-primary text-xs sm:text-sm py-1 sm:py-2 h-auto"
+              className="flex-1 btn-primary bg-coral text-[#3c3c3c] hover:bg-coral/90 text-xs sm:text-sm py-1 sm:py-2 h-auto"
               disabled={isProcessing}
             >
               {isProcessing ? (
