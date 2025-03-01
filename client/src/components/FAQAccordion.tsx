@@ -25,7 +25,11 @@ const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqItems }) => {
               {item.question}
             </AccordionTrigger>
             <AccordionContent className="text-sand px-4 pb-4 text-lg">
-              {item.answer}
+              {item.answer.includes('Ping Pin (PP)') ? (
+                <>
+                  Your Ping Pin (<span className="text-coral">PP</span>) uses end-to-end encryption to create anonymous connections between users. We never store names, phone numbers, or personal details—just randomized IDs that allow for anonymous notifications if necessary.
+                </>
+              ) : item.answer}
             </AccordionContent>
           </AccordionItem>
         ))}

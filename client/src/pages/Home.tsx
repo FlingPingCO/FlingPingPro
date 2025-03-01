@@ -144,9 +144,9 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
                     Become a Founding Flinger
                   </Button>
                 </Link>
-                <Link href="/how-it-works">
-                  <Button className="bg-teal text-[#3c3c3c] hover:bg-teal/90 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto shadow-md">
-                    How It Works
+                <Link href="#founding-flinger">
+                  <Button className="bg-coral text-[#3c3c3c] hover:bg-coral/90 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto shadow-md">
+                    Sign Up
                   </Button>
                 </Link>
               </div>
@@ -332,7 +332,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
               },
               {
                 question: "How does the Ping Pin protect my privacy?",
-                answer: "Your Ping Pin (<span className=\"text-coral\">PP</span>) uses end-to-end encryption to create anonymous connections between users. We never store names, phone numbers, or personal details—just randomized IDs that allow for anonymous notifications if necessary."
+                answer: "Your Ping Pin (PP) uses end-to-end encryption to create anonymous connections between users. We never store names, phone numbers, or personal details—just randomized IDs that allow for anonymous notifications if necessary."
               }
             ]}
           />
