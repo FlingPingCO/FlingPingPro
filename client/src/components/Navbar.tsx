@@ -28,11 +28,12 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-sand/30 shadow-md backdrop-blur-sm">
+    <header className="sticky top-0 z-50 bg-[#f4e9d9] shadow-md">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <Link href="/">
           <div className="flex items-center cursor-pointer">
             <img src={logo} alt="FlingPing.co Logo" className="h-10 mr-2" />
+            <span className="logo-text-primary">Fling<span className="logo-text-primary">Ping</span><span className="logo-text-secondary">.co</span></span>
           </div>
         </Link>
         
@@ -66,7 +67,7 @@ const Navbar = () => {
       {/* Mobile Navigation */}
       {isMobile && (
         <nav 
-          className={`${isMenuOpen ? "block" : "hidden"} md:hidden bg-sand/30 backdrop-blur-sm py-4 px-4 absolute w-full z-50`}
+          className={`${isMenuOpen ? "block" : "hidden"} md:hidden bg-[#f4e9d9] py-4 px-4 absolute w-full z-50`}
         >
           <div className="flex flex-col space-y-3">
             {navLinks.map((link) => (
