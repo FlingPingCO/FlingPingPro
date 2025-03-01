@@ -129,7 +129,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
               
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                 <Link href="#founding-flinger">
-                  <Button className="bg-coral text-dark hover:bg-coral/90 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto">
+                  <Button className="bg-coral text-[#3c3c3c] hover:bg-coral/90 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto">
                     Become a Founding Flinger
                   </Button>
                 </Link>
@@ -142,10 +142,22 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
             </div>
             <div className="md:w-1/2 mt-12 md:mt-0">
               <img 
-                src="https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-                alt="Modern tech concept" 
+                src="https://images.unsplash.com/photo-1516834474-48c0abc2a902?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                alt="People walking in city - everyday life" 
                 className="rounded-xl shadow-2xl w-full"
               />
+              <div className="grid grid-cols-2 gap-2 mt-2">
+                <img 
+                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                  alt="Portrait of confident person" 
+                  className="rounded-xl shadow-lg w-full h-32 object-cover"
+                />
+                <img 
+                  src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                  alt="People at cafe" 
+                  className="rounded-xl shadow-lg w-full h-32 object-cover"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -202,7 +214,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
             <div className="flex flex-col md:flex-row">
               <div className="md:w-1/2 md:pr-12">
                 <div className="text-center md:text-left">
-                  <div className="inline-block bg-coral text-sand text-2xl md:text-3xl font-bold px-6 py-3 rounded-full mb-6">
+                  <div className="inline-block bg-coral text-[#3c3c3c] text-2xl md:text-3xl font-bold px-6 py-3 rounded-full mb-6">
                     Lifetime Access for $99
                   </div>
                   
@@ -268,8 +280,8 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
                 ))}
               </CarouselContent>
               <div className="flex justify-center mt-8 gap-2">
-                <CarouselPrevious className="static bg-dark border border-coral text-coral hover:bg-coral hover:text-dark transition-all" />
-                <CarouselNext className="static bg-dark border border-coral text-coral hover:bg-coral hover:text-dark transition-all" />
+                <CarouselPrevious className="static bg-coral border border-coral text-[#3c3c3c] hover:bg-coral/90 transition-all" />
+                <CarouselNext className="static bg-coral border border-coral text-[#3c3c3c] hover:bg-coral/90 transition-all" />
               </div>
             </Carousel>
           </div>
