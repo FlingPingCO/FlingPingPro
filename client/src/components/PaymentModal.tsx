@@ -52,18 +52,18 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, formData }
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-dark border-2 border-coral text-sand sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle className="text-2xl text-center">Become a Founding Flinger</DialogTitle>
-          <DialogDescription className="text-sand text-center">
+      <DialogContent className="bg-dark border-2 border-coral text-sand sm:max-w-md p-4 sm:p-6">
+        <DialogHeader className="space-y-1 sm:space-y-2 pb-0 sm:pb-1">
+          <DialogTitle className="text-xl sm:text-2xl text-center">Become a Founding Flinger</DialogTitle>
+          <DialogDescription className="text-sand text-center text-sm sm:text-base">
             You're about to secure lifetime access to FlingPing.co for just $99.
           </DialogDescription>
         </DialogHeader>
         
-        <div className="py-4">
-          <div className="bg-[#3C3C3C] border border-coral rounded-lg p-4 mb-4">
-            <h4 className="text-lg text-teal mb-2">What you'll get:</h4>
-            <ul className="space-y-2">
+        <div className="py-2 sm:py-4">
+          <div className="bg-[#3C3C3C] border border-coral rounded-lg p-3 sm:p-4 mb-4">
+            <h4 className="text-base sm:text-lg text-teal mb-1 sm:mb-2">What you'll get:</h4>
+            <ul className="space-y-1 sm:space-y-2 text-sm sm:text-base">
               <li className="flex items-start">
                 <span className="text-coral mr-2">✓</span>
                 <span>Lifetime access to all core features</span>
@@ -83,32 +83,32 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, formData }
             </ul>
           </div>
           
-          <div className="text-center mb-4">
-            <p className="text-xl font-bold">Total: <span className="text-yellow">$99</span></p>
-            <p className="text-sm text-sand opacity-70">One-time payment, no subscriptions or hidden fees</p>
+          <div className="text-center mb-3 sm:mb-4">
+            <p className="text-lg sm:text-xl font-bold">Total: <span className="text-yellow">$99</span></p>
+            <p className="text-xs sm:text-sm text-sand opacity-70">One-time payment, no subscriptions or hidden fees</p>
           </div>
           
-          <div className="flex space-x-4">
+          <div className="flex space-x-2 sm:space-x-4">
             <Button 
               variant="outline" 
               onClick={onClose}
-              className="flex-1 border-coral text-sand hover:bg-coral hover:text-sand"
+              className="flex-1 border-coral text-sand hover:bg-coral hover:text-sand text-xs sm:text-sm py-1 sm:py-2 h-auto"
               disabled={isProcessing}
             >
               Cancel
             </Button>
             <Button 
               onClick={handleProceedToPayment}
-              className="flex-1 btn-primary"
+              className="flex-1 btn-primary text-xs sm:text-sm py-1 sm:py-2 h-auto"
               disabled={isProcessing}
             >
               {isProcessing ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Processing...
+                  <Loader2 className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4 animate-spin" />
+                  <span className="whitespace-nowrap">Processing...</span>
                 </>
               ) : (
-                "Proceed to Payment"
+                <span className="whitespace-nowrap">Proceed to Payment</span>
               )}
             </Button>
           </div>
