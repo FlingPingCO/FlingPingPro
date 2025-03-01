@@ -21,7 +21,7 @@ const HowItWorks = () => {
             {/* Step 1 */}
             <div className="flex flex-col md:flex-row items-center">
               <div className="md:w-1/2 md:pr-12 text-right">
-                <h3 className="text-2xl mb-4"><span className="text-teal">Sign Up</span> & <span className="text-coral">Get Your PP</span></h3>
+                <h3 className="text-2xl mb-4"><span className="text-coral">Sign Up</span> & <span className="text-coral">Get Your PP</span></h3>
                 <p className="text-lg mb-4">Create your account and receive your unique Ping Pin (PP). It's your key to safe encounters and private notifications.</p>
                 <p className="text-lg">Your PP is completely anonymous—we don't need your real name, phone number, or any identifying details that might make things awkward later.</p>
               </div>
@@ -37,7 +37,7 @@ const HowItWorks = () => {
             {/* Step 2 */}
             <div className="flex flex-col md:flex-row-reverse items-center">
               <div className="md:w-1/2 md:pl-12">
-                <h3 className="text-2xl mb-4"><span className="text-coral">Pound</span> That <span className="text-teal">PP</span></h3>
+                <h3 className="text-2xl mb-4"><span className="text-coral">Pound</span> That <span className="text-coral">PP</span></h3>
                 <p className="text-lg mb-4">Before the fun starts, make sure to pound your PP with your partner's. This secure Bluetooth connection ensures you're both linked anonymously in our system.</p>
                 <p className="text-lg">Think of it as the grown-up way to say, "We're all good here." It's responsible, it's easy, and it doesn't kill the mood.</p>
               </div>
