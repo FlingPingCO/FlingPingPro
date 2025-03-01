@@ -129,7 +129,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
           )}
 
           <div className="w-full text-center mb-8">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 max-w-[90%] mx-auto"><span className="text-teal">Welcome to <br className="sm:hidden" />FlingPing<span className="text-coral">.co</span></span></h1>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 max-w-[90%] mx-auto"><span className="text-teal">Welcome to <br className="sm:hidden" />FlingPing<span className="text-coral">.co</span>!</span></h1>
           </div>
           
           <div className="flex flex-col md:flex-row items-center">
@@ -273,7 +273,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
       {/* Testimonials Section */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl text-center mb-8">Why Our Early Adopters Love <span className="text-teal">FlingPing<span className="text-coral">.co</span></span></h2>
+          <h2 className="text-3xl md:text-4xl text-center mb-8">Why Our Early Adopters <span className="text-coral">Love</span> <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>?</h2>
           
           <div className="flex justify-center mb-12">
             {/* Image removed */}
