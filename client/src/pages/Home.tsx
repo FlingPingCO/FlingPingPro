@@ -18,7 +18,7 @@ import {
 import peopleCrossingStreet from "@/assets/illustrations/people-crossing-street.gif";
 import deliveryDriver from "@/assets/illustrations/delivery-driver.gif";
 import womanWalkingDog from "@/assets/illustrations/woman-walking-dog.gif";
-import friendsHighFive from "@/assets/illustrations/friends-high-five.gif";
+import lifestyleDiversePeople from "@/assets/illustrations/lifestyle-diverse-people.gif"; // New diverse people illustration
 import womanShopping from "@/assets/illustrations/woman-shopping.png";
 import collegeStudents from "@/assets/illustrations/college-students.png";
 
@@ -150,7 +150,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
             </div>
             <div className="md:w-1/2 mt-32 md:mt-24 flex justify-center">
               <div className="relative">
-                <img src={friendsHighFive} alt="Friends high five" className="h-[180px] md:h-[360px] lg:h-[480px] object-contain mx-auto" />
+                <img src={lifestyleDiversePeople} alt="Diverse friends" className="h-[180px] md:h-[360px] lg:h-[480px] object-contain mx-auto" />
               </div>
             </div>
           </div>
