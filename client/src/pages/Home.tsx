@@ -140,12 +140,12 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
               
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                 <Link href="#founding-flinger">
-                  <Button variant="outline" className="border-2 border-coral text-coral hover:bg-coral hover:text-background transition-all duration-300 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto shadow-md">
+                  <Button variant="outline" className="border-2 border-coral text-coral hover:bg-coral hover:text-[#3c3c3c] transition-all duration-300 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto shadow-md">
                     Become a Founding Flinger
                   </Button>
                 </Link>
                 <Link href="/how-it-works">
-                  <Button className="bg-teal text-background hover:bg-teal/90 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto shadow-md">
+                  <Button className="bg-teal text-[#3c3c3c] hover:bg-teal/90 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto shadow-md">
                     How It Works
                   </Button>
                 </Link>
@@ -295,8 +295,8 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
                 ))}
               </CarouselContent>
               <div className="flex justify-center mt-6 space-x-4">
-                <CarouselPrevious className="relative left-0 right-0 top-0 h-8 w-8 border-coral text-coral hover:bg-coral hover:text-background" />
-                <CarouselNext className="relative left-0 right-0 top-0 h-8 w-8 border-coral text-coral hover:bg-coral hover:text-background" />
+                <CarouselPrevious className="relative left-0 right-0 top-0 h-8 w-8 border-coral text-coral hover:bg-coral hover:text-[#3c3c3c]" />
+                <CarouselNext className="relative left-0 right-0 top-0 h-8 w-8 border-coral text-coral hover:bg-coral hover:text-[#3c3c3c]" />
               </div>
             </Carousel>
           </div>
