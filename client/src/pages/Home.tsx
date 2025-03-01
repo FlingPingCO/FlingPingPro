@@ -221,7 +221,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
                     <ul className="space-y-4 text-lg text-[#3c3c3c]">
                       <li className="flex items-start">
                         <span className="text-coral mr-2">✓</span>
-                        <span>Lifetime Membership - Pay once and unlock a lifetime of <span className="text-teal">Fling<span className="text-coral">.co</span></span>'s core features.</span>
+                        <span>Lifetime Membership - Pay once and unlock a lifetime of <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>'s core features.</span>
                       </li>
                       <li className="flex items-start">
                         <span className="text-coral mr-2">✓</span>
