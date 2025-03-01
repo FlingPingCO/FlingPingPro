@@ -16,7 +16,7 @@ const Legal = () => {
         
         <div className="max-w-4xl mx-auto">
           <p className="text-lg text-center mb-8">
-            At FlingPing.co, we're committed to transparency and protecting your privacy. 
+            At <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>, we're committed to transparency and protecting your privacy. 
             Please review our legal policies below to understand how we operate.
           </p>
           
@@ -29,13 +29,13 @@ const Legal = () => {
                 <AccordionContent className="text-sand px-4 pb-4 space-y-4">
                   <h3 className="text-lg font-medium text-primary">1. Acceptance of Terms</h3>
                   <p>
-                    By accessing or using FlingPing.co, you agree to be bound by these Terms of Service. 
+                    By accessing or using <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>, you agree to be bound by these Terms of Service. 
                     If you disagree with any part of the terms, you may not access the service.
                   </p>
                   
                   <h3 className="text-lg font-medium text-primary">2. Description of Service</h3>
                   <p>
-                    FlingPing.co provides a platform for anonymous health notifications related to sexual 
+                    <span className="text-teal">FlingPing<span className="text-coral">.co</span></span> provides a platform for anonymous health notifications related to sexual 
                     health. The service is provided "as is" and "as available" without warranties of any kind.
                   </p>
                   
@@ -48,7 +48,7 @@ const Legal = () => {
                   <h3 className="text-lg font-medium text-primary">4. Founding Flinger Membership</h3>
                   <p>
                     Founding Flinger lifetime membership covers core features and does not expire. The $99 
-                    one-time payment grants access to all current and future core features of the FlingPing.co 
+                    one-time payment grants access to all current and future core features of the <span className="text-teal">FlingPing<span className="text-coral">.co</span></span> 
                     platform. Due to the limited and exclusive nature of this offer, Founding Flinger memberships 
                     are non-refundable.
                   </p>
@@ -62,7 +62,7 @@ const Legal = () => {
                   
                   <h3 className="text-lg font-medium text-primary">6. Limitation of Liability</h3>
                   <p>
-                    In no event shall FlingPing.co, its directors, employees, partners, agents, suppliers, 
+                    In no event shall <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>, its directors, employees, partners, agents, suppliers, 
                     or affiliates be liable for any indirect, incidental, special, consequential, or punitive damages.
                   </p>
                   
