@@ -279,32 +279,26 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
             {/* Image removed */}
           </div>
           
-          <div className="mx-auto max-w-5xl">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-background border-2 border-coral rounded-xl p-6 hover:shadow-xl transition-all duration-300 flex flex-col h-full">
-                <div className="flex items-center justify-center mb-4">
-                  <div className="text-yellow text-xl">★★★★★</div>
-                </div>
-                <p className="mb-4 italic text-center flex-grow">"It's crazy how something so small can make me feel so much safer."</p>
-                <div className="text-coral text-center">- Sarah K.</div>
+          <div className="mx-auto max-w-6xl">
+            <Carousel className="w-full" opts={carouselOptions}>
+              <CarouselContent>
+                {testimonials.map((testimonial, index) => (
+                  <CarouselItem key={index} className="md:basis-1/3 lg:basis-1/3">
+                    <div className="bg-background border-2 border-coral rounded-xl p-6 hover:shadow-xl transition-all duration-300 flex flex-col h-full mx-2">
+                      <div className="flex items-center justify-center mb-4">
+                        <div className="text-yellow text-xl">★★★★★</div>
+                      </div>
+                      <p className="mb-4 italic text-center flex-grow">"{testimonial.text}"</p>
+                      <div className="text-coral text-center">- {testimonial.source}</div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="flex justify-center mt-6 space-x-4">
+                <CarouselPrevious className="relative left-0 right-0 top-0 h-8 w-8 border-coral text-coral hover:bg-coral hover:text-background" />
+                <CarouselNext className="relative left-0 right-0 top-0 h-8 w-8 border-coral text-coral hover:bg-coral hover:text-background" />
               </div>
-              
-              <div className="bg-background border-2 border-coral rounded-xl p-6 hover:shadow-xl transition-all duration-300 flex flex-col h-full">
-                <div className="flex items-center justify-center mb-4">
-                  <div className="text-yellow text-xl">★★★★★</div>
-                </div>
-                <p className="mb-4 italic text-center flex-grow">"Finally, a way to stay safe about sex without the cringe convos."</p>
-                <div className="text-coral text-center">- Jessica L.</div>
-              </div>
-              
-              <div className="bg-background border-2 border-coral rounded-xl p-6 hover:shadow-xl transition-all duration-300 flex flex-col h-full">
-                <div className="flex items-center justify-center mb-4">
-                  <div className="text-yellow text-xl">★★★★★</div>
-                </div>
-                <p className="mb-4 italic text-center flex-grow">"I feel confident and in control—it's an absolute game changer."</p>
-                <div className="text-coral text-center">- Tommy D.</div>
-              </div>
-            </div>
+            </Carousel>
           </div>
         </div>
       </section>
