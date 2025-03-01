@@ -16,7 +16,7 @@ const About = () => {
           </div>
           <div className="md:w-1/2 mb-12 md:mb-0 order-1 md:order-2">
             <img 
-              src="/attached_assets/a-doctor Background Removed.png" 
+              src="/images/doctor.png" 
               alt="Doctor illustration" 
               className="rounded-xl w-full max-w-md mx-auto md:max-w-full"
             />

@@ -1,10 +1,19 @@
 import express, { type Request, Response, NextFunction } from "express";
+import path from "path";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Serve static files from the public directory
+app.use(express.static(path.join(__dirname, "..", "public")));
 
 app.use((req, res, next) => {
   const start = Date.now();
