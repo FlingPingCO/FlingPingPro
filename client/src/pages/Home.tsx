@@ -148,9 +148,9 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
                 </Link>
               </div>
             </div>
-            <div className="md:w-1/2 mt-32 md:mt-24 flex justify-center">
+            <div className="md:w-1/2 mt-12 md:mt-8 flex justify-center">
               <div className="relative">
-                <img src={lifestyleDiversePeople} alt="Diverse friends" className="h-[180px] md:h-[360px] lg:h-[480px] object-contain mx-auto" />
+                <img src={lifestyleDiversePeople} alt="Diverse friends" className="h-[240px] md:h-[420px] lg:h-[540px] object-contain mx-auto" />
               </div>
             </div>
           </div>
@@ -163,7 +163,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
           <h2 className="text-3xl md:text-4xl text-center mb-12">Why <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>?</h2>
           
           <div className="flex justify-center mb-12">
-            <img src={womanWalkingDog} alt="Daily life with FlingPing" className="h-[180px] md:h-[360px] lg:h-[480px] object-contain" />
+            <img src={womanWalkingDog} alt="Daily life with FlingPing" className="h-[240px] md:h-[420px] lg:h-[540px] object-contain" />
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -267,7 +267,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
                     </div>
                     
                     <div className="flex justify-center mt-6">
-                      <img src={womanShopping} alt="Founding Flinger" className="h-[120px] md:h-[240px] object-contain" />
+                      <img src={womanShopping} alt="Founding Flinger" className="h-[180px] md:h-[300px] object-contain" />
                     </div>
                   </div>
                 </div>
@@ -291,7 +291,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
           <h2 className="text-3xl md:text-4xl text-center mb-8">Why Our Early Adopters Love <span className="text-teal">FlingPing<span className="text-coral">.co</span></span></h2>
           
           <div className="flex justify-center mb-12">
-            <img src={deliveryDriver} alt="FlingPing delivers peace of mind" className="h-[180px] md:h-[360px] lg:h-[480px] object-contain" />
+            <img src={deliveryDriver} alt="FlingPing delivers peace of mind" className="h-[240px] md:h-[420px] lg:h-[540px] object-contain" />
           </div>
           
           <div className="mx-auto max-w-5xl">
@@ -330,7 +330,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
           <h2 className="text-3xl md:text-4xl text-center mb-8">Frequently Asked Questions</h2>
           
           <div className="flex justify-center mb-12">
-            <img src={collegeStudents} alt="Students using FlingPing" className="h-[180px] md:h-[360px] lg:h-[480px] object-contain" />
+            <img src={collegeStudents} alt="Students using FlingPing" className="h-[240px] md:h-[420px] lg:h-[540px] object-contain" />
           </div>
           
           <FAQAccordion 
