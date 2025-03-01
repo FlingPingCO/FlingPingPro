@@ -210,18 +210,18 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
       {/* Founding Flinger Offer */}
       <section id="founding-flinger" className="py-16 bg-background">
         <div className="container mx-auto px-4">
-          <div className="rounded-2xl p-8 md:p-12 border-2 border-teal shadow-lg">
+          <div className="rounded-2xl p-4 sm:p-6 md:p-8 lg:p-12 border-2 border-teal shadow-lg">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-              <div className="bg-[#f4e9d9] rounded-3xl p-8 shadow-md flex flex-col h-full">
+              <div className="bg-[#f4e9d9] rounded-3xl p-4 sm:p-6 md:p-8 shadow-md flex flex-col h-full">
                 <div className="flex justify-center mb-6">
-                  <div className="bg-coral text-[#3c3c3c] text-2xl font-bold px-6 py-3 rounded-full whitespace-nowrap shadow-sm">
+                  <div className="bg-coral text-[#3c3c3c] font-bold px-4 sm:px-6 py-2 sm:py-3 rounded-full whitespace-nowrap shadow-sm text-base sm:text-xl md:text-2xl text-center">
                     Lifetime Access for $99
                   </div>
                 </div>
                 
                 <h4 className="font-bold text-xl mb-4 text-teal text-center">Limited Time Founding Flinger Offer</h4>
                 
-                <ul className="space-y-4 text-sm text-[#3c3c3c] flex-grow pl-6 pr-4">
+                <ul className="space-y-3 sm:space-y-4 text-xs sm:text-sm text-[#3c3c3c] flex-grow pl-3 sm:pl-6 pr-2 sm:pr-4">
                   <li>
                     <div className="flex items-start">
                       <span className="text-coral mr-2 flex-shrink-0 text-lg font-bold">✓</span>
@@ -256,13 +256,13 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
                   </li>
                 </ul>
                 
-                <div className="flex items-center justify-center gap-6 mt-6">
-                  <div className="text-2xl font-bold text-coral line-through opacity-75">$199</div>
-                  <div className="text-2xl font-bold text-teal">$99</div>
+                <div className="flex items-center justify-center gap-4 sm:gap-6 mt-6">
+                  <div className="text-xl sm:text-2xl font-bold text-coral line-through opacity-75">$199</div>
+                  <div className="text-xl sm:text-2xl font-bold text-teal">$99</div>
                 </div>
               </div>
               
-              <div className="bg-background rounded-3xl border-2 border-coral p-8 shadow-md flex flex-col justify-center h-full">
+              <div className="bg-background rounded-3xl border-2 border-coral p-4 sm:p-6 md:p-8 shadow-md flex flex-col justify-center h-full">
                 <SignupForm />
               </div>
             </div>
@@ -337,13 +337,13 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
             ]}
           />
           
-          <div className="mt-16 flex justify-center">
-            <div className="bg-[#f4e9d9] rounded-xl px-8 py-6 max-w-2xl text-center shadow-lg border-2 border-coral">
-              <h3 className="text-coral text-2xl font-bold mb-3">Still have questions?</h3>
+          <div className="mt-12 sm:mt-16 flex justify-center px-4">
+            <div className="bg-[#f4e9d9] rounded-xl px-4 sm:px-6 md:px-8 py-4 sm:py-6 max-w-2xl text-center shadow-lg border-2 border-coral">
+              <h3 className="text-coral text-xl sm:text-2xl font-bold mb-2 sm:mb-3">Still have questions?</h3>
               <p className="text-[#3c3c3c] mb-6">We're here to help. Reach out to our team for any questions not covered in our FAQs.</p>
               <div className="flex justify-center">
                 <Link href="/contact">
-                  <Button variant="outline" className="border-2 border-teal text-teal hover:bg-teal hover:text-[#3c3c3c] transition-all duration-300 font-poppins font-medium text-center px-8 py-3 rounded-full text-base shadow-sm">
+                  <Button variant="outline" className="border-2 border-teal text-teal hover:bg-teal hover:text-[#3c3c3c] transition-all duration-300 font-poppins font-medium text-center px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-full text-sm sm:text-base shadow-sm">
                     Contact Us
                   </Button>
                 </Link>
