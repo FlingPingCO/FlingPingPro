@@ -128,9 +128,12 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
             </Alert>
           )}
 
+          <div className="w-full text-center mb-10">
+            <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-8 whitespace-nowrap"><span className="text-teal">Welcome to FlingPing<span className="text-coral">.co</span></span></h1>
+          </div>
+          
           <div className="flex flex-col md:flex-row items-center">
             <div className="md:w-1/2 md:pr-12">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 whitespace-nowrap"><span className="text-teal">Welcome to FlingPing<span className="text-coral">.co</span></span></h1>
               <h2 className="text-2xl md:text-3xl text-coral mb-6">Flip the Script on Sexual Health.</h2>
               <p className="text-lg mb-8">The First App to Outsmart STDs – Smart, Private, and Empowering.</p>
               <p className="mb-8 text-lg">FlingPing.co is the bold, game-changing app that turns awkward conversations into confidence and empowerment. Say goodbye to uncomfortable "uh-oh" moments and hello to a smarter, safer, and discreet way to stay ahead of your sexual health.</p>
@@ -148,8 +151,8 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
                 </Link>
               </div>
             </div>
-            <div className="md:w-1/2 flex justify-center">
-              {/* Image removed */}
+            <div className="md:w-1/2 flex justify-center mt-8 md:mt-0">
+              <img src={lifestyleDiversePeople} alt="Diverse friends high fiving" className="h-[240px] md:h-[300px] lg:h-[360px] object-contain mx-auto" />
             </div>
           </div>
         </div>
