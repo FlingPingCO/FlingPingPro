@@ -54,9 +54,9 @@ const About = () => {
           </div>
           <div className="md:w-1/2 mb-12 md:mb-0 order-1 md:order-2">
             <img 
-              src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-              alt="Community concept" 
-              className="rounded-xl shadow-2xl w-full"
+              src="/images/friends-high-five.png" 
+              alt="Friends high fiving" 
+              className="rounded-xl w-full max-w-md mx-auto md:max-w-full"
             />
           </div>
         </div>
