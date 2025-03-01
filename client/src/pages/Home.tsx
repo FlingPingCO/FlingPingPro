@@ -6,6 +6,13 @@ import SignupForm from "@/components/SignupForm";
 import FAQAccordion from "@/components/FAQAccordion";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 interface HomeProps {
   paymentSuccess?: boolean;
@@ -33,11 +40,11 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
 
   const testimonials = [
     {
-      text: "Finally, a way to stay smart about sex without the awkward conversations.",
+      text: "Finally, a way to stay safe about sex without the cringe convos.",
       source: "Jessica L."
     },
     {
-      text: "I feel confident and in control—FlingPing.co is a game changer.",
+      text: "I feel confident and in control—it's an absolute game changer.",
       source: "Tommy D."
     },
     {
@@ -47,6 +54,18 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
     {
       text: "Now I won't stress out about not exchanging phone numbers anymore.",
       source: "Nicky P."
+    },
+    {
+      text: "Where was this app years ago? It's made things so much easier.",
+      source: "Lisa B."
+    },
+    {
+      text: "Surprisingly simple and discreet—I'm a total convert.",
+      source: "Max R."
+    },
+    {
+      text: "It's crazy how something so small can make me feel so much safer.",
+      source: "Sarah K."
     }
   ];
 
@@ -72,6 +91,9 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
       description: "Who knew safe sex could be this empowering? Confidence never looked so good."
     }
   ];
+
+  // Carousel options for testimonials
+  const carouselOptions = { loop: true };
 
   return (
     <>
@@ -184,6 +206,15 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
                     Lifetime Access for $99
                   </div>
                   
+                  <div className="bg-sand bg-opacity-10 p-6 rounded-xl mb-6 border border-sand">
+                    <h4 className="font-bold text-xl mb-4 text-teal">Limited Time Founding Flinger Offer</h4>
+                    <p className="mb-4">Join now during our early launch phase and become part of our history!</p>
+                    <div className="flex items-center">
+                      <div className="text-2xl font-bold text-coral line-through opacity-75 mr-3">$199</div>
+                      <div className="text-2xl font-bold text-teal">$99</div>
+                    </div>
+                  </div>
+                  
                   <ul className="space-y-4 text-lg">
                     <li className="flex items-start">
                       <span className="text-coral mr-2">✓</span>
@@ -218,16 +249,29 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl text-center mb-16">Why Our Early Adopters Love <span className="text-teal">FlingPing.co</span></h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-dark border border-teal rounded-lg p-6">
-                <div className="flex items-center mb-4">
-                  <div className="text-yellow text-xl">★★★★★</div>
-                </div>
-                <p className="mb-4 italic">"{testimonial.text}"</p>
-                <div className="text-coral">- {testimonial.source}</div>
+          <div className="mx-auto max-w-5xl">
+            <Carousel
+              opts={carouselOptions}
+              className="w-full"
+            >
+              <CarouselContent>
+                {testimonials.map((testimonial, index) => (
+                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                    <div className="h-full bg-dark border border-coral rounded-lg p-6 mx-2">
+                      <div className="flex items-center mb-4">
+                        <div className="text-yellow text-xl">★★★★★</div>
+                      </div>
+                      <p className="mb-4 italic">"{testimonial.text}"</p>
+                      <div className="text-coral">- {testimonial.source}</div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="flex justify-center mt-8 gap-2">
+                <CarouselPrevious className="static bg-dark border border-coral text-coral hover:bg-coral hover:text-dark transition-all" />
+                <CarouselNext className="static bg-dark border border-coral text-coral hover:bg-coral hover:text-dark transition-all" />
               </div>
-            ))}
+            </Carousel>
           </div>
         </div>
       </section>
