@@ -42,12 +42,12 @@ const About = () => {
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 md:pr-8 lg:pr-12 order-2 md:order-1">
             <h2 className="text-3xl md:text-4xl mb-6">Join the Movement</h2>
-            <p className="text-lg mb-4"><span className="text-teal">FlingPing<span className="text-coral">.co</span></span> isn't just about technology—it's about creating a cultural shift where being proactive about sexual health becomes the norm.</p>
+            <p className="text-lg mb-4"><span className="text-teal">FlingPing<span className="text-coral">.co</span></span>. isn't just about technology—it's about creating a cultural shift where being proactive about sexual health becomes the norm.</p>
             <p className="text-lg mb-4">As a Founding Flinger, you're not just getting lifetime access to an app; you're becoming part of a community that values both pleasure and responsibility.</p>
             <p className="text-lg mb-8">Ready to flip the script on sexual health? Join us and be part of the solution.</p>
             
             <Link href="/#founding-flinger">
-              <Button className="btn-primary font-poppins font-medium text-center px-8 py-3 rounded-full text-lg">
+              <Button className="btn-primary font-poppins font-medium text-center px-8 py-3 rounded-full text-lg text-[#3c3c3c]">
                 Become a Founding Flinger
               </Button>
             </Link>
