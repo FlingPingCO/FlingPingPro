@@ -129,7 +129,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
           )}
 
           <div className="w-full text-center mb-8">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 max-w-[90%] mx-auto"><span className="text-teal">Welcome to FlingPing<span className="text-coral">.co</span></span></h1>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 max-w-[90%] mx-auto"><span className="text-teal">Welcome to <br className="sm:hidden" />FlingPing<span className="text-coral">.co</span></span></h1>
           </div>
           
           <div className="flex flex-col md:flex-row items-center">
