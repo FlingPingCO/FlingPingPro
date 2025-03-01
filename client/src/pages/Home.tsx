@@ -106,10 +106,10 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
   return (
     <>
       {/* Hero Section */}
-      <section className="py-16 md:py-24">
+      <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4">
           {paymentSuccess && (
-            <Alert className="mb-8 bg-dark border-teal">
+            <Alert className="mb-8 bg-background border-teal">
               <CheckCircle2 className="h-4 w-4 text-teal" />
               <AlertTitle>Payment Successful!</AlertTitle>
               <AlertDescription>
@@ -119,7 +119,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
           )}
 
           {paymentCancelled && (
-            <Alert className="mb-8 bg-dark border-coral">
+            <Alert className="mb-8 bg-background border-coral">
               <AlertCircle className="h-4 w-4 text-coral" />
               <AlertTitle>Payment Cancelled</AlertTitle>
               <AlertDescription>
@@ -130,47 +130,27 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
 
           <div className="flex flex-col md:flex-row items-center">
             <div className="md:w-1/2 md:pr-12">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Welcome to <span className="text-teal">FlingPing.co</span></h1>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Welcome to <span className="text-teal">FlingPing<span className="text-coral">.co</span></span></h1>
               <h2 className="text-2xl md:text-3xl text-coral mb-6">Flip the Script on Sexual Health.</h2>
               <p className="text-lg mb-8">The First App to Outsmart STDs – Smart, Private, and Empowering.</p>
               <p className="mb-8 text-lg">FlingPing.co is the bold, game-changing app that turns awkward conversations into confidence and empowerment. Say goodbye to uncomfortable "uh-oh" moments and hello to a smarter, safer, and discreet way to stay ahead of your sexual health.</p>
               
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                 <Link href="#founding-flinger">
-                  <Button variant="outline" className="border-2 border-coral text-coral hover:bg-coral hover:text-[#3c3c3c] transition-all duration-300 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto">
+                  <Button variant="outline" className="border-2 border-coral text-coral hover:bg-coral hover:text-background transition-all duration-300 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto">
                     Become a Founding Flinger
                   </Button>
                 </Link>
                 <Link href="/how-it-works">
-                  <Button className="bg-teal text-[#3c3c3c] hover:bg-teal/90 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto">
+                  <Button className="bg-teal text-background hover:bg-teal/90 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto">
                     How It Works
                   </Button>
                 </Link>
               </div>
             </div>
-            <div className="md:w-1/2 mt-12 md:mt-0">
-              <div className="rounded-xl bg-dark border-2 border-teal shadow-2xl w-full p-6 flex flex-col items-center justify-center relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-full h-full opacity-10">
-                  <img src={peopleCrossingStreet} alt="" className="w-full h-full object-cover" />
-                </div>
-                <div className="relative z-10">
-                  <div className="text-teal text-5xl mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-24 w-24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-2xl text-center mb-2 text-coral">Secure. Anonymous. Simple.</h3>
-                  <p className="text-center text-sand mb-4">No awkward conversations or uncomfortable reveals.</p>
-                  <div className="flex justify-center">
-                    <div className="flex items-center justify-center w-12 h-12 rounded-full bg-dark border border-coral text-coral text-lg mr-2">1</div>
-                    <div className="flex items-center justify-center w-12 h-12 rounded-full bg-coral text-[#3c3c3c] text-lg mr-2">2</div>
-                    <div className="flex items-center justify-center w-12 h-12 rounded-full bg-dark border border-coral text-coral text-lg">3</div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="mt-6 flex justify-center">
-                <img src={friendsHighFive} alt="Friends celebrating" className="h-48 object-contain" />
+            <div className="md:w-1/2 mt-12 md:mt-0 flex justify-center">
+              <div className="relative">
+                <img src={friendsHighFive} alt="Friends high five" className="h-64 object-contain mx-auto" />
               </div>
             </div>
           </div>
@@ -178,59 +158,64 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
       </section>
 
       {/* Why FlingPing Section */}
-      <section className="py-16 bg-dark">
+      <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl text-center mb-8">Why <span className="text-teal">FlingPing.co</span>?</h2>
+          <h2 className="text-3xl md:text-4xl text-center mb-12">Why <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>?</h2>
           
           <div className="flex justify-center mb-12">
             <img src={womanWalkingDog} alt="Daily life with FlingPing" className="h-52 object-contain" />
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <div 
-                key={index}
-                className="bg-dark border border-coral rounded-lg p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
-              >
-                <div className="text-coral text-4xl mb-4">
-                  {feature.icon === "brain" && (
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                    </svg>
-                  )}
-                  {feature.icon === "lock" && (
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
-                  )}
-                  {feature.icon === "zap" && (
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                  )}
-                  {feature.icon === "smile" && (
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  )}
-                </div>
-                <h3 className="text-xl mb-2">{feature.title}</h3>
-                <p>{feature.description}</p>
+            <div className="bg-background border border-coral rounded-lg p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+              <div className="text-coral text-4xl mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
               </div>
-            ))}
+              <h3 className="text-xl mb-2">Stay Private</h3>
+              <p>Keep your personal life personal with encrypted, anonymous communication. No names, no numbers—just peace of mind.</p>
+            </div>
+            
+            <div className="bg-background border border-coral rounded-lg p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+              <div className="text-coral text-4xl mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="text-xl mb-2">Stay Ahead</h3>
+              <p>Get instant, discreet notifications if you or a past partner has been exposed. We've got your back.</p>
+            </div>
+            
+            <div className="bg-background border border-coral rounded-lg p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+              <div className="text-coral text-4xl mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+              </div>
+              <h3 className="text-xl mb-2">Stay Smart</h3>
+              <p>A bold new way to take charge of your sexual health with cutting-edge technology and evidence-based insights.</p>
+            </div>
+            
+            <div className="bg-background border border-coral rounded-lg p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+              <div className="text-coral text-4xl mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl mb-2">Stay Fun</h3>
+              <p>Who knew safe sex could be this empowering? Confidence never looked so good.</p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Founding Flinger Offer */}
-      <section id="founding-flinger" className="py-16 bg-dark">
+      <section id="founding-flinger" className="py-16 bg-background">
         <div className="container mx-auto px-4">
-          <div className="bg-gradient-to-r from-teal/20 to-coral/20 rounded-2xl p-8 md:p-12 border border-teal/40">
-            <h2 className="text-3xl md:text-4xl text-center mb-8">Join the <span className="text-teal">FlingPing<span className="text-coral">.co</span></span> Revolution</h2>
-            <h3 className="text-2xl text-center text-yellow mb-12 font-medium">Founding Flinger Perks</h3>
-            
-            <div className="flex flex-col md:flex-row md:items-stretch">
-              <div className="md:w-1/2 md:pr-6">
+          <div className="rounded-2xl p-8 md:p-12 border border-teal/40">
+            <div className="flex flex-col md:flex-row md:items-stretch gap-8">
+              <div className="md:w-1/2">
                 <div className="h-full">
                   <div className="bg-[#f4e9d9] rounded-3xl p-8 h-full flex flex-col">
                     <div className="flex justify-center mb-6">
@@ -288,8 +273,12 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
                 </div>
               </div>
               
-              <div className="md:w-1/2 mt-12 md:mt-0 md:pl-6">
-                <SignupForm />
+              <div className="md:w-1/2">
+                <div className="bg-background rounded-3xl border border-coral p-8 h-full">
+                  <h3 className="text-teal text-2xl font-bold mb-6 text-center">Spots Are Limited!</h3>
+                  <h4 className="text-yellow text-lg mb-8 text-center">Only 250 Founding Flinger spots left</h4>
+                  <SignupForm />
+                </div>
               </div>
             </div>
           </div>
