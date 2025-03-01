@@ -21,7 +21,7 @@ const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqItems }) => {
       <Accordion type="single" collapsible className="w-full">
         {faqItems.map((item, index) => (
           <AccordionItem key={index} value={`item-${index}`} className="border-b border-coral">
-            <AccordionTrigger className="text-xl font-medium py-4 hover:text-primary">
+            <AccordionTrigger className="text-xl font-medium py-4 text-teal hover:text-coral">
               {item.question}
             </AccordionTrigger>
             <AccordionContent className="text-sand px-4 pb-4">
