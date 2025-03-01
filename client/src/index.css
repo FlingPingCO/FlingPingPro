@@ -75,6 +75,8 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Nunito', sans-serif;
+    margin: 0;
+    padding: 0;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Unbounded', cursive;
@@ -85,6 +87,31 @@
     h1, h2, h3 {
       @apply font-normal;
     }
+  }
+  
+  header {
+    @apply bg-sand text-foreground;
+    padding: 10px 0;
+  }
+  
+  nav {
+    @apply text-center;
+  }
+  
+  nav ul {
+    @apply list-none m-0 p-0;
+  }
+  
+  nav ul li {
+    @apply inline-block mr-5;
+  }
+  
+  nav ul li a {
+    @apply text-foreground no-underline hover:text-primary transition-colors duration-200;
+  }
+  
+  footer {
+    @apply bg-dark text-foreground text-center py-2;
   }
 }
 
