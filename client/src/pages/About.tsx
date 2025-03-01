@@ -26,9 +26,9 @@ const About = () => {
         <div className="flex flex-col md:flex-row items-center mb-12 sm:mb-16 md:mb-20">
           <div className="md:w-1/2 mb-8 sm:mb-10 md:mb-0">
             <img 
-              src="https://images.unsplash.com/photo-1579154204601-01588f351e67?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-              alt="Innovation concept" 
-              className="rounded-xl shadow-2xl w-full"
+              src="/images/phones-pairing.png" 
+              alt="Connected phones concept" 
+              className="rounded-xl w-full max-w-md mx-auto md:max-w-full"
             />
           </div>
           <div className="md:w-1/2 md:pl-12">
