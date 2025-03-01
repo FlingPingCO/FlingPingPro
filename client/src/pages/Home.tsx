@@ -242,7 +242,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
                     <div className="flex items-start">
                       <span className="text-coral mr-2 flex-shrink-0 text-lg font-bold">✓</span>
                       <div>
-                        <span className="font-medium">Support Innovation:</span> Be part of the movement creating digital herd immunity.
+                        <span className="font-medium">Support Innovation:</span> Be part of the movement creating digital heard awareness.
                       </div>
                     </div>
                   </li>

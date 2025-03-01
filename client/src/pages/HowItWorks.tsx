@@ -5,11 +5,11 @@ const HowItWorks = () => {
   return (
     <div className="py-16 bg-dark">
       <div className="container mx-auto px-4">
-        <h1 className="text-4xl md:text-5xl text-center mb-12">How <span className="text-teal">FlingPing.co</span> Works</h1>
+        <h1 className="text-4xl md:text-5xl text-center mb-12">How <span className="text-teal">FlingPing<span className="text-coral">.co</span></span> Works</h1>
         
         <div className="max-w-4xl mx-auto mb-16">
           <p className="text-lg text-center mb-8">
-            FlingPing.co makes staying on top of your sexual health simple, discreet, and even a little fun. 
+            <span className="text-teal">FlingPing<span className="text-coral">.co</span></span> makes staying on top of your sexual health simple, discreet, and even a little fun. 
             Here's how our revolutionary system keeps you protected and informed.
           </p>
         </div>
