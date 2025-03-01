@@ -149,19 +149,28 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
               </div>
             </div>
             <div className="md:w-1/2 mt-12 md:mt-0">
-              <div className="rounded-xl bg-dark border-2 border-teal shadow-2xl w-full p-6 flex flex-col items-center justify-center">
-                <div className="text-teal text-5xl mb-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-24 w-24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                  </svg>
+              <div className="rounded-xl bg-dark border-2 border-teal shadow-2xl w-full p-6 flex flex-col items-center justify-center relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-full h-full opacity-10">
+                  <img src={peopleCrossingStreet} alt="" className="w-full h-full object-cover" />
                 </div>
-                <h3 className="text-2xl text-center mb-2 text-coral">Secure. Anonymous. Simple.</h3>
-                <p className="text-center text-sand mb-4">No awkward conversations or uncomfortable reveals.</p>
-                <div className="flex justify-center">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-full bg-dark border border-coral text-coral text-lg mr-2">1</div>
-                  <div className="flex items-center justify-center w-12 h-12 rounded-full bg-coral text-[#3c3c3c] text-lg mr-2">2</div>
-                  <div className="flex items-center justify-center w-12 h-12 rounded-full bg-dark border border-coral text-coral text-lg">3</div>
+                <div className="relative z-10">
+                  <div className="text-teal text-5xl mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-24 w-24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl text-center mb-2 text-coral">Secure. Anonymous. Simple.</h3>
+                  <p className="text-center text-sand mb-4">No awkward conversations or uncomfortable reveals.</p>
+                  <div className="flex justify-center">
+                    <div className="flex items-center justify-center w-12 h-12 rounded-full bg-dark border border-coral text-coral text-lg mr-2">1</div>
+                    <div className="flex items-center justify-center w-12 h-12 rounded-full bg-coral text-[#3c3c3c] text-lg mr-2">2</div>
+                    <div className="flex items-center justify-center w-12 h-12 rounded-full bg-dark border border-coral text-coral text-lg">3</div>
+                  </div>
                 </div>
+              </div>
+              
+              <div className="mt-6 flex justify-center">
+                <img src={friendsHighFive} alt="Friends celebrating" className="h-48 object-contain" />
               </div>
             </div>
           </div>
@@ -171,7 +180,11 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
       {/* Why FlingPing Section */}
       <section className="py-16 bg-dark">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl text-center mb-16">Why <span className="text-teal">FlingPing.co</span>?</h2>
+          <h2 className="text-3xl md:text-4xl text-center mb-8">Why <span className="text-teal">FlingPing.co</span>?</h2>
+          
+          <div className="flex justify-center mb-12">
+            <img src={womanWalkingDog} alt="Daily life with FlingPing" className="h-52 object-contain" />
+          </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
@@ -267,6 +280,10 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
                       <div className="text-2xl font-bold text-coral line-through opacity-75">$199</div>
                       <div className="text-2xl font-bold text-teal">$99</div>
                     </div>
+                    
+                    <div className="flex justify-center mt-6">
+                      <img src={womanShopping} alt="Founding Flinger" className="h-24 object-contain" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -282,7 +299,11 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
       {/* Testimonials Section */}
       <section className="py-16 bg-dark">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl text-center mb-16">Why Our Early Adopters Love <span className="text-teal">FlingPing.co</span></h2>
+          <h2 className="text-3xl md:text-4xl text-center mb-8">Why Our Early Adopters Love <span className="text-teal">FlingPing.co</span></h2>
+          
+          <div className="flex justify-center mb-12">
+            <img src={deliveryDriver} alt="FlingPing delivers peace of mind" className="h-44 object-contain" />
+          </div>
           
           <div className="mx-auto max-w-5xl">
             <Carousel
@@ -314,7 +335,11 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
       {/* FAQ Section */}
       <section id="faq" className="py-16 bg-dark">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl text-center mb-16">Frequently Asked Questions</h2>
+          <h2 className="text-3xl md:text-4xl text-center mb-8">Frequently Asked Questions</h2>
+          
+          <div className="flex justify-center mb-12">
+            <img src={collegeStudents} alt="Students using FlingPing" className="h-44 object-contain" />
+          </div>
           
           <FAQAccordion 
             faqItems={[
