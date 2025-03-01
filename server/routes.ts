@@ -114,15 +114,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const event = req.body;
       const result = stripeService.handleWebhookEvent(event);
       
-      if (result.succeeded && result.type === "payment.succeeded") {
-        // Process the successful payment
-        // In a real implementation, you would query Stripe for the customer
-        // and update the user record accordingly
+      if (result.succeeded && result.type === "payment.succeeded" && result.metadata) {
+        // Create a record of the payment
+        const { customerId, amount, paymentId } = result.metadata;
         
-        // Mock implementation to demonstrate the flow
-        const mockUser = await storage.getUser(1); // Just for demonstration
-        if (mockUser) {
-          await storage.setUserAsFoundingFlinger(mockUser.id);
+        if (customerId && paymentId) {
+          // Find the user with this Stripe customer ID
+          const user = await storage.getUserByStripeCustomerId(customerId);
+          
+          if (user) {
+            // Save the payment record
+            await storage.createPayment({
+              userId: user.id,
+              stripePaymentId: paymentId,
+              amount: amount || 9900, // Default to $99.00 if amount is missing
+              status: 'succeeded'
+            });
+            
+            // Mark the user as a Founding Flinger
+            await storage.setUserAsFoundingFlinger(user.id);
+          }
         }
       }
       
