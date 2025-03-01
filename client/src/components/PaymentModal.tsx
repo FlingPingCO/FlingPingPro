@@ -54,7 +54,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, formData }
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="bg-dark border-2 border-coral text-sand sm:max-w-md p-4 sm:p-6">
         <DialogHeader className="space-y-1 sm:space-y-2 pb-0 sm:pb-1">
-          <DialogTitle className="text-xl sm:text-2xl text-center">Become a Founding Flinger</DialogTitle>
+          <DialogTitle className="text-xl sm:text-2xl text-center text-coral">Become a Founding Flinger</DialogTitle>
           <DialogDescription className="text-sand text-center text-sm sm:text-base">
             You're about to secure lifetime access to FlingPing.co for just $99.
           </DialogDescription>
@@ -62,7 +62,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, formData }
         
         <div className="py-2 sm:py-4">
           <div className="bg-[#3C3C3C] border border-coral rounded-lg p-3 sm:p-4 mb-4">
-            <h4 className="text-base sm:text-lg text-teal mb-1 sm:mb-2">What you'll get:</h4>
+            <h4 className="text-base sm:text-lg text-coral mb-1 sm:mb-2">What you'll get:</h4>
             <ul className="space-y-1 sm:space-y-2 text-sm sm:text-base">
               <li className="flex items-start">
                 <span className="text-coral mr-2">✓</span>
