@@ -53,7 +53,7 @@ const HowItWorks = () => {
             {/* Step 3 */}
             <div className="flex flex-col md:flex-row items-center">
               <div className="md:w-1/2 md:pr-12 text-right">
-                <h3 className="text-2xl mb-4"><span className="text-teal">Stay</span> In The <span className="text-coral">Loop</span></h3>
+                <h3 className="text-2xl mb-4">Stay In The Loop</h3>
                 <p className="text-lg mb-4">If someone reports an issue later, you'll receive a discreet, anonymous notification. No awkward texts, no uncomfortable conversations—just the information you need to stay healthy.</p>
                 <p className="text-lg">Our system maintains privacy while still providing critical information. You'll know what you need to know, when you need to know it.</p>
               </div>
@@ -69,7 +69,7 @@ const HowItWorks = () => {
             {/* Step 4 */}
             <div className="flex flex-col md:flex-row-reverse items-center">
               <div className="md:w-1/2 md:pl-12">
-                <h3 className="text-2xl mb-4"><span className="text-coral">Take Action</span> With <span className="text-teal">Confidence</span></h3>
+                <h3 className="text-2xl mb-4">Take Action With Confidence</h3>
                 <p className="text-lg mb-4">Armed with information, you can make smart decisions about your health. We provide resources to find testing centers, treatment options, and everything else you need.</p>
                 <p className="text-lg">No shame, no blame—just practical next steps to keep you at your healthiest.</p>
               </div>
@@ -85,7 +85,7 @@ const HowItWorks = () => {
         </div>
         
         <div className="text-center mt-20">
-          <h2 className="text-3xl mb-8"><span className="text-coral">Ready</span> to <span className="text-teal">Flip</span> the <span className="text-coral">Script?</span></h2>
+          <h2 className="text-3xl mb-8">Ready to Flip the Script?</h2>
           
           <div className="flex justify-center mb-8">
             <img 

@@ -1,0 +1,50 @@
+Prompt for Replit (Multi-Page Next.js + Tailwind CSS, Minimal Breaks):
+
+“Please create a Next.js project with Tailwind CSS, containing the following pages:
+	1.	Home (index.js)
+	2.	About (about.js)
+	3.	How It Works (how-it-works.js)
+	4.	Investors (investors.js)
+	5.	Contact (contact.js)
+	6.	FAQs (faqs.js)
+	7.	Legal (legal.js)
+
+Use a simple and consistent header and footer across all pages. Minimal line breaks, so I can copy-paste easily. The design should be bold, modern, and fun, on-brand with FlingPing.co’s edgy style. Include a short navigation menu linking to each page. Also, we need a sign-up or email-collection form that stores addresses in a simple array or a mock database for now. On the Home page, add a small product description for the Founding Flinger Lifetime membership ($99). Here are the content guidelines for each page:
+	1.	Home (index.js)
+
+	•	Hero section: “Welcome to FlingPing.co” plus “Flip the Script on Sexual Health.”
+	•	A subheading: “The First App to Outsmart STDs – Smart, Private, and Empowering.”
+	•	A brief paragraph explaining that FlingPing.co offers an innovative way to stay discreetly informed about sexual health.
+	•	A callout describing the Founding Flinger Lifetime Membership for $99: “Pay once, get lifetime access to core features. Perfect for early adopters who want in on our movement.”
+	•	A simple form at the bottom for collecting email addresses (Name + Email) with a “Sign Me Up!” button that stores the user data in a local array or mock DB.
+
+	2.	About (about.js)
+
+	•	Short paragraphs describing FlingPing.co’s mission and history. Keep the tone playful but informative.
+
+	3.	How It Works (how-it-works.js)
+
+	•	Outline the Ping Pin system: (1) Sign up and get a randomized ID. (2) Pair phones via Bluetooth if you’re hooking up. (3) If someone reports an issue, discreet anonymous alerts go out.
+	•	Keep it bullet-point friendly and easy to skim.
+
+	4.	Investors (investors.js)
+
+	•	Summarize the opportunity: The $16B STD healthcare cost, your multi-revenue streams (subscriptions, data, store).
+	•	Brief call to action: “Interested in investing? Contact us at investments@flingping.co.”
+
+	5.	Contact (contact.js)
+
+	•	Basic contact form with Name, Email, and a Message field.
+	•	Or a static page listing: “Got questions? Email info@flingping.co or call XXX-XXX-XXXX.”
+	•	Keep it playful, e.g., “We won’t ghost you!”
+
+	6.	FAQs (faqs.js)
+
+	•	A list of Q&As: “What is FlingPing.co?”, “How does the Ping Pin protect my privacy?”, “What if I don’t have someone’s phone number?”, “How do I become a Founding Flinger?”, etc.
+
+	7.	Legal (legal.js)
+
+	•	Summarize your Terms of Service, Privacy Policy, and Cookie Policy in collapsible sections or headings.
+	•	Mention the Founding Flinger $99 membership as a product, stating: “Lifetime membership covers core features and does not expire. Full policy details available upon request.”
+
+Finally, ensure the entire code is in one code block, keep line breaks minimal, and use Tailwind CSS utility classes for styling. The final result should be easy to navigate, visually appealing, and reflect FlingPing.co’s bold, fun brand.”

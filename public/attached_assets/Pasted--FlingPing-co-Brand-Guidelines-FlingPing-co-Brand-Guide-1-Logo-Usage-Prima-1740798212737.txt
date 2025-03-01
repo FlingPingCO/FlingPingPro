@@ -1,0 +1,347 @@
+# FlingPing.co: Brand Guidelines
+
+# **FlingPing.co Brand Guide**
+
+### **1. Logo Usage**
+
+### **Primary Logo**
+
+- **Usage**: Always use the approved full logo with the exact icon, colors, and proportions.
+- **Clear Space**: Maintain padding equal to the height of the letter 'F' around the logo.
+- **Restrictions**: Do not modify, stretch, recolor, or rearrange the logo.
+
+<aside>
+🚨
+
+- Primary Logo Guide:
+    
+    **Primary Logo Typeface: FlingPing.co:** 
+    
+    <aside>
+    ☝
+    
+    Approved Primary Logo: 
+    
+    ![FlingPing.co Logo_TP.png](attachment:2278f6d0-bdd4-476b-819a-00823499e1c8:ec676cb3-0b56-49f5-b2f1-e17ea5194ba5.png)
+    
+    - **Font**:
+        
+        •	FlingPing: **Poppins Medium**
+        
+        •	.co: **Poppins Extra Light**
+        
+    - **Color Scheme**:
+        
+        •	FlingPing: **#0ACCA8** (Teal)
+        
+        •	.co: **#FF695E** (Coral)
+        
+        •	Border: **#FF695E**
+        
+        •	Background: **#3C3C3C** (Dark Neutral)
+        
+    </aside>
+    
+</aside>
+
+<aside>
+🚨
+
+- Logo Do’s and Don’ts:
+    1. **Always write out “FlingPing.co”** as a complete name. Do **not** separate into “Fling Ping” or “FlingPing” unless written approval is received.
+    2. **FP.co** is reserved and can only be used with **written consent and approval** from FlingPing.co.
+    3. **Clear Space**: Leave spacing equal to the “.co” width on all sides.
+    4. **Scaling**: Maintain proportions when resizing the logo.
+    5. **Do Not**:
+        
+        •	Change the colors or fonts.
+        
+        •	Add effects like shadows or gradients.
+        
+        •	Rotate, distort, or crop the logo.
+        
+</aside>
+
+---
+
+### **2. Typography**
+
+**Hierarchy**
+
+- **Headlines Font:** Unbounded (Bold/Weight 500)
+- **Body Text**: Nunito (Regular/Weight 400)
+- **Callouts or Accents**: Figtree Extra Light or Bold, depending on the emphasis needed.
+
+---
+
+### **3. Color Palette**
+
+**Color Name**	**Hex Code**	**Use For**
+
+**Primary (Teal)**	#0ACCA8	CTAs, links, buttons
+
+**Accent (Coral)**	#FF695E	Highlights, hover effects
+
+**Secondary (Blue)**	#5EB4FF	Subtle accents, icons
+
+**Alert (Yellow)**	#FFD166	Important notifications, callouts
+
+**Dark Background**	#3C3C3C	Sections, contrast areas
+
+**Soft Sand**	#F4E9D9	Backgrounds, light contrast
+
+- **Primary Colors:**
+    
+    **Teal:** #0ACCA8
+    
+    **Coral:** #FF695E
+    
+- **Secondary Colors:**
+    
+    **Blue:** #5EB4FF
+    
+    **Yellow:** #FFD166
+    
+- **Neutrals:**
+    
+    **Dark Gray:** #3C3C3C
+    
+    **Soft Sand:** #F4E9D9
+    
+- **Background Colors:**
+    
+    **Soft Sand:** #F4E9D9 @ 30% Transparency. 
+    
+    | **Text Type** | **Font** | **Color** | **Desktop** | **Tablet** | **Mobile** |
+    | --- | --- | --- | --- | --- | --- |
+    | **Body Text (Paragraphs)** | Nunito (400) | #F4E9D9 (Soft Off-White) | 16-18px / 1.6-1.8 LH | 15-17px / 1.5-1.7 LH | 14-16px / 1.4-1.6 LH |
+    | **Headings (H1)** | Unbounded (500 → 400 Mobile) | #0ACCA8 (Teal) | 48-60px / 1.2-1.4 LH | 36-42px / 1.2-1.4 LH | 28-36px / 1.1-1.3 LH |
+    | **Headings (H2)** | Unbounded (500 → 400 Mobile) | #0ACCA8 (Teal) | 36-42px / 1.2-1.4 LH | 30-36px / 1.2-1.4 LH | 24-30px / 1.1-1.3 LH |
+    | **Headings (H3)** | Unbounded (500 → 400 Mobile) | #0ACCA8 (Teal) | 28-32px / 1.2-1.4 LH | 24-28px / 1.2-1.4 LH | 20-24px / 1.1-1.3 LH |
+    | **Buttons & CTAs** | Poppins (500) | #FF695E (Coral) | 18-20px / 1.4 LH | 16-18px / 1.4 LH | 14-16px / 1.3 LH |
+    | **Links (Hover Color)** | Same as Body | #FFD166 (Yellow) | Same as body text | Same as body text | Same as body text |
+
+| **Device**  | **Font Size** | **Line Height** | **Letter Spacing** |
+
+|————|———––|––––––––|
+
+| **Desktop**  | 18px – 20px  | 1.4  | 1px  |
+
+| **Tablet**   | 16px – 18px  | 1.4  | 0.5px  |
+
+| **Mobile**   | 14px – 16px  | 1.3  | 0.5px  |
+
+### Link colors
+
+**State**	**Text Color**	**Underline/Effect (Optional)**
+
+**Normal (Default)**	#FF695E (Coral)	No underline (unless needed for clarity)
+
+**Hover**	#FFD166 (Yellow)	Optional underline or slight glow effect
+
+### Button Colors
+
+**Button State**	**Text Color**	**Background Color**
+
+**Default (Before Hover)**	#F4E9D9 (Soft Off-White)	#FF695E (Coral)
+
+**Hover State**	#3C3C3C (Dark Gray)	#FFD166 (Yellow
+
+<aside>
+🚨
+
+```jsx
+/* Default Weight for Desktop & Tablet */
+h1, h2, h3 {
+font-weight: 500;
+}
+```
+
+```jsx
+/* Force Font Weight for Mobile */
+@media (max-width: 767px) {
+h1, h2, h3 {
+font-weight: 400 !important;
+}
+}
+```
+
+</aside>
+
+### **Usage Guidelines**
+
+1. Teal and Coral should dominate logos, buttons, and CTAs.
+2. Blue and Yellow are for highlights and accents.
+3. Neutrals serve as backgrounds or text contrast.
+
+---
+
+### **4. Brand Name Usage**
+
+- **Correct Form**: Always use the brand name as **FlingPing.co** in all materials.
+- **Prohibitions**: Do not use "Fling Ping," "FlingPing" (without .co), or abbreviations like "FP.co" without explicit consent.
+
+---
+
+### **5. Tone of Voice**
+
+- **Style**: Professional, approachable, clear, and simple.
+- **Voice**: Casual, friendly, tech-savvy.
+- **Tone**: Energetic, upbeat, clear; avoid jargon.
+
+<aside>
+🚨
+
+- Brand Voice Writing Examples:
+    
+    **Getting Started with FlingPing.co:**
+    
+    Let’s take it all the way back to where it really starts:
+    
+    **Step 1: You managed to find a fling.**
+    
+    First off, congrats. You put yourself out there. Proud of you.
+    
+    **Step 2: Before the fun, take care of business.**
+    
+    Press, pound, or pummel your **PP** (**Ping Pin**). It’s not just for laughs—it’s your key to keeping things fun, casual, and stress-free. Think of it as the grown-up way to say, “We’re all good here.”
+    
+    **Step 3: Stay in the Loop.**
+    
+    If something pops up later (and we’re not talking about a text asking, *“U up?”*), your PP has your back. You’ll get an anonymous ping letting you know what’s up.
+    
+    So, pound that PP, protect yourself, and keep things clean—figuratively and literally.
+    
+    ---
+    
+    ### **Before the Fling: Pound That PP!**
+    
+    Let’s get real for a second: casual doesn’t have to mean careless. Before anything else goes down, literally or otherwise, it’s time to **pound your PP** (**Ping Pin**).
+    
+    **Here’s the deal:**
+    
+    - Your **PP** is your safety net. It’s a quick, easy, no-drama way to make sure everyone’s on the same page.
+    - **No PP, no fling?** Red flag alert. If someone can’t be responsible enough to pound their PP, are they really fling-worthy?
+    
+    **What’s in it for you (and them)?**
+    
+    - **Accountability, not awkwardness:** Pounding your PP says, *“Hey, I’m all about keeping things safe without killing the vibe.”*
+    - **Anonymous notifications = no drama:** If something pops up, you’ll know—no names, no awkward convos, just good ol’ peace of mind.
+    - **Set the new standard:** Normalize pounding your PP before anything else. It’s responsible *and* sexy.
+    
+    ---
+    
+    ### How Notifications Work:
+    
+    Here’s how [FlingPing.co](http://flingping.co/) keeps things smooth, stress-free, and 100% anonymous:
+    
+    1. **You and your fling both pressed the PP before anything started—smart move.**
+        
+        Whether you exchanged names, numbers, or just vibes, your PP has you covered. It’s like having a secret handshake but cooler (and safer).
+        
+    2. **Someone’s got an itch, rash, or antibiotics in their future.**
+        
+        Be glad you pounded your PP because now it’s easy, fast, and way less awkward to notify past flings. If it’s you sending the news? Congrats—you avoided *the talk.* And if it’s not you? You’ve got the heads-up before it’s too late.
+        
+    3. **Your PP works like a trusty wingman.**
+        
+        Your notifications stay anonymous, discreet, and straight to the point. No need to name names or send awkward texts—it’s all taken care of.
+        
+    
+    Think of it as the modern way to do the right thing—without having to, you know, actually *talk* to people.
+    
+    ---
+    
+    ### **Why FlingPing.co Exists**
+    
+    Let’s be honest: life’s complicated enough without adding “awkward STD conversations” to the mix.
+    
+    - **Call someone? On the phone?** Nope. Who even *does* that anymore?
+    - **Text them?** Maybe you didn’t even get their number. Or you gave them a fake one. Or they ghosted you (rude).
+    - **Didn’t exchange names?** It happens. Sometimes it’s just *that* kind of night.
+    
+    That’s where **FlingPing.co** comes in. We exist to bridge that awkward gap—anonymously. We’re the app for people who didn’t stick around for breakfast but still want to do the responsible thing. Whether it’s a one-night stand or your situationship from six months ago, back in town for a quick weekend. We’ve got you covered.
+    
+    Because being responsible shouldn’t come with an awkward side of regret.
+    
+    ---
+    
+    ### **Normalize PP Talk**
+    
+    Let’s make this the new normal:
+    
+    - *“Do you have a condom?”* → *“Do you have a PP?”*
+    - *“I’m on the pill.”* → *“I’ve got my PP.”*
+    - *“Want to come up for a drink?”* → *“Let’s pound our PPs first.”*
+    - “i’m clean!” → “Check my PP stats.”
+    
+    We’re creating a world where being responsible isn’t just expected—it’s cool. And hey, if the fling’s worth it, they’ll get it. 
+    
+    ---
+    
+    ### **Do You Have a PP?**
+    
+    We couldn’t resist this one. Your **Ping Pin (PP)** is more than a fun acronym—it’s your key to staying safe and responsible.
+    
+    - Don’t have a PP yet? Why not?
+    - Already pounding your PP? Good for you. Keep it up.
+    
+    Whether it’s a flirty hookup, a memorable night, or the fling you barely remember, your PP has your back. You’ll be seeing this little guy everywhere—From fun merch to marketing, the PP is here to stay. Because honestly, what’s cooler than saying, *“Yeah, I pounded my PP before the fling.”*
+    
+    ---
+    
+    ### **What Happens if They Don’t Have a PP?**
+    
+    No **Ping Pin**? No problem. Here’s what to do:
+    
+    1. **Introduce them to FlingPing.co.** Signing up is quick, easy, and honestly, just smart. Who doesn’t want an extra layer of peace of mind?
+    2. **Get them set up.** Direct them to the site or app—it takes less time than deciding who’s paying for the next round of drinks.
+    3. **Normalize the PP conversation.** Once they’re on board, you’re both in the clear. If they’re not into it, well… maybe rethink the fling.
+    
+    Casual fun is great. Casual accountability? Even better.
+    
+</aside>
+
+---
+
+### **6. Approved Use Cases**
+
+### **Digital Media**
+
+- Use the full name "FlingPing.co" on websites, digital marketing, and social media.
+- Hashtags like #FlingPingCo are permitted, but do not break up the name and if the “.” period is not allowed the “C” in Co should be capatalized.
+
+### **Print Media**
+
+- Ensure correct font use and alignment on printed materials such as business cards and brochures.
+
+---
+
+### **7. Imagery and Icons**
+
+### **Visual Style**
+
+- Use clean, minimal, modern visuals.
+- Icons should have smooth, rounded edges.
+
+### **Photography**
+
+- Focus on human connection and modern tech.
+- Avoid cluttered visuals and heavy filters.
+
+---
+
+### **8. Misuse of the Brand**
+
+- Do not shorten or abbreviate the name without approval.
+- Avoid unapproved fonts, colors, or logos.
+- Ensure consistency across all platforms.
+
+---
+
+### **9. Brand Consistency Checklist**
+
+1. Is **FlingPing.co** used correctly?
+2. Are logos consistent in style, color, and spacing?
+3. Is the Poppins font applied across all platforms?
+4. Are primary and secondary colors applied correctly?

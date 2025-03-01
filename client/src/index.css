@@ -4,13 +4,13 @@
 
 @layer base {
   :root {
-    --background: 0 0% 15%;
+    --background: 0 0% 24%;
     --foreground: 30 30% 98%;
     
-    --card: 0 0% 15%;
+    --card: 0 0% 24%;
     --card-foreground: 30 30% 98%;
     
-    --popover: 0 0% 15%;
+    --popover: 0 0% 24%;
     --popover-foreground: 30 30% 98%;
     
     --primary: 170 90% 42%;
@@ -80,7 +80,7 @@
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Unbounded', cursive;
-    @apply text-primary font-medium;
+    @apply text-secondary font-medium;
   }
   
   @media (max-width: 767px) {
