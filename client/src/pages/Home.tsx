@@ -14,6 +14,14 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
+// Import illustrations
+import peopleCrossingStreet from "@/assets/illustrations/people-crossing-street.gif";
+import deliveryDriver from "@/assets/illustrations/delivery-driver.gif";
+import womanWalkingDog from "@/assets/illustrations/woman-walking-dog.gif";
+import friendsHighFive from "@/assets/illustrations/friends-high-five.gif";
+import womanShopping from "@/assets/illustrations/woman-shopping.png";
+import collegeStudents from "@/assets/illustrations/college-students.png";
+
 interface HomeProps {
   paymentSuccess?: boolean;
   paymentCancelled?: boolean;
