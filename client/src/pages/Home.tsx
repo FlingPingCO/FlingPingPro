@@ -34,15 +34,19 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
   const testimonials = [
     {
       text: "Finally, a way to stay smart about sex without the awkward conversations.",
-      source: "Early Tester"
+      source: "Jessica L."
     },
     {
       text: "I feel confident and in control—FlingPing.co is a game changer.",
-      source: "Beta User"
+      source: "Tommy D."
     },
     {
       text: "This is exactly what I needed to take charge of my sexual health.",
-      source: "Founding Flinger"
+      source: "John L."
+    },
+    {
+      text: "Now I won't stress out about not exchanging phone numbers anymore.",
+      source: "Nicky P."
     }
   ];
 
@@ -103,7 +107,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
               
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                 <Link href="#founding-flinger">
-                  <Button className="btn-primary font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto">
+                  <Button className="bg-coral text-dark hover:bg-coral/90 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto">
                     Become a Founding Flinger
                   </Button>
                 </Link>

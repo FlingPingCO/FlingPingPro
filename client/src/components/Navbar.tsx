@@ -28,12 +28,11 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-dark shadow-md">
+    <header className="sticky top-0 z-50 bg-sand/30 shadow-md backdrop-blur-sm">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <Link href="/">
           <a className="flex items-center">
             <img src={logo} alt="FlingPing.co Logo" className="h-10 mr-2" />
-            <span className="logo-text-primary">Fling<span className="logo-text-primary">Ping</span><span className="logo-text-secondary">.co</span></span>
           </a>
         </Link>
         
@@ -41,7 +40,11 @@ const Navbar = () => {
         <nav className="hidden md:flex space-x-6">
           {navLinks.map((link) => (
             <Link key={link.path} href={link.path}>
-              <a className={`nav-link ${location === link.path ? "text-primary" : ""}`}>
+              <a className={`font-medium transition-colors duration-200 ${
+                location === link.path 
+                  ? "text-primary" 
+                  : "text-coral hover:text-primary"
+              }`}>
                 {link.name}
               </a>
             </Link>
@@ -52,7 +55,7 @@ const Navbar = () => {
         <Button
           variant="ghost"
           size="icon"
-          className="md:hidden text-sand"
+          className="md:hidden text-coral hover:text-primary"
           onClick={toggleMenu}
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         >
@@ -63,12 +66,16 @@ const Navbar = () => {
       {/* Mobile Navigation */}
       {isMobile && (
         <nav 
-          className={`${isMenuOpen ? "block" : "hidden"} md:hidden bg-dark py-4 px-4 absolute w-full z-50`}
+          className={`${isMenuOpen ? "block" : "hidden"} md:hidden bg-sand/30 backdrop-blur-sm py-4 px-4 absolute w-full z-50`}
         >
           <div className="flex flex-col space-y-3">
             {navLinks.map((link) => (
               <Link key={link.path} href={link.path}>
-                <a className={`nav-link ${location === link.path ? "text-primary" : ""}`}>
+                <a className={`font-medium transition-colors duration-200 ${
+                  location === link.path 
+                    ? "text-primary" 
+                    : "text-coral hover:text-primary"
+                }`}>
                   {link.name}
                 </a>
               </Link>
