@@ -320,9 +320,9 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
               <h3 className="text-teal text-2xl font-bold mb-3">Still have questions?</h3>
               <p className="text-[#3c3c3c] mb-4">We're here to help. Reach out to our team for any questions not covered in our FAQs.</p>
               <Link href="/contact">
-                <a className="inline-block bg-coral text-[#3c3c3c] hover:bg-coral/90 transition-all duration-300 font-poppins font-medium text-center px-8 py-3 rounded-full">
+                <span className="inline-block bg-coral text-[#3c3c3c] hover:bg-coral/90 transition-all duration-300 font-poppins font-medium text-center px-8 py-3 rounded-full cursor-pointer">
                   Contact Us
-                </a>
+                </span>
               </Link>
             </div>
           </div>

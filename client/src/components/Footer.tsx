@@ -35,20 +35,20 @@ const Footer = () => {
             <div>
               <h4 className="text-coral font-bold mb-4">Navigation</h4>
               <ul className="space-y-2">
-                <li><Link href="/"><a className="nav-link">Home</a></Link></li>
-                <li><Link href="/about"><a className="nav-link">About</a></Link></li>
-                <li><Link href="/how-it-works"><a className="nav-link">How It Works</a></Link></li>
-                <li><Link href="/faqs"><a className="nav-link">FAQs</a></Link></li>
-                <li><Link href="/contact"><a className="nav-link">Contact</a></Link></li>
+                <li><Link href="/"><span className="nav-link cursor-pointer">Home</span></Link></li>
+                <li><Link href="/about"><span className="nav-link cursor-pointer">About</span></Link></li>
+                <li><Link href="/how-it-works"><span className="nav-link cursor-pointer">How It Works</span></Link></li>
+                <li><Link href="/faqs"><span className="nav-link cursor-pointer">FAQs</span></Link></li>
+                <li><Link href="/contact"><span className="nav-link cursor-pointer">Contact</span></Link></li>
               </ul>
             </div>
             
             <div>
               <h4 className="text-coral font-bold mb-4">Legal</h4>
               <ul className="space-y-2">
-                <li><Link href="/legal#terms"><a className="nav-link">Terms of Service</a></Link></li>
-                <li><Link href="/legal#privacy"><a className="nav-link">Privacy Policy</a></Link></li>
-                <li><Link href="/legal#refund"><a className="nav-link">Refund Policy</a></Link></li>
+                <li><Link href="/legal#terms"><span className="nav-link cursor-pointer">Terms of Service</span></Link></li>
+                <li><Link href="/legal#privacy"><span className="nav-link cursor-pointer">Privacy Policy</span></Link></li>
+                <li><Link href="/legal#refund"><span className="nav-link cursor-pointer">Refund Policy</span></Link></li>
               </ul>
             </div>
           </div>

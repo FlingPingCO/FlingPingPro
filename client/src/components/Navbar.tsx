@@ -31,22 +31,22 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 bg-sand/30 shadow-md backdrop-blur-sm">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <Link href="/">
-          <a className="flex items-center">
+          <div className="flex items-center cursor-pointer">
             <img src={logo} alt="FlingPing.co Logo" className="h-10 mr-2" />
-          </a>
+          </div>
         </Link>
         
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-6">
           {navLinks.map((link) => (
             <Link key={link.path} href={link.path}>
-              <a className={`font-medium transition-colors duration-200 ${
+              <span className={`font-medium transition-colors duration-200 cursor-pointer ${
                 location === link.path 
                   ? "text-primary" 
                   : "text-coral hover:text-primary"
               }`}>
                 {link.name}
-              </a>
+              </span>
             </Link>
           ))}
         </nav>
@@ -71,13 +71,13 @@ const Navbar = () => {
           <div className="flex flex-col space-y-3">
             {navLinks.map((link) => (
               <Link key={link.path} href={link.path}>
-                <a className={`font-medium transition-colors duration-200 ${
+                <span className={`font-medium transition-colors duration-200 cursor-pointer ${
                   location === link.path 
                     ? "text-primary" 
                     : "text-coral hover:text-primary"
                 }`}>
                   {link.name}
-                </a>
+                </span>
               </Link>
             ))}
           </div>
