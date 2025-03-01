@@ -64,7 +64,7 @@ const SignupForm = () => {
 
   return (
     <>
-      <div className="bg-dark border border-coral rounded-xl p-6 md:p-8">
+      <div className="bg-dark border border-coral rounded-xl p-6 md:p-8 h-full flex flex-col">
         <div className="text-center mb-6">
           <h4 className="text-teal text-2xl font-bold mb-2">Spots Are Limited!</h4>
           <div className="text-yellow text-lg font-medium">Only <span>250</span> Founding Flinger spots left</div>
@@ -109,7 +109,7 @@ const SignupForm = () => {
             
             <Button 
               type="submit" 
-              className="w-full bg-teal text-[#c3c3c3] hover:bg-teal/90 font-poppins font-medium text-center px-6 py-3 rounded-full text-lg"
+              className="w-full bg-teal text-[#c3c3c3] hover:bg-teal/90 font-poppins font-medium text-center px-6 py-3 rounded-full text-lg shadow-lg"
             >
               Secure My Spot for $99
             </Button>

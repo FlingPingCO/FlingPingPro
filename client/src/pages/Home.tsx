@@ -204,53 +204,63 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
       {/* Founding Flinger Offer */}
       <section id="founding-flinger" className="py-16 bg-dark">
         <div className="container mx-auto px-4">
-          <div className="bg-gradient-to-r from-teal to-coral bg-opacity-20 rounded-2xl p-8 md:p-12">
-            <h2 className="text-3xl md:text-4xl text-center mb-8">Join the <span className="text-teal">FlingPing.co</span> Revolution</h2>
-            <h3 className="text-2xl text-center text-yellow mb-12">Founding Flinger Perks</h3>
+          <div className="bg-gradient-to-r from-teal/20 to-coral/20 rounded-2xl p-8 md:p-12 border border-teal/40">
+            <h2 className="text-3xl md:text-4xl text-center mb-8">Join the <span className="text-teal">FlingPing<span className="text-coral">.co</span></span> Revolution</h2>
+            <h3 className="text-2xl text-center text-yellow mb-12 font-medium">Founding Flinger Perks</h3>
             
-            <div className="flex flex-col md:flex-row">
-              <div className="md:w-1/2 md:pr-12">
-                <div className="text-center h-full">
-                  <div className="bg-[#f4e9d9] rounded-3xl p-8 mb-6 h-full flex flex-col">
+            <div className="flex flex-col md:flex-row md:items-stretch">
+              <div className="md:w-1/2 md:pr-6">
+                <div className="h-full">
+                  <div className="bg-[#f4e9d9] rounded-3xl p-8 h-full flex flex-col">
                     <div className="flex justify-center mb-6">
                       <div className="bg-coral text-[#3c3c3c] text-2xl font-bold px-6 py-3 rounded-full whitespace-nowrap">
                         Lifetime Access for $99
                       </div>
                     </div>
                     
-                    <h4 className="font-bold text-xl mb-4 text-teal">Limited Time Founding Flinger Offer</h4>
+                    <h4 className="font-bold text-xl mb-4 text-teal text-center">Limited Time Founding Flinger Offer</h4>
                     
-                    <ul className="space-y-4 text-lg text-[#3c3c3c] flex-grow">
-                      <li className="flex items-start">
-                        <span className="text-coral mr-2">✓</span>
-                        <span>Lifetime Membership - Pay once and unlock a lifetime of <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>'s core features.</span>
+                    <ul className="space-y-4 text-base text-[#3c3c3c] flex-grow">
+                      <li className="flex flex-col items-center">
+                        <div className="flex items-center justify-center mb-1">
+                          <span className="text-coral mr-2">✓</span>
+                          <span className="font-medium">Lifetime Membership</span>
+                        </div>
+                        <span className="text-center">Pay once and unlock a lifetime of <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>'s core features.</span>
                       </li>
-                      <li className="flex items-start">
-                        <span className="text-coral mr-2">✓</span>
-                        <span>Be a Founding Flinger - Get exclusive early access and shape <span className="text-teal">Fling<span className="text-coral">.co</span></span> with your feedback.</span>
+                      <li className="flex flex-col items-center">
+                        <div className="flex items-center justify-center mb-1">
+                          <span className="text-coral mr-2">✓</span>
+                          <span className="font-medium">Be a Founding Flinger</span>
+                        </div>
+                        <span className="text-center">Get exclusive early access and shape <span className="text-teal">FlingPing<span className="text-coral">.co</span></span> with your feedback.</span>
                       </li>
-                      <li className="flex items-start">
-                        <span className="text-coral mr-2">✓</span>
-                        <span>Support Innovation - Be part of the movement creating digital herd immunity.</span>
+                      <li className="flex flex-col items-center">
+                        <div className="flex items-center justify-center mb-1">
+                          <span className="text-coral mr-2">✓</span>
+                          <span className="font-medium">Support Innovation</span>
+                        </div>
+                        <span className="text-center">Be part of the movement creating digital herd immunity.</span>
                       </li>
-                      <li className="flex items-start">
-                        <span className="text-coral mr-2">✓</span>
-                        <span>Limited Time Flinger Swag - Exclusive to founding members only.</span>
+                      <li className="flex flex-col items-center">
+                        <div className="flex items-center justify-center mb-1">
+                          <span className="text-coral mr-2">✓</span>
+                          <span className="font-medium">Limited Time Flinger Swag</span>
+                        </div>
+                        <span className="text-center">Exclusive to founding members only.</span>
                       </li>
                     </ul>
                     
-                    <div className="flex items-center justify-center mt-6">
-                      <div className="text-2xl font-bold text-coral line-through opacity-75 mr-3">$199</div>
+                    <div className="flex items-center justify-center gap-6 mt-6">
+                      <div className="text-2xl font-bold text-coral line-through opacity-75">$199</div>
                       <div className="text-2xl font-bold text-teal">$99</div>
                     </div>
                   </div>
                 </div>
               </div>
               
-              <div className="md:w-1/2 mt-12 md:mt-0 flex items-stretch">
-                <div className="w-full">
-                  <SignupForm />
-                </div>
+              <div className="md:w-1/2 mt-12 md:mt-0 md:pl-6">
+                <SignupForm />
               </div>
             </div>
           </div>
