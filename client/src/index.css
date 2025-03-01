@@ -1,0 +1,202 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 24%;
+    --foreground: 30 30% 91%;
+    
+    --card: 0 0% 24%;
+    --card-foreground: 30 30% 91%;
+    
+    --popover: 0 0% 24%;
+    --popover-foreground: 30 30% 91%;
+    
+    --primary: 170 90% 42%;
+    --primary-foreground: 30 30% 91%;
+    
+    --secondary: 3 100% 68%;
+    --secondary-foreground: 0 0% 24%;
+    
+    --muted: 0 0% 34%;
+    --muted-foreground: 30 30% 81%;
+    
+    --accent: 200 100% 68%;
+    --accent-foreground: 0 0% 24%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 30 30% 91%;
+    
+    --border: 3 100% 68%;
+    --input: 3 100% 68%;
+    --ring: 170 90% 42%;
+    
+    --radius: 0.5rem;
+  }
+
+  .light {
+    --background: 30 30% 91%;
+    --foreground: 0 0% 24%;
+    
+    --card: 30 30% 91%;
+    --card-foreground: 0 0% 24%;
+    
+    --popover: 30 30% 91%;
+    --popover-foreground: 0 0% 24%;
+    
+    --primary: 170 90% 42%;
+    --primary-foreground: 30 30% 91%;
+    
+    --secondary: 3 100% 68%;
+    --secondary-foreground: 0 0% 24%;
+    
+    --muted: 30 30% 81%;
+    --muted-foreground: 0 0% 34%;
+    
+    --accent: 200 100% 68%;
+    --accent-foreground: 0 0% 24%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 24%;
+    
+    --border: 3 100% 68%;
+    --input: 3 100% 68%;
+    --ring: 170 90% 42%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Nunito', sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Unbounded', cursive;
+    @apply text-primary font-medium;
+  }
+  
+  @media (max-width: 767px) {
+    h1, h2, h3 {
+      @apply font-normal;
+    }
+  }
+}
+
+@layer components {
+  .logo-text-primary {
+    font-family: 'Poppins', sans-serif;
+    @apply font-medium text-primary;
+  }
+  
+  .logo-text-secondary {
+    font-family: 'Poppins', sans-serif;
+    @apply font-extralight text-secondary;
+  }
+  
+  .btn-primary {
+    @apply bg-secondary text-foreground hover:bg-yellow hover:text-dark transition-all duration-300 rounded-full font-poppins font-medium;
+  }
+  
+  .nav-link {
+    @apply text-foreground hover:text-primary transition-all duration-300;
+  }
+  
+  .accent-text {
+    font-family: 'Figtree', sans-serif;
+    @apply text-accent font-bold;
+  }
+}
+
+@layer utilities {
+  .font-poppins {
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .font-unbounded {
+    font-family: 'Unbounded', cursive;
+  }
+  
+  .font-nunito {
+    font-family: 'Nunito', sans-serif;
+  }
+  
+  .font-figtree {
+    font-family: 'Figtree', sans-serif;
+  }
+  
+  .text-teal {
+    @apply text-primary;
+  }
+  
+  .text-coral {
+    @apply text-secondary;
+  }
+  
+  .text-blue {
+    @apply text-accent;
+  }
+  
+  .text-yellow {
+    @apply text-[#FFD166];
+  }
+  
+  .text-dark {
+    @apply text-[#3C3C3C];
+  }
+  
+  .text-sand {
+    @apply text-[#F4E9D9];
+  }
+  
+  .bg-teal {
+    @apply bg-primary;
+  }
+  
+  .bg-coral {
+    @apply bg-secondary;
+  }
+  
+  .bg-blue {
+    @apply bg-accent;
+  }
+  
+  .bg-yellow {
+    @apply bg-[#FFD166];
+  }
+  
+  .bg-dark {
+    @apply bg-[#3C3C3C];
+  }
+  
+  .bg-sand {
+    @apply bg-[#F4E9D9];
+  }
+  
+  .border-teal {
+    @apply border-primary;
+  }
+  
+  .border-coral {
+    @apply border-secondary;
+  }
+  
+  .border-blue {
+    @apply border-accent;
+  }
+  
+  .border-yellow {
+    @apply border-[#FFD166];
+  }
+  
+  .border-dark {
+    @apply border-[#3C3C3C];
+  }
+  
+  .border-sand {
+    @apply border-[#F4E9D9];
+  }
+}

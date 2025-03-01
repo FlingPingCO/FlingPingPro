@@ -1,0 +1,156 @@
+import type { Express, Request, Response } from "express";
+import { createServer, type Server } from "http";
+import { storage } from "./storage";
+import { stripeService } from "./stripe";
+import {
+  insertUserSchema,
+  insertEmailSignupSchema,
+  insertContactMessageSchema,
+} from "@shared/schema";
+import { ZodError } from "zod";
+
+export async function registerRoutes(app: Express): Promise<Server> {
+  // API routes - all prefixed with /api
+  
+  // Email Signup
+  app.post("/api/email-signup", async (req: Request, res: Response) => {
+    try {
+      const data = insertEmailSignupSchema.parse(req.body);
+      
+      // Check if email already exists
+      const existingSignup = await storage.getEmailSignupByEmail(data.email);
+      if (existingSignup) {
+        return res.status(400).json({ message: "Email already registered" });
+      }
+      
+      const signup = await storage.createEmailSignup(data);
+      return res.status(201).json({ message: "Email registration successful", data: signup });
+    } catch (error) {
+      if (error instanceof ZodError) {
+        return res.status(400).json({ message: "Invalid input data", errors: error.errors });
+      }
+      return res.status(500).json({ message: "Server error" });
+    }
+  });
+  
+  // Contact message
+  app.post("/api/contact", async (req: Request, res: Response) => {
+    try {
+      const data = insertContactMessageSchema.parse(req.body);
+      const message = await storage.createContactMessage(data);
+      return res.status(201).json({ message: "Message sent successfully", data: message });
+    } catch (error) {
+      if (error instanceof ZodError) {
+        return res.status(400).json({ message: "Invalid input data", errors: error.errors });
+      }
+      return res.status(500).json({ message: "Server error" });
+    }
+  });
+  
+  // User registration
+  app.post("/api/users", async (req: Request, res: Response) => {
+    try {
+      const data = insertUserSchema.parse(req.body);
+      
+      // Check if user already exists
+      const existingUser = await storage.getUserByEmail(data.email);
+      if (existingUser) {
+        return res.status(400).json({ message: "Email already registered" });
+      }
+      
+      const user = await storage.createUser(data);
+      return res.status(201).json({ message: "Registration successful", data: { id: user.id, name: user.name, email: user.email } });
+    } catch (error) {
+      if (error instanceof ZodError) {
+        return res.status(400).json({ message: "Invalid input data", errors: error.errors });
+      }
+      return res.status(500).json({ message: "Server error" });
+    }
+  });
+  
+  // Create Stripe checkout session for Founding Flinger membership
+  app.post("/api/create-checkout-session", async (req: Request, res: Response) => {
+    try {
+      const { name, email } = req.body;
+      if (!name || !email) {
+        return res.status(400).json({ message: "Name and email are required" });
+      }
+      
+      // Check if user exists, or create one
+      let user = await storage.getUserByEmail(email);
+      if (!user) {
+        user = await storage.createUser({ name, email });
+      }
+      
+      // Create Stripe customer
+      const stripeCustomerId = await stripeService.createCustomer(name, email);
+      
+      // Update user with Stripe customer ID
+      await storage.updateUserStripeId(user.id, stripeCustomerId);
+      
+      // Create checkout session
+      const session = await stripeService.createCheckoutSession({
+        customerEmail: email,
+        successUrl: `${process.env.DOMAIN || "http://localhost:5000"}/payment-success`,
+        cancelUrl: `${process.env.DOMAIN || "http://localhost:5000"}/payment-cancelled`,
+      });
+      
+      return res.status(200).json({ url: session.url });
+    } catch (error) {
+      console.error("Checkout session error:", error);
+      return res.status(500).json({ message: "Failed to create checkout session" });
+    }
+  });
+  
+  // Stripe webhook handler
+  app.post("/api/webhook", async (req: Request, res: Response) => {
+    try {
+      // Verify webhook signature in a real implementation
+      const isValid = stripeService.validateWebhookSignature(req);
+      if (!isValid) {
+        return res.status(400).json({ message: "Invalid webhook signature" });
+      }
+      
+      const event = req.body;
+      const result = stripeService.handleWebhookEvent(event);
+      
+      if (result.succeeded && result.type === "payment.succeeded") {
+        // Process the successful payment
+        // In a real implementation, you would query Stripe for the customer
+        // and update the user record accordingly
+        
+        // Mock implementation to demonstrate the flow
+        const mockUser = await storage.getUser(1); // Just for demonstration
+        if (mockUser) {
+          await storage.setUserAsFoundingFlinger(mockUser.id);
+        }
+      }
+      
+      return res.status(200).json({ received: true });
+    } catch (error) {
+      console.error("Webhook error:", error);
+      return res.status(500).json({ message: "Webhook handler failed" });
+    }
+  });
+  
+  // Get remaining Founding Flinger spots
+  app.get("/api/founding-flinger-count", async (req: Request, res: Response) => {
+    try {
+      const totalSpots = 250;
+      const takenSpots = await storage.getFoundingFlingerCount();
+      const remainingSpots = totalSpots - takenSpots;
+      
+      return res.status(200).json({ 
+        total: totalSpots,
+        taken: takenSpots,
+        remaining: Math.max(0, remainingSpots)
+      });
+    } catch (error) {
+      console.error("Count error:", error);
+      return res.status(500).json({ message: "Failed to get count" });
+    }
+  });
+
+  const httpServer = createServer(app);
+  return httpServer;
+}
