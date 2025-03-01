@@ -129,12 +129,12 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
               
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                 <Link href="#founding-flinger">
-                  <Button variant="outline" className="border-2 border-teal text-teal hover:bg-teal hover:text-[#3c3c3c] transition-all duration-300 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto">
+                  <Button className="bg-coral text-[#3c3c3c] hover:bg-coral/90 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto">
                     Become a Founding Flinger
                   </Button>
                 </Link>
                 <Link href="/how-it-works">
-                  <Button className="bg-coral text-[#3c3c3c] hover:bg-coral/90 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto">
+                  <Button variant="outline" className="border-2 border-teal text-teal hover:bg-teal hover:text-[#3c3c3c] transition-all duration-300 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto">
                     How It Works
                   </Button>
                 </Link>
@@ -210,15 +210,15 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
             
             <div className="flex flex-col md:flex-row">
               <div className="md:w-1/2 md:pr-12">
-                <div className="text-center md:text-left">
-                  <div className="bg-[#f4e9d9] rounded-3xl p-8 text-left mb-6">
-                    <div className="inline-block bg-coral text-[#3c3c3c] text-2xl md:text-3xl font-bold px-6 py-3 rounded-full mb-6">
+                <div className="text-center md:text-left h-full">
+                  <div className="bg-[#f4e9d9] rounded-3xl p-8 text-left mb-6 h-full flex flex-col">
+                    <div className="inline-block bg-coral text-[#3c3c3c] text-2xl md:text-3xl font-bold px-6 py-3 rounded-full mb-6 whitespace-nowrap">
                       Lifetime Access for $99
                     </div>
                     
                     <h4 className="font-bold text-xl mb-4 text-teal">Limited Time Founding Flinger Offer</h4>
                     
-                    <ul className="space-y-4 text-lg text-[#3c3c3c]">
+                    <ul className="space-y-4 text-lg text-[#3c3c3c] flex-grow">
                       <li className="flex items-start">
                         <span className="text-coral mr-2">✓</span>
                         <span>Lifetime Membership - Pay once and unlock a lifetime of <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>'s core features.</span>
@@ -245,8 +245,10 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
                 </div>
               </div>
               
-              <div className="md:w-1/2 mt-12 md:mt-0">
-                <SignupForm />
+              <div className="md:w-1/2 mt-12 md:mt-0 flex items-stretch">
+                <div className="w-full">
+                  <SignupForm />
+                </div>
               </div>
             </div>
           </div>
@@ -317,12 +319,12 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
           
           <div className="mt-16 flex justify-center">
             <div className="bg-[#f4e9d9] rounded-full px-8 py-6 max-w-2xl text-center">
-              <h3 className="text-teal text-2xl font-bold mb-3">Still have questions?</h3>
+              <h3 className="text-coral text-2xl font-bold mb-3">Still have questions?</h3>
               <p className="text-[#3c3c3c] mb-4">We're here to help. Reach out to our team for any questions not covered in our FAQs.</p>
               <Link href="/contact">
-                <span className="inline-block bg-coral text-[#3c3c3c] hover:bg-coral/90 transition-all duration-300 font-poppins font-medium text-center px-8 py-3 rounded-full cursor-pointer">
+                <Button variant="outline" className="border-2 border-teal text-teal hover:bg-teal hover:text-[#3c3c3c] transition-all duration-300 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg">
                   Contact Us
-                </span>
+                </Button>
               </Link>
             </div>
           </div>
