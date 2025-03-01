@@ -109,7 +109,7 @@ const SignupForm = () => {
             
             <Button 
               type="submit" 
-              className="w-full bg-teal text-[#c2c2c2] hover:bg-teal/90 font-poppins font-medium text-center px-6 py-3 rounded-full text-lg"
+              className="w-full bg-teal text-[#c3c3c3] hover:bg-teal/90 font-poppins font-medium text-center px-6 py-3 rounded-full text-lg"
             >
               Secure My Spot for $99
             </Button>
