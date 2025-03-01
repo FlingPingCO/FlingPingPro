@@ -148,7 +148,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
                 </Link>
               </div>
             </div>
-            <div className="md:w-1/2 mt-12 md:mt-0 flex justify-center">
+            <div className="md:w-1/2 mt-16 md:mt-10 flex justify-center">
               <div className="relative">
                 <img src={friendsHighFive} alt="Friends high five" className="h-[180px] md:h-[360px] lg:h-[480px] object-contain mx-auto" />
               </div>
