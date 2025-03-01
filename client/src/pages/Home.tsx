@@ -220,34 +220,34 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
                     
                     <h4 className="font-bold text-xl mb-4 text-teal text-center">Limited Time Founding Flinger Offer</h4>
                     
-                    <ul className="space-y-4 text-base text-[#3c3c3c] flex-grow">
-                      <li className="flex flex-col items-center">
-                        <div className="flex items-center justify-center mb-1">
+                    <ul className="space-y-4 text-sm text-[#3c3c3c] flex-grow">
+                      <li className="flex flex-col items-start pl-4">
+                        <div className="flex items-center mb-1">
                           <span className="text-coral mr-2">✓</span>
                           <span className="font-medium">Lifetime Membership</span>
                         </div>
-                        <span className="text-center">Pay once and unlock a lifetime of <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>'s core features.</span>
+                        <span>Pay once and unlock a lifetime of <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>'s core features.</span>
                       </li>
-                      <li className="flex flex-col items-center">
-                        <div className="flex items-center justify-center mb-1">
+                      <li className="flex flex-col items-start pl-4">
+                        <div className="flex items-center mb-1">
                           <span className="text-coral mr-2">✓</span>
                           <span className="font-medium">Be a Founding Flinger</span>
                         </div>
-                        <span className="text-center">Get exclusive early access and shape <span className="text-teal">FlingPing<span className="text-coral">.co</span></span> with your feedback.</span>
+                        <span>Get exclusive early access and shape <span className="text-teal">FlingPing<span className="text-coral">.co</span></span> with your feedback.</span>
                       </li>
-                      <li className="flex flex-col items-center">
-                        <div className="flex items-center justify-center mb-1">
+                      <li className="flex flex-col items-start pl-4">
+                        <div className="flex items-center mb-1">
                           <span className="text-coral mr-2">✓</span>
                           <span className="font-medium">Support Innovation</span>
                         </div>
-                        <span className="text-center">Be part of the movement creating digital herd immunity.</span>
+                        <span>Be part of the movement creating digital herd immunity.</span>
                       </li>
-                      <li className="flex flex-col items-center">
-                        <div className="flex items-center justify-center mb-1">
+                      <li className="flex flex-col items-start pl-4">
+                        <div className="flex items-center mb-1">
                           <span className="text-coral mr-2">✓</span>
                           <span className="font-medium">Limited Time Flinger Swag</span>
                         </div>
-                        <span className="text-center">Exclusive to founding members only.</span>
+                        <span>Exclusive to founding members only.</span>
                       </li>
                     </ul>
                     
