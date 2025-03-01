@@ -273,7 +273,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
       {/* Testimonials Section */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl text-center mb-8">Why Our Early Adopters <span className="text-coral">Love</span> <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>?</h2>
+          <h2 className="text-3xl md:text-4xl text-center mb-8 text-coral">Why Our Early Adopters Love <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>?</h2>
           
           <div className="flex justify-center mb-12">
             {/* Image removed */}
