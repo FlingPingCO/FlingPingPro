@@ -128,8 +128,8 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
             </Alert>
           )}
 
-          <div className="w-full text-center mb-10">
-            <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-8 whitespace-nowrap"><span className="text-teal">Welcome to FlingPing<span className="text-coral">.co</span></span></h1>
+          <div className="w-full text-center mb-8">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 max-w-[90%] mx-auto"><span className="text-teal">Welcome to FlingPing<span className="text-coral">.co</span></span></h1>
           </div>
           
           <div className="flex flex-col md:flex-row items-center">
