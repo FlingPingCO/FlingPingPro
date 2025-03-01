@@ -211,67 +211,59 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
       <section id="founding-flinger" className="py-16 bg-background">
         <div className="container mx-auto px-4">
           <div className="rounded-2xl p-8 md:p-12 border-2 border-teal shadow-lg">
-            <div className="flex flex-col md:flex-row md:items-stretch gap-8">
-              <div className="md:w-1/2">
-                <div className="h-full">
-                  <div className="bg-[#f4e9d9] rounded-3xl p-8 h-full flex flex-col shadow-md">
-                    <div className="flex justify-center mb-6">
-                      <div className="bg-coral text-[#3c3c3c] text-2xl font-bold px-6 py-3 rounded-full whitespace-nowrap shadow-sm">
-                        Lifetime Access for $99
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+              <div className="bg-[#f4e9d9] rounded-3xl p-8 shadow-md flex flex-col h-full">
+                <div className="flex justify-center mb-6">
+                  <div className="bg-coral text-[#3c3c3c] text-2xl font-bold px-6 py-3 rounded-full whitespace-nowrap shadow-sm">
+                    Lifetime Access for $99
+                  </div>
+                </div>
+                
+                <h4 className="font-bold text-xl mb-4 text-teal text-center">Limited Time Founding Flinger Offer</h4>
+                
+                <ul className="space-y-4 text-sm text-[#3c3c3c] flex-grow pl-6 pr-4">
+                  <li>
+                    <div className="flex items-start">
+                      <span className="text-coral mr-2 flex-shrink-0 text-lg font-bold">✓</span>
+                      <div>
+                        <span className="font-medium">Lifetime Membership:</span> Pay once and unlock a lifetime of <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>'s core features.
                       </div>
                     </div>
-                    
-                    <h4 className="font-bold text-xl mb-4 text-teal text-center">Limited Time Founding Flinger Offer</h4>
-                    
-                    <ul className="space-y-4 text-sm text-[#3c3c3c] flex-grow pl-6 pr-4">
-                      <li>
-                        <div className="flex items-start">
-                          <span className="text-coral mr-2 flex-shrink-0 text-lg font-bold">✓</span>
-                          <div>
-                            <span className="font-medium">Lifetime Membership:</span> Pay once and unlock a lifetime of <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>'s core features.
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="flex items-start">
-                          <span className="text-coral mr-2 flex-shrink-0 text-lg font-bold">✓</span>
-                          <div>
-                            <span className="font-medium">Be a Founding Flinger:</span> Get exclusive early access and shape <span className="text-teal">FlingPing<span className="text-coral">.co</span></span> with your feedback.
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="flex items-start">
-                          <span className="text-coral mr-2 flex-shrink-0 text-lg font-bold">✓</span>
-                          <div>
-                            <span className="font-medium">Support Innovation:</span> Be part of the movement creating digital herd immunity.
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="flex items-start">
-                          <span className="text-coral mr-2 flex-shrink-0 text-lg font-bold">✓</span>
-                          <div>
-                            <span className="font-medium">Limited Time Flinger Swag:</span> Exclusive to founding members only.
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                    
-                    <div className="flex items-center justify-center gap-6 mt-6">
-                      <div className="text-2xl font-bold text-coral line-through opacity-75">$199</div>
-                      <div className="text-2xl font-bold text-teal">$99</div>
+                  </li>
+                  <li>
+                    <div className="flex items-start">
+                      <span className="text-coral mr-2 flex-shrink-0 text-lg font-bold">✓</span>
+                      <div>
+                        <span className="font-medium">Be a Founding Flinger:</span> Get exclusive early access and shape <span className="text-teal">FlingPing<span className="text-coral">.co</span></span> with your feedback.
+                      </div>
                     </div>
-                  </div>
+                  </li>
+                  <li>
+                    <div className="flex items-start">
+                      <span className="text-coral mr-2 flex-shrink-0 text-lg font-bold">✓</span>
+                      <div>
+                        <span className="font-medium">Support Innovation:</span> Be part of the movement creating digital herd immunity.
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="flex items-start">
+                      <span className="text-coral mr-2 flex-shrink-0 text-lg font-bold">✓</span>
+                      <div>
+                        <span className="font-medium">Limited Time Flinger Swag:</span> Exclusive to founding members only.
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+                
+                <div className="flex items-center justify-center gap-6 mt-6">
+                  <div className="text-2xl font-bold text-coral line-through opacity-75">$199</div>
+                  <div className="text-2xl font-bold text-teal">$99</div>
                 </div>
               </div>
               
-              <div className="md:w-1/2">
-                <div className="bg-background rounded-3xl border-2 border-coral p-8 h-full shadow-md">
-                  <h3 className="text-teal text-2xl font-bold mb-6 text-center">Spots Are Limited!</h3>
-                  <h4 className="text-yellow text-lg mb-8 text-center">Only 250 Founding Flinger spots left</h4>
-                  <SignupForm />
-                </div>
+              <div className="bg-background rounded-3xl border-2 border-coral p-8 shadow-md flex flex-col justify-center h-full">
+                <SignupForm />
               </div>
             </div>
           </div>

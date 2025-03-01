@@ -64,24 +64,25 @@ const SignupForm = () => {
 
   return (
     <>
-      <div className="bg-dark border border-coral rounded-xl p-6 md:p-8 h-full flex flex-col">
+      <div className="flex flex-col h-full">
         <div className="text-center mb-6">
           <h4 className="text-teal text-2xl font-bold mb-2">Spots Are Limited!</h4>
           <div className="text-yellow text-lg font-medium">Only <span>250</span> Founding Flinger spots left</div>
         </div>
         
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 flex-grow">
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Your Name</FormLabel>
+                  <FormLabel className="text-lg">Your Name</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      className="w-full px-4 py-2 rounded-lg bg-dark border border-coral text-sand focus:outline-none focus:ring-2 focus:ring-teal"
+                      className="w-full px-4 py-3 rounded-lg bg-dark border-2 border-coral text-sand focus:outline-none focus:ring-2 focus:ring-teal"
+                      placeholder="Enter your full name"
                     />
                   </FormControl>
                   <FormMessage />
@@ -94,12 +95,13 @@ const SignupForm = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Your Email</FormLabel>
+                  <FormLabel className="text-lg">Your Email</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       type="email"
-                      className="w-full px-4 py-2 rounded-lg bg-dark border border-coral text-sand focus:outline-none focus:ring-2 focus:ring-teal"
+                      className="w-full px-4 py-3 rounded-lg bg-dark border-2 border-coral text-sand focus:outline-none focus:ring-2 focus:ring-teal"
+                      placeholder="your.email@example.com"
                     />
                   </FormControl>
                   <FormMessage />
@@ -109,14 +111,14 @@ const SignupForm = () => {
             
             <Button 
               type="submit" 
-              className="w-full bg-teal text-[#c3c3c3] hover:bg-teal/90 font-poppins font-medium text-center px-6 py-3 rounded-full text-lg shadow-lg"
+              className="w-full mt-6 bg-coral hover:bg-coral/90 text-background font-poppins font-medium text-center px-6 py-3 rounded-full text-lg shadow-lg border-2 border-coral transition-colors duration-300"
             >
               Secure My Spot for $99
             </Button>
             
-            <div className="text-center text-sm">
-              <p>Secure payment powered by Stripe</p>
-              <div className="flex justify-center mt-2 space-x-2">
+            <div className="text-center text-sm mt-4">
+              <p className="mb-2">Secure payment powered by Stripe</p>
+              <div className="flex justify-center space-x-2">
                 <svg className="h-6" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="visa-label">
                   <title id="visa-label">Visa</title>
                   <path d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z" fill="#000" opacity=".07"/>
