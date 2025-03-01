@@ -286,43 +286,46 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
       </section>
       
       {/* Testimonials Section */}
-      <section className="py-16 bg-dark">
+      <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl text-center mb-8">Why Our Early Adopters Love <span className="text-teal">FlingPing.co</span></h2>
+          <h2 className="text-3xl md:text-4xl text-center mb-8">Why Our Early Adopters Love <span className="text-teal">FlingPing<span className="text-coral">.co</span></span></h2>
           
           <div className="flex justify-center mb-12">
             <img src={deliveryDriver} alt="FlingPing delivers peace of mind" className="h-44 object-contain" />
           </div>
           
           <div className="mx-auto max-w-5xl">
-            <Carousel
-              opts={carouselOptions}
-              className="w-full"
-            >
-              <CarouselContent>
-                {testimonials.map((testimonial, index) => (
-                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                    <div className="h-full bg-dark border border-coral rounded-lg p-6 mx-2">
-                      <div className="flex items-center mb-4">
-                        <div className="text-yellow text-xl">★★★★★</div>
-                      </div>
-                      <p className="mb-4 italic">"{testimonial.text}"</p>
-                      <div className="text-coral">- {testimonial.source}</div>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <div className="flex justify-center mt-8 gap-2">
-                <CarouselPrevious className="static bg-coral border border-coral text-[#3c3c3c] hover:bg-coral/90 transition-all" />
-                <CarouselNext className="static bg-coral border border-coral text-[#3c3c3c] hover:bg-coral/90 transition-all" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-background border border-coral rounded-lg p-6">
+                <div className="flex items-center mb-4">
+                  <div className="text-yellow text-xl">★★★★★</div>
+                </div>
+                <p className="mb-4 italic">"It's crazy how something so small can make me feel so much safer."</p>
+                <div className="text-coral">- Sarah K.</div>
               </div>
-            </Carousel>
+              
+              <div className="bg-background border border-coral rounded-lg p-6">
+                <div className="flex items-center mb-4">
+                  <div className="text-yellow text-xl">★★★★★</div>
+                </div>
+                <p className="mb-4 italic">"Finally, a way to stay safe about sex without the cringe convos."</p>
+                <div className="text-coral">- Jessica L.</div>
+              </div>
+              
+              <div className="bg-background border border-coral rounded-lg p-6">
+                <div className="flex items-center mb-4">
+                  <div className="text-yellow text-xl">★★★★★</div>
+                </div>
+                <p className="mb-4 italic">"I feel confident and in control—it's an absolute game changer."</p>
+                <div className="text-coral">- Tommy D.</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
       
       {/* FAQ Section */}
-      <section id="faq" className="py-16 bg-dark">
+      <section id="faq" className="py-16 bg-background">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl text-center mb-8">Frequently Asked Questions</h2>
           
@@ -359,11 +362,16 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
             <div className="bg-[#f4e9d9] rounded-full px-8 py-6 max-w-2xl text-center">
               <h3 className="text-coral text-2xl font-bold mb-3">Still have questions?</h3>
               <p className="text-[#3c3c3c] mb-4">We're here to help. Reach out to our team for any questions not covered in our FAQs.</p>
-              <Link href="/contact">
-                <Button variant="outline" className="border-2 border-teal text-teal hover:bg-teal hover:text-[#3c3c3c] transition-all duration-300 font-poppins font-medium text-center px-6 py-2 rounded-full text-base">
-                  Contact Us
-                </Button>
-              </Link>
+              <div className="flex justify-center">
+                <Link href="/contact">
+                  <Button variant="outline" className="border-2 border-teal text-teal hover:bg-teal hover:text-[#3c3c3c] transition-all duration-300 font-poppins font-medium text-center px-6 py-2 rounded-full text-base">
+                    Contact Us
+                  </Button>
+                </Link>
+              </div>
+              <div className="flex justify-center mt-4">
+                <div className="text-teal font-poppins font-medium">FlingPing.co</div>
+              </div>
             </div>
           </div>
         </div>
