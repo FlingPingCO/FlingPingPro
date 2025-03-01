@@ -65,9 +65,9 @@ const SignupForm = () => {
   return (
     <>
       <div className="flex flex-col h-full">
-        <div className="text-center mb-6">
-          <h4 className="text-teal text-2xl font-bold mb-2">Spots Are Limited!</h4>
-          <div className="text-yellow text-lg font-medium">Only <span>250</span> Founding Flinger spots left</div>
+        <div className="text-center mb-4 sm:mb-6">
+          <h4 className="text-teal text-xl sm:text-2xl font-bold mb-1 sm:mb-2">Spots Are Limited!</h4>
+          <div className="text-yellow text-base sm:text-lg font-medium">Only <span>250</span> Founding Flinger spots left</div>
         </div>
         
         <Form {...form}>
@@ -77,11 +77,11 @@ const SignupForm = () => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-lg">Your Name</FormLabel>
+                  <FormLabel className="text-base sm:text-lg">Your Name</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      className="w-full px-4 py-3 rounded-lg bg-dark border-2 border-coral text-sand focus:outline-none focus:ring-2 focus:ring-teal"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-dark border-2 border-coral text-sand focus:outline-none focus:ring-2 focus:ring-teal text-sm sm:text-base"
                       placeholder="Enter your full name"
                     />
                   </FormControl>
@@ -95,12 +95,12 @@ const SignupForm = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-lg">Your Email</FormLabel>
+                  <FormLabel className="text-base sm:text-lg">Your Email</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       type="email"
-                      className="w-full px-4 py-3 rounded-lg bg-dark border-2 border-coral text-sand focus:outline-none focus:ring-2 focus:ring-teal"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-dark border-2 border-coral text-sand focus:outline-none focus:ring-2 focus:ring-teal text-sm sm:text-base"
                       placeholder="your.email@example.com"
                     />
                   </FormControl>
@@ -111,21 +111,21 @@ const SignupForm = () => {
             
             <Button 
               type="submit" 
-              className="w-full mt-6 bg-coral hover:bg-coral/90 text-background font-poppins font-medium text-center px-6 py-3 rounded-full text-lg shadow-lg border-2 border-coral transition-colors duration-300"
+              className="w-full mt-4 sm:mt-6 bg-coral hover:bg-coral/90 text-background font-poppins font-medium text-center px-4 sm:px-6 py-2 sm:py-3 rounded-full text-base sm:text-lg shadow-lg border-2 border-coral transition-colors duration-300"
             >
               Secure My Spot for $99
             </Button>
             
-            <div className="text-center text-sm mt-4">
-              <p className="mb-2">Secure payment powered by Stripe</p>
-              <div className="flex justify-center space-x-2">
-                <svg className="h-6" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="visa-label">
+            <div className="text-center text-xs sm:text-sm mt-3 sm:mt-4">
+              <p className="mb-1 sm:mb-2">Secure payment powered by Stripe</p>
+              <div className="flex justify-center space-x-1 sm:space-x-2">
+                <svg className="h-4 sm:h-6" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="visa-label">
                   <title id="visa-label">Visa</title>
                   <path d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z" fill="#000" opacity=".07"/>
                   <path d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32" fill="#fff"/>
                   <path d="M28.3 10.1H28c-.4 1-.7 1.5-1 3h1.9c-.3-1.5-.3-2.2-.6-3zm2.9 5.9h-1.7c-.1 0-.1 0-.2-.1l-.2-.9-.1-.2h-2.4c-.1 0-.2 0-.2.2l-.3.9c0 .1-.1.1-.1.1h-2.1l.2-.5L27 8.7c0-.5.3-.7.8-.7h1.5c.1 0 .2 0 .2.2l1.4 6.5c.1.4.2.7.2 1.1.1.1.1.1.1.2zm-13.4-.3l.4-1.8c.1 0 .2.1.2.1.7.3 1.4.5 2.1.4.2 0 .5-.1.7-.2.5-.2.5-.7.1-1.1-.2-.2-.5-.3-.8-.5-.4-.2-.8-.4-1.1-.7-1.2-1-.8-2.4-.1-3.1.6-.4.9-.8 1.7-.8 1.2 0 2.5 0 3.1.2h.1c-.1.6-.2 1.1-.4 1.7-.5-.2-1-.4-1.5-.4-.3 0-.6 0-.9.1-.2 0-.3.1-.4.2-.2.2-.2.5 0 .7l.5.4c.4.2.8.4 1.1.6.5.3 1 .8 1.1 1.4.2.9-.1 1.7-.9 2.3-.5.4-.7.6-1.4.6-1.4 0-2.5.1-3.4-.2-.1.2-.1.2-.2.1zm-3.5.3c.1-.7.1-.7.2-1 .5-2.2 1-4.5 1.4-6.7.1-.2.1-.3.3-.3H18c-.2 1.2-.4 2.1-.7 3.2-.3 1.5-.6 3-1 4.5 0 .2-.1.2-.3.2M5 8.2c0-.1.2-.2.3-.2h3.4c.5 0 .9.3 1 .8l.9 4.4c0 .1 0 .1.1.2 0-.1.1-.1.1-.1l2.1-5.1c-.1-.1 0-.2.1-.2h2.1c0 .1 0 .1-.1.2l-3.1 7.3c-.1.2-.1.3-.2.4-.1.1-.3 0-.5 0H9.7c-.1 0-.2 0-.2-.2L7.9 9.5c-.2-.2-.5-.5-.9-.6-.6-.3-1.7-.5-1.9-.5L5 8.2z" fill="#142688"/>
                 </svg>
-                <svg className="h-6" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="mastercard-label">
+                <svg className="h-4 sm:h-6" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="mastercard-label">
                   <title id="mastercard-label">Mastercard</title>
                   <path d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z" fill="#000" opacity=".07"/>
                   <path d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32" fill="#fff"/>
@@ -133,7 +133,7 @@ const SignupForm = () => {
                   <circle fill="#F79E1B" cx="23" cy="12" r="7"/>
                   <path d="M22 12c0-2.4-1.2-4.5-3-5.7-1.8 1.3-3 3.4-3 5.7s1.2 4.5 3 5.7c1.8-1.2 3-3.3 3-5.7z" fill="#FF5F00"/>
                 </svg>
-                <svg className="h-6" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="amex-label">
+                <svg className="h-4 sm:h-6" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="amex-label">
                   <title id="amex-label">American Express</title>
                   <path d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z" fill="#000" opacity=".07"/>
                   <path d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32" fill="#006FCF"/>
