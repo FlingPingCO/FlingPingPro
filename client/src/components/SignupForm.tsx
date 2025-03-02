@@ -68,6 +68,7 @@ const SignupForm = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": "Bearer nodejs20.x" // Added Bearer token authentication as shown in your example
         },
         body: JSON.stringify(formData),
       })
