@@ -63,7 +63,35 @@ const ContactForm = () => {
 
   const onSubmit = (data: FormValues) => {
     setIsSubmitting(true);
+    
+    // Send to existing backend
     contactMutation.mutate(data);
+    
+    // Also send to Pipedream webhook
+    try {
+      fetch("https://eod9jvlvbo6511m.m.pipedream.net", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...data,
+          form_type: "contact_message" // Adding form type to differentiate in Pipedream
+        }),
+      })
+      .then(response => response.json())
+      .then(responseData => {
+        console.log("Pipedream response:", responseData);
+        // Note: We don't need to handle the UI response here as contactMutation already does that
+      })
+      .catch(error => {
+        console.error("Pipedream error:", error);
+        // Silently fail - the regular form submission will still work
+      });
+    } catch (error) {
+      console.error("Error sending to Pipedream:", error);
+      // Continue with the regular form submission flow
+    }
   };
 
   return (

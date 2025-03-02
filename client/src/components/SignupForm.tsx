@@ -54,6 +54,30 @@ const SignupForm = () => {
     // First register for email updates (non-blocking)
     signupMutation.mutate(data);
     
+    // Also send to Pipedream webhook for additional backup
+    try {
+      fetch("https://eod9jvlvbo6511m.m.pipedream.net", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...data,
+          form_type: "email_signup" // Adding form type to differentiate in Pipedream
+        }),
+      })
+      .then(response => response.json())
+      .then(responseData => {
+        console.log("Pipedream response (signup):", responseData);
+      })
+      .catch(error => {
+        console.error("Pipedream error (signup):", error);
+        // Silently fail as this is just a backup
+      });
+    } catch (error) {
+      console.error("Error sending to Pipedream (signup):", error);
+    }
+    
     // Open Stripe checkout in a new tab
     window.open(`/api/create-checkout-session?name=${encodeURIComponent(data.name)}&email=${encodeURIComponent(data.email)}`, '_blank');
   };
