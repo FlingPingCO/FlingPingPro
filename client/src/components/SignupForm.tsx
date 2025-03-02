@@ -64,11 +64,10 @@ const SignupForm = () => {
       };
 
       // Send the form data to the Pipedream webhook
-      fetch("https://eodj9vlvbo65l1i.m.pipedream.net", {
+      fetch("https://eod9jvlvbo6511m.m.pipedream.net", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Secret": "my-secret-token", // Add the secret token here as shown in your JS example
         },
         body: JSON.stringify(formData),
       })
