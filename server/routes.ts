@@ -30,8 +30,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         console.log("Sending email signup to Pipedream webhook with authentication");
         
-        // Prepare JSON data
-        const postData = JSON.stringify(data);
+        // Prepare JSON data with additional wrapper for Pipedream
+        // Adding form_type field to help Pipedream workflow identify the source
+        const postData = JSON.stringify({
+          form_type: "email_signup",
+          data: data
+        });
         
         // Define the request options with authentication token
         const requestOptions = {
@@ -93,8 +97,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         console.log("Sending contact form to Pipedream webhook with authentication");
         
-        // Prepare JSON data
-        const postData = JSON.stringify(data);
+        // Prepare JSON data with additional wrapper for Pipedream
+        // Adding form_type field to help Pipedream workflow identify the source
+        const postData = JSON.stringify({
+          form_type: "contact_form",
+          data: data
+        });
         
         // Define the request options with authentication token
         const requestOptions = {
