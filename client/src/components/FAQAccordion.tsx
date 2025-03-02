@@ -28,16 +28,16 @@ const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqItems }) => {
     
     if (answer.includes('Ping Pin (PP)')) {
       return (
-        <>
+        <div className="text-left">
           Your Ping Pin (<span className="text-coral">PP</span>) uses end-to-end encryption to create anonymous connections between users. We never store names, phone numbers, or personal details—just randomized IDs that allow for anonymous notifications if necessary.
-        </>
+        </div>
       );
     }
     
     // For answers containing FlingPing.co (marked with span tags)
     if (answer.includes('className="inline-flex"')) {
       return (
-        <div dangerouslySetInnerHTML={{ __html: answer
+        <div className="text-left" dangerouslySetInnerHTML={{ __html: answer
           .replace(/className=/g, 'class=')
           .replace(/text-teal/g, 'text-primary')
           .replace(/text-coral/g, 'text-secondary')
@@ -57,7 +57,7 @@ const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqItems }) => {
     }
     
     // For regular text answers
-    return answer;
+    return <div className="text-left">{answer}</div>;
   };
 
   return (
@@ -70,7 +70,7 @@ const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqItems }) => {
               <AccordionTrigger className="text-2xl font-medium py-4 text-teal hover:text-coral">
                 {item.question}
               </AccordionTrigger>
-              <AccordionContent className="text-sand px-4 pb-4 text-lg">
+              <AccordionContent className="text-sand px-4 pb-4 text-lg text-left">
                 {renderAnswerContent(item.answer, isRefundQuestion)}
               </AccordionContent>
             </AccordionItem>
