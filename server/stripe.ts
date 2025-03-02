@@ -22,7 +22,7 @@ export class StripeService {
   async createCheckoutSession(options: CreateSessionOptions): Promise<StripeSession> {
     try {
       const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
+        payment_method_types: ['card', 'paypal'],
         customer_email: options.customerEmail,
         line_items: [
           {
@@ -31,6 +31,7 @@ export class StripeService {
               product_data: {
                 name: 'Founding Flinger Lifetime Membership',
                 description: 'Lifetime access to FlingPing.co as a Founding Flinger',
+                images: ['https://www.flingping.co/assets/favicon.png']
               },
               unit_amount: FOUNDING_FLINGER_PRICE,
             },
