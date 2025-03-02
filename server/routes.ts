@@ -33,7 +33,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
         
         // We've confirmed the webhook requires authentication that we don't currently have
         // For now, we'll focus on ensuring the primary storage works correctly
-        // This can be replaced with authenticated Pipedream code once credentials are available
+        // The code below is commented out but can be re-enabled once we have proper authentication
+        
+        /*
+        // Example code for when we have proper authentication:
+        fetch('https://eodj9vlvbo65l1i.m.pipedream.net', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${process.env.PIPEDREAM_SECURITY_TOKEN}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(responseData => {
+          console.log('Pipedream Webhook Response:', responseData);
+        })
+        .catch(error => {
+          console.error('Error sending data to Pipedream:', error);
+        });
+        */
         
       } catch (webhookError) {
         console.error("Error in webhook handling:", webhookError);
