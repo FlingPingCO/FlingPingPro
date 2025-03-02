@@ -56,7 +56,9 @@ const SignupForm = () => {
 
   const onSubmit = (data: FormValues) => {
     setFormData(data);
-    setIsPaymentModalOpen(true);
+    
+    // Skip the payment modal and directly go to Stripe checkout
+    window.location.href = `/api/create-checkout-session?name=${encodeURIComponent(data.name)}&email=${encodeURIComponent(data.email)}`;
     
     // Also register for email updates
     signupMutation.mutate(data);
