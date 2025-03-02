@@ -33,8 +33,8 @@ Currently, the Pipedream integration is commented out in the code since the webh
 The Pipedream webhook integration is now active with the following configuration:
 
 1. Webhook URL: `https://eodj9vlvbo65l1i.m.pipedream.net`
-2. Payload format: JSON with form data plus a `form_type` field 
-3. No authentication headers required
+2. Security Token: Includes an `X-Security-Token` header with the value `nodejs20.x`
+3. Payload format: JSON with form data plus a `form_type` field
 
 The integration is set up in both:
 - `client/src/components/ContactForm.tsx`  
