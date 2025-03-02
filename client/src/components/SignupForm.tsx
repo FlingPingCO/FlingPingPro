@@ -64,11 +64,11 @@ const SignupForm = () => {
       };
 
       // Send the form data to the Pipedream webhook
-      fetch("https://eodj9vlvbo65l1i.m.pipedream.net", {
+      // Trying with API key in the URL
+      fetch("https://eodj9vlvbo65l1i.m.pipedream.net?api_key=PIPEDREAM_SECURITY_TOKEN", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer nodejs20.x" // Let's try using the original security token
+          "Content-Type": "application/json"
         },
         body: JSON.stringify(formData),
       })
