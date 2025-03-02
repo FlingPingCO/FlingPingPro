@@ -63,3 +63,33 @@ Once your Pipedream webhook is properly deployed:
 ## Customizing the Pipedream Integration
 
 You can modify the data structure sent to Pipedream by editing the `body: JSON.stringify({...})` sections in each form component. This allows you to add additional metadata or transform the data before it's sent to Pipedream.
+
+## Personalized Response Messages
+
+The integration now expects a specific response format from Pipedream:
+
+```json
+{
+  "status": "success",
+  "message": "Thank you, [name]! FlingPing.co is happy to have you join the fight for herd awareness. We'll be in touch soon."
+}
+```
+
+The code is set up to display this message as a toast notification to provide a personalized experience to users. In your Pipedream workflow, you should:
+
+1. Format the response with the user's name using string interpolation
+2. Return this JSON structure as the HTTP response from your Pipedream workflow
+3. Ensure the message includes proper branding ("FlingPing.co" with the correct capitalization)
+
+Example Pipedream code to format the response:
+
+```javascript
+// In your Pipedream workflow response step
+const name = steps.trigger.event.body.name || "there";
+return {
+  status: "success",
+  message: `Thank you, ${name}! FlingPing.co is happy to have you join the fight for herd awareness. We'll be in touch soon.`
+};
+```
+
+This personalized touch enhances user experience while maintaining brand consistency.

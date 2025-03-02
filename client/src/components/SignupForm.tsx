@@ -73,6 +73,15 @@ const SignupForm = () => {
       .then(response => response.json())
       .then(responseData => {
         console.log("Pipedream response (signup):", responseData);
+        
+        // Show personalized toast message from Pipedream if available
+        if (responseData.status === "success" && responseData.message) {
+          toast({
+            title: "From FlingPing.co",
+            description: responseData.message,
+            // This will override the default toast from the main API
+          });
+        }
       })
       .catch(error => {
         console.error("Pipedream error (signup):", error);
@@ -82,6 +91,12 @@ const SignupForm = () => {
       console.error("Error sending to Pipedream (signup):", error);
     }
     */
+    
+    // Pipedream will return a personalized message like:
+    // {
+    //   "status": "success",
+    //   "message": `Thank you, ${name}! FlingPing.co is happy to have you join the fight for herd awareness. We'll be in touch soon.`
+    // }
     
     // For now, we're just logging that we would send to Pipedream
     console.log("Pipedream integration ready to be enabled once webhook is deployed", {
