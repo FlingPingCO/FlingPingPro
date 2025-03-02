@@ -13,7 +13,7 @@ FlingPing.co is set up to collect and store form data in two ways:
 
 The website code currently attempts to send form submissions to:
 - The built-in backend API endpoints (working)
-- A Pipedream webhook URL at `https://eodj9vlvbo65l1i.m.pipedream.net` (returning 401 Unauthorized)
+- A Pipedream webhook URL at `https://eod9jvlvbo6511m.m.pipedream.net` (updated from incorrect URL)
 
 We have attempted multiple authentication methods with the Pipedream webhook:
 1. ✅ No authentication headers (401 error)
@@ -46,7 +46,7 @@ The good news is that the primary storage through the backend API is working cor
 
 To successfully integrate with Pipedream, we need to:
 
-1. **Verify webhook URL**: Confirm that `https://eodj9vlvbo65l1i.m.pipedream.net` is the correct webhook URL
+1. **Verify webhook URL**: The correct webhook URL is `https://eod9jvlvbo6511m.m.pipedream.net`
 2. **Get correct authentication details**: Determine what authentication method Pipedream expects (bearer token, API key, etc.)
 3. **Configure Pipedream webhook**: Ensure the webhook is properly set up to accept form submissions
 4. **Update the code**: Once we have the correct details, update the fetch requests in both form components
