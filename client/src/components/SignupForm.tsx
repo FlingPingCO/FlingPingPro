@@ -68,7 +68,7 @@ const SignupForm = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer PIPEDREAM_SECURITY_TOKEN" // Using the exact security token you provided
+          "Authorization": "Bearer nodejs20.x" // Let's try using the original security token
         },
         body: JSON.stringify(formData),
       })
