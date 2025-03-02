@@ -60,7 +60,7 @@ const HowItWorks = () => {
               </div>
               <div className="md:w-1/2 md:pl-12 mt-6 md:mt-0">
                 <img 
-                  src="/attached_assets/thought-bubbles.png" 
+                  src="/attached_assets/THought_Bubbles-noBG.png" 
                   alt="Thought bubbles" 
                   className="rounded-xl w-full max-w-sm mx-auto"
                 />
