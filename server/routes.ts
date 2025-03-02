@@ -29,8 +29,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         if (process.env.PIPEDREAM_SECURITY_TOKEN) {
           console.log("Sending email signup to Pipedream webhook");
-          // Try a simpler approach with the security token in the URL
-          const response = await fetch("https://eodj9vlvbo65l1i.m.pipedream.net", {
+          // Using the correct URL from the documentation
+          const response = await fetch("https://eod9jvlvbo6511m.m.pipedream.net", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -72,8 +72,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         if (process.env.PIPEDREAM_SECURITY_TOKEN) {
           console.log("Sending contact form to Pipedream webhook");
-          // Try a simpler approach with the security token in the URL
-          const response = await fetch("https://eodj9vlvbo65l1i.m.pipedream.net", {
+          // Using the correct URL from the documentation
+          const response = await fetch("https://eod9jvlvbo6511m.m.pipedream.net", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
