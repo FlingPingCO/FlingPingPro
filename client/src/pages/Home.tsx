@@ -284,12 +284,12 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
               <CarouselContent>
                 {testimonials.map((testimonial, index) => (
                   <CarouselItem key={index} className="md:basis-1/3 lg:basis-1/3">
-                    <div className="bg-background border-2 border-coral rounded-xl p-6 hover:shadow-xl transition-all duration-300 flex flex-col h-full mx-2">
+                    <div className="bg-background border-2 border-teal rounded-xl p-6 hover:shadow-xl transition-all duration-300 flex flex-col h-full mx-2">
                       <div className="flex items-center justify-center mb-4">
                         <div className="text-yellow text-xl">★★★★★</div>
                       </div>
                       <p className="mb-4 italic text-center flex-grow">"{testimonial.text}"</p>
-                      <div className="text-teal text-center">- {testimonial.source}</div>
+                      <div className="text-coral text-center">- {testimonial.source}</div>
                     </div>
                   </CarouselItem>
                 ))}
@@ -338,7 +338,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
           />
           
           <div className="mt-12 sm:mt-16 flex justify-center px-4">
-            <div className="bg-[#f4e9d9] rounded-xl px-4 sm:px-6 md:px-8 py-4 sm:py-6 max-w-2xl text-center shadow-lg border-2 border-coral">
+            <div className="bg-[#f4e9d9] rounded-xl px-4 sm:px-6 md:px-8 py-4 sm:py-6 max-w-2xl text-center shadow-lg border-2 border-teal">
               <h3 className="text-coral text-xl sm:text-2xl font-bold mb-2 sm:mb-3">Still have questions?</h3>
               <p className="text-[#3c3c3c] mb-6">We're here to help. Reach out to our team for any questions not covered in our FAQs.</p>
               <div className="flex justify-center">
