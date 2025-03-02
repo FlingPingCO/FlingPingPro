@@ -24,6 +24,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       const signup = await storage.createEmailSignup(data);
+      
+      // Also send to Pipedream if environment variable is present
+      try {
+        if (process.env.PIPEDREAM_SECURITY_TOKEN) {
+          console.log("Sending email signup to Pipedream webhook");
+          const response = await fetch("https://eodj9vlvbo65l1i.m.pipedream.net", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${process.env.PIPEDREAM_SECURITY_TOKEN}`
+            },
+            body: JSON.stringify({
+              source: "email-signup",
+              ...data
+            })
+          });
+          console.log(`Pipedream webhook response status: ${response.status}`);
+        }
+      } catch (webhookError) {
+        console.error("Error sending to Pipedream webhook:", webhookError);
+        // Non-blocking error - continue with success response
+      }
+      
       return res.status(201).json({ message: "Email registration successful", data: signup });
     } catch (error) {
       if (error instanceof ZodError) {
@@ -38,6 +61,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const data = insertContactMessageSchema.parse(req.body);
       const message = await storage.createContactMessage(data);
+      
+      // Also send to Pipedream if environment variable is present
+      try {
+        if (process.env.PIPEDREAM_SECURITY_TOKEN) {
+          console.log("Sending contact form to Pipedream webhook");
+          const response = await fetch("https://eodj9vlvbo65l1i.m.pipedream.net", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${process.env.PIPEDREAM_SECURITY_TOKEN}`
+            },
+            body: JSON.stringify({
+              source: "contact-form",
+              ...data
+            })
+          });
+          console.log(`Pipedream webhook response status: ${response.status}`);
+        }
+      } catch (webhookError) {
+        console.error("Error sending to Pipedream webhook:", webhookError);
+        // Non-blocking error - continue with success response
+      }
+      
       return res.status(201).json({ message: "Message sent successfully", data: message });
     } catch (error) {
       if (error instanceof ZodError) {

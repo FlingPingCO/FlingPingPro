@@ -52,71 +52,19 @@ const SignupForm = () => {
 
   const onSubmit = (data: FormValues) => {
     // First register for email updates (non-blocking)
+    // This endpoint now handles the Pipedream integration on the server side
     signupMutation.mutate(data);
     
-    // Pipedream webhook integration - ENABLED with actual webhook URL
-    
-    try {
-      // Using the exact format from the provided JavaScript example
-      const formData = {
-        name: data.name,
-        email: data.email,
-      };
-
-      // Send the form data to the Pipedream webhook
-      // Let's try a different approach
-      fetch("https://eodj9vlvbo65l1i.m.pipedream.net", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer PIPEDREAM_SECURITY_TOKEN" // Using Bearer token authentication
-        },
-        body: JSON.stringify(formData),
-      })
-      .then(response => {
-        console.log("Pipedream raw response (signup):", response);
-        
-        // Instead of waiting for the Pipedream response, show our own personalized message
-        setTimeout(() => {
-          toast({
-            description: `Thank you, ${data.name}! FlingPing.co is happy to have you join the fight for herd awareness. We'll be in touch soon.`,
-            duration: 6000, // Show the toast for a bit longer
-          });
-        }, 1500); // Small delay so it appears after the initial toast
-        
-        // Still try to get the response body if possible
-        return response.text().catch(e => {
-          console.log("Could not parse response text (signup):", e);
-          return null;
-        });
-      })
-      .then(responseText => {
-        if (responseText) {
-          console.log("Pipedream response text (signup):", responseText);
-          try {
-            const responseData = JSON.parse(responseText);
-            console.log("Pipedream parsed JSON (signup):", responseData);
-          } catch (e) {
-            console.log("Could not parse JSON from response text (signup)");
-          }
-        }
-      })
-      .catch(error => {
-        console.error("Pipedream error (signup):", error);
-        // Silently fail as this is just a backup
+    // Add personalized message with delay
+    setTimeout(() => {
+      toast({
+        description: `Thank you, ${data.name}! FlingPing.co is happy to have you join the fight for herd awareness. We'll be in touch soon.`,
+        duration: 6000, // Show the toast for a bit longer
       });
-    } catch (error) {
-      console.error("Error sending to Pipedream (signup):", error);
-    }
+    }, 1500); // Small delay so it appears after the initial toast
     
-    // Pipedream returns a personalized message like:
-    // {
-    //   "status": "success", 
-    //   "message": `Thank you, ${name}! FlingPing.co is happy to have you join the fight for herd awareness. We'll be in touch soon.`
-    // }
-    
-    // Log that we are sending to Pipedream
-    console.log("Sending data to Pipedream webhook", {
+    // Log submission for debugging
+    console.log("Form submitted:", {
       name: data.name,
       email: data.email
     });

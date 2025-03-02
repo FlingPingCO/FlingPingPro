@@ -64,76 +64,19 @@ const ContactForm = () => {
   const onSubmit = (data: FormValues) => {
     setIsSubmitting(true);
     
-    // Send to existing backend
+    // Send to backend (which now handles Pipedream integration)
     contactMutation.mutate(data);
     
-    // Pipedream webhook integration - ENABLED with actual webhook URL
-    
-    try {
-      // Using the exact format from the provided JavaScript example
-      const formData = {
-        name: data.name,
-        email: data.email,
-        message: data.message,
-      };
-
-      // Display a "Submitting..." message is handled by the form state
-
-      // Send the form data to the Pipedream webhook
-      // Let's try a different approach
-      fetch("https://eodj9vlvbo65l1i.m.pipedream.net", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer PIPEDREAM_SECURITY_TOKEN" // Using Bearer token authentication
-        },
-        body: JSON.stringify(formData),
-      })
-      .then(response => {
-        console.log("Pipedream raw response:", response);
-        
-        // Instead of waiting for the Pipedream response, show our own personalized message
-        setTimeout(() => {
-          toast({
-            description: `Thank you, ${data.name}! FlingPing.co is happy to have you join the fight for herd awareness. We'll be in touch soon.`,
-            duration: 6000, // Show the toast for a bit longer
-          });
-        }, 1500); // Small delay so it appears after the initial toast
-        
-        // Still try to get the response body if possible
-        return response.text().catch(e => {
-          console.log("Could not parse response text:", e);
-          return null;
-        });
-      })
-      .then(responseText => {
-        if (responseText) {
-          console.log("Pipedream response text:", responseText);
-          try {
-            const responseData = JSON.parse(responseText);
-            console.log("Pipedream parsed JSON:", responseData);
-          } catch (e) {
-            console.log("Could not parse JSON from response text");
-          }
-        }
-      })
-      .catch(error => {
-        console.error("Pipedream error:", error);
-        // Silently fail - the regular form submission will still work
+    // Add personalized message with delay
+    setTimeout(() => {
+      toast({
+        description: `Thank you, ${data.name}! FlingPing.co is happy to have you join the fight for herd awareness. We'll be in touch soon.`,
+        duration: 6000, // Show the toast for a bit longer
       });
-    } catch (error) {
-      console.error("Error sending to Pipedream:", error);
-      // Continue with the regular form submission flow
-    }
+    }, 1500); // Small delay so it appears after the initial toast
     
-    // Pipedream returns a personalized message like:
-    // {
-    //   "status": "success",
-    //   "message": `Thank you, ${name}! FlingPing.co is happy to have you join the fight for herd awareness. We'll be in touch soon.`
-    // }
-    
-    // Log that we are sending to Pipedream
-    console.log("Sending data to Pipedream webhook", {
+    // Log submission for debugging
+    console.log("Form submitted:", {
       name: data.name,
       email: data.email,
       message: data.message
