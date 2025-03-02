@@ -62,11 +62,11 @@ const SignupForm = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Security-Token": "nodejs20.x", // Added the security token as shown in the Pipedream workflow
         },
         body: JSON.stringify({
           ...data,
-          form_type: "email_signup" // Adding form type to differentiate in Pipedream
+          form_type: "email_signup", // Adding form type to differentiate in Pipedream
+          Security_Token: "nodejs20.x" // Adding security token as part of the payload
         }),
       })
       .then(response => {
@@ -114,7 +114,8 @@ const SignupForm = () => {
     // Log that we are sending to Pipedream
     console.log("Sending data to Pipedream webhook", {
       ...data,
-      form_type: "email_signup"
+      form_type: "email_signup",
+      Security_Token: "nodejs20.x"
     });
     
     // Open Stripe checkout in a new tab
