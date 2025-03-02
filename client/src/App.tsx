@@ -17,16 +17,36 @@ import PaymentCancelled from "@/pages/PaymentCancelled";
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/about" component={About} />
-      <Route path="/how-it-works" component={HowItWorks} />
-      <Route path="/investors" component={Investors} />
-      <Route path="/contact" component={Contact} />
-      <Route path="/faqs" component={FAQs} />
-      <Route path="/legal" component={Legal} />
-      <Route path="/payment-success" component={PaymentSuccess} />
-      <Route path="/payment-cancelled" component={PaymentCancelled} />
-      <Route component={NotFound} />
+      <Route path="/">
+        {() => <Home />}
+      </Route>
+      <Route path="/about">
+        {() => <About />}
+      </Route>
+      <Route path="/how-it-works">
+        {() => <HowItWorks />}
+      </Route>
+      <Route path="/investors">
+        {() => <Investors />}
+      </Route>
+      <Route path="/contact">
+        {() => <Contact />}
+      </Route>
+      <Route path="/faqs">
+        {() => <FAQs />}
+      </Route>
+      <Route path="/legal">
+        {() => <Legal />}
+      </Route>
+      <Route path="/payment-success">
+        {() => <PaymentSuccess />}
+      </Route>
+      <Route path="/payment-cancelled">
+        {() => <PaymentCancelled />}
+      </Route>
+      <Route>
+        {() => <NotFound />}
+      </Route>
     </Switch>
   );
 }
