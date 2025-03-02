@@ -66,7 +66,7 @@ const FAQs = () => {
     },
     {
       question: "Can I request a refund for my Founding Flinger membership?",
-      answer: "<div style='text-align: left;'>Due to the limited nature of Founding Flinger spots and the lifetime access they provide, memberships are non-refundable. Please see our Terms of Service for complete details.</div>"
+      answer: "Due to the limited nature of Founding Flinger spots and the lifetime access they provide, memberships are non-refundable. Please see our Terms of Service for complete details."
     },
     {
       question: "How do I contact support?",

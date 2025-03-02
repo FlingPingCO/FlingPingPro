@@ -93,7 +93,7 @@ const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqItems }) => {
           const isRefundQuestion = item.question.toLowerCase().includes("refund");
           return (
             <AccordionItem key={index} value={`item-${index}`} className="border-b border-teal">
-              <AccordionTrigger className="text-2xl font-medium py-4 text-teal hover:text-coral">
+              <AccordionTrigger className="text-2xl font-medium py-4 text-teal hover:text-coral text-left">
                 {item.question}
               </AccordionTrigger>
               <AccordionContent className="px-4 pb-6 text-lg text-left faq-content" style={{ color: '#F4E9D9' }}>
