@@ -8,7 +8,7 @@ const Investors = () => {
         
         <div className="max-w-3xl mx-auto mb-16">
           <p className="text-lg text-center mb-6 text-white">
-            STDs cost the U.S. healthcare system <span className="text-yellow font-bold">$16 billion annually</span>, and that number is rising. <span className="text-teal">FlingPing</span><span className="text-coral">.co</span> is stepping in with a <span className="text-blue">first-to-market</span>, anonymous notification system that protects users while reshaping how we handle sexual health.
+            STDs cost the U.S. healthcare system <span className="text-yellow font-bold">$16 billion annually</span>, and that number is rising. <span className="inline-flex"><span className="text-teal">FlingPing</span><span className="text-coral">.co</span></span> is stepping in with a <span className="text-blue">first-to-market</span>, anonymous notification system that protects users while reshaping how we handle sexual health.
           </p>
           
           <p className="text-lg text-center mb-6 text-white">
@@ -59,7 +59,7 @@ const Investors = () => {
             onClick={() => window.location.href = "mailto:investments@flingping.co"}
             className="font-poppins font-medium text-center px-8 py-3 rounded-full text-lg mt-4 mb-4 hover:bg-yellow hover:text-dark hover:border-yellow transition-all bg-transparent border-2 border-coral text-coral"
           >
-            Claim Your Stake in <span className="text-teal">FlingPing</span><span className="text-coral">.co</span>
+            Claim Your Stake in <span className="inline-flex"><span className="text-teal">FlingPing</span><span className="text-coral">.co</span></span>
           </Button>
           
           <p className="mt-4 text-lg">
