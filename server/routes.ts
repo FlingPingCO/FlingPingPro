@@ -29,18 +29,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         if (process.env.PIPEDREAM_SECURITY_TOKEN) {
           console.log("Sending email signup to Pipedream webhook");
-          // Using the correct URL from the documentation
-          const response = await fetch("https://eod9jvlvbo6511m.m.pipedream.net", {
+          
+          // Exactly matching the provided example code
+          const headers = new Headers();
+          headers.append("Content-Type", "application/json");
+          
+          const options = {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              source: "email-signup",
-              ...data,
-              security_token: process.env.PIPEDREAM_SECURITY_TOKEN
-            })
-          });
+            headers,
+            mode: "cors" as RequestMode,
+            body: JSON.stringify(data)
+          };
+          
+          const response = await fetch("https://eodj9vlvbo65l1i.m.pipedream.net", options);
+          
           console.log(`Pipedream webhook response status: ${response.status}`);
           // Log more details for troubleshooting
           if (response.status !== 200) {
@@ -72,18 +74,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         if (process.env.PIPEDREAM_SECURITY_TOKEN) {
           console.log("Sending contact form to Pipedream webhook");
-          // Using the correct URL from the documentation
-          const response = await fetch("https://eod9jvlvbo6511m.m.pipedream.net", {
+          
+          // Exactly matching the provided example code
+          const headers = new Headers();
+          headers.append("Content-Type", "application/json");
+          
+          const options = {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              source: "contact-form",
-              ...data,
-              security_token: process.env.PIPEDREAM_SECURITY_TOKEN
-            })
-          });
+            headers,
+            mode: "cors" as RequestMode,
+            body: JSON.stringify(data)
+          };
+          
+          const response = await fetch("https://eodj9vlvbo65l1i.m.pipedream.net", options);
+          
           console.log(`Pipedream webhook response status: ${response.status}`);
           // Log more details for troubleshooting
           if (response.status !== 200) {
