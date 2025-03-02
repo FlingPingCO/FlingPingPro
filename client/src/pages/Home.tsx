@@ -140,7 +140,9 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
               
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                 <Link href="#founding-flinger">
-                  <Button variant="outline" className="border-2 border-coral text-coral hover:bg-coral hover:text-[#3c3c3c] transition-all duration-300 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto shadow-md">
+                  <Button variant="outline" className="border-2 border-coral text-coral hover:bg-coral hover:text-[#3c3c3c] transition-all duration-300 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto shadow-md" onClick={() => {
+                    document.getElementById('founding-flinger')?.scrollIntoView({behavior: 'smooth'});
+                  }}>
                     Become a Founding Flinger
                   </Button>
                 </Link>
