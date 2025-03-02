@@ -30,11 +30,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         console.log("Sending email signup to Pipedream webhook with authentication");
         
-        // Prepare JSON data with additional wrapper for Pipedream
-        // Adding form_type field to help Pipedream workflow identify the source
+        // Prepare JSON data - sending direct key-value pairs as expected by Pipedream
+        // No nested objects, just plain values with keys matching Google Sheets column names
         const postData = JSON.stringify({
           form_type: "email_signup",
-          data: data
+          name: data.name,
+          email: data.email,
+          timestamp: new Date().toISOString()
         });
         
         // Define the request options with authentication token
@@ -97,11 +99,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         console.log("Sending contact form to Pipedream webhook with authentication");
         
-        // Prepare JSON data with additional wrapper for Pipedream
-        // Adding form_type field to help Pipedream workflow identify the source
+        // Prepare JSON data - sending direct key-value pairs as expected by Pipedream
+        // No nested objects, just plain values with keys matching Google Sheets column names
         const postData = JSON.stringify({
           form_type: "contact_form",
-          data: data
+          name: data.name, 
+          email: data.email,
+          message: data.message,
+          timestamp: new Date().toISOString()
         });
         
         // Define the request options with authentication token
