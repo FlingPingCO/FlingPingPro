@@ -80,11 +80,12 @@ const ContactForm = () => {
       // Display a "Submitting..." message is handled by the form state
 
       // Send the form data to the Pipedream webhook
+      // Let's try a different approach
       fetch("https://eodj9vlvbo65l1i.m.pipedream.net", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer nodejs20.x" // Let's try using the original security token
+          "X-PD-Token": "PIPEDREAM_SECURITY_TOKEN"  // Added Pipedream token as X-PD-Token
         },
         body: JSON.stringify(formData),
       })
