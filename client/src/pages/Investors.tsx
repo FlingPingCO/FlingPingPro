@@ -4,14 +4,14 @@ const Investors = () => {
   return (
     <div className="py-16 bg-dark">
       <div className="container mx-auto px-4">
-        <h1 className="text-4xl md:text-5xl text-center mb-8 text-coral">Be Part of the Next Big Innovation in Digital Sexual Health</h1>
+        <h1 className="text-4xl md:text-5xl text-center mb-8 text-teal">Be Part of the Next Big Innovation in Digital Sexual Health</h1>
         
         <div className="max-w-3xl mx-auto mb-16">
-          <p className="text-lg text-center mb-6">
-            STDs cost the U.S. healthcare system <span className="text-yellow font-bold">$16 billion annually</span>, and that number is rising. <span className="text-coral">FlingPing.co</span> is stepping in with a first-to-market, anonymous notification system that protects users while reshaping how we handle sexual health.
+          <p className="text-lg text-center mb-6 text-white">
+            STDs cost the U.S. healthcare system <span className="text-yellow font-bold">$16 billion annually</span>, and that number is rising. <span className="text-teal">Fling</span><span className="text-coral">Ping</span>.co is stepping in with a <span className="text-blue">first-to-market</span>, anonymous notification system that protects users while reshaping how we handle sexual health.
           </p>
           
-          <p className="text-lg text-center mb-6">
+          <p className="text-lg text-center mb-6 text-white">
             Early investors have the chance to get in on the ground floor of a scalable, high-growth opportunity. We're not just creating an app—we're building a movement.
           </p>
         </div>
@@ -46,7 +46,7 @@ const Investors = () => {
             <li className="flex items-start">
               <span className="text-coral mr-3 text-xl">•</span>
               <span className="text-lg">
-                <span className="text-teal font-bold">Limited early investment spots available</span>
+                <span className="text-coral font-bold">Limited early investment spots available</span>
               </span>
             </li>
           </ul>
@@ -57,9 +57,9 @@ const Investors = () => {
           
           <Button 
             onClick={() => window.location.href = "mailto:investments@flingping.co"}
-            className="btn-primary font-poppins font-medium text-center px-8 py-3 rounded-full text-lg mt-4 mb-4 hover:bg-opacity-90 transition-all bg-teal text-white"
+            className="btn-primary font-poppins font-medium text-center px-8 py-3 rounded-full text-lg mt-4 mb-4 hover:bg-opacity-90 transition-all bg-yellow text-[#3c3c3c]"
           >
-            Claim Your Stake in <span className="text-coral">FlingPing.co</span>
+            <span className="text-[#3c3c3c]">Claim Your Stake in</span> <span className="text-teal">Fling</span><span className="text-coral">Ping</span>.co
           </Button>
           
           <p className="mt-4 text-lg">
