@@ -48,7 +48,7 @@ const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqItems }) => {
             <AccordionTrigger className="text-2xl font-medium py-4 text-teal hover:text-coral">
               {item.question}
             </AccordionTrigger>
-            <AccordionContent className={`text-sand px-4 pb-4 text-lg ${item.question.includes("refund") ? "text-left" : ""}`}>
+            <AccordionContent className={`text-sand px-4 pb-4 text-lg ${item.question.toLowerCase().includes("refund") ? "!text-left" : ""}`} style={item.question.toLowerCase().includes("refund") ? {textAlign: "left"} : {}}>
               {renderAnswerContent(item.answer)}
             </AccordionContent>
           </AccordionItem>
