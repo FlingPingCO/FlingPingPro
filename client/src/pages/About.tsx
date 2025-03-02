@@ -11,7 +11,7 @@ const About = () => {
           <div className="md:w-1/2 md:pr-8 lg:pr-12 order-2 md:order-1">
             <h2 className="text-3xl md:text-4xl mb-6">Our Mission</h2>
             <p className="text-lg mb-4">We're on a mission to revolutionize how people approach sexual health in a digital age. By combining technology with accountability, we're creating a safer, smarter community.</p>
-            <p className="text-lg mb-4"><span className="text-teal">FlingPing<span className="text-coral">.co</span></span> was born from a simple idea: what if we could make responsible sexual health as easy as sending a text? No awkward conversations, no forgotten names, no guesswork—just peace of mind.</p>
+            <p className="text-lg mb-4"><span className="inline-flex"><span className="text-teal">FlingPing</span><span className="text-coral">.co</span></span> was born from a simple idea: what if we could make responsible sexual health as easy as sending a text? No awkward conversations, no forgotten names, no guesswork—just peace of mind.</p>
             <p className="text-lg">It's more than just an app—we're building what we like to call "digital heard awareness," a system where everyone stays one step ahead of STDs, effortlessly and anonymously.</p>
           </div>
           <div className="md:w-1/2 mb-12 md:mb-0 order-1 md:order-2">
@@ -34,7 +34,7 @@ const About = () => {
           <div className="md:w-1/2 md:pl-12">
             <h2 className="text-3xl md:text-4xl mb-6">Our Approach</h2>
             <p className="text-lg mb-4">The stats don't lie: STIs are skyrocketing, and they're draining the US economy to the tune of about $16 billion a year. But these aren't just numbers—they're real people trying to navigate a system full of stigma and confusion. Let's change that.</p>
-            <p className="text-lg mb-4">We believe technology should work for you, not against you. That's why <span className="text-teal">FlingPing<span className="text-coral">.co</span></span> uses anonymous, secure connections to keep you informed without compromising your privacy or dignity.</p>
+            <p className="text-lg mb-4">We believe technology should work for you, not against you. That's why <span className="inline-flex"><span className="text-teal">FlingPing</span><span className="text-coral">.co</span></span> uses anonymous, secure connections to keep you informed without compromising your privacy or dignity.</p>
             <p className="text-lg">Our playful approach to a serious topic makes taking care of your sexual health less intimidating and more empowering. Because being accountable shouldn't come with an awkward side of regret.</p>
           </div>
         </div>
@@ -42,7 +42,7 @@ const About = () => {
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 md:pr-8 lg:pr-12 order-2 md:order-1">
             <h2 className="text-3xl md:text-4xl mb-6">Join the Movement</h2>
-            <p className="text-lg mb-4"><span className="text-teal">FlingPing<span className="text-coral">.co</span></span> isn't just about technology—it's about creating a cultural shift where being proactive about sexual health becomes the norm.</p>
+            <p className="text-lg mb-4"><span className="inline-flex"><span className="text-teal">FlingPing</span><span className="text-coral">.co</span></span> isn't just about technology—it's about creating a cultural shift where being proactive about sexual health becomes the norm.</p>
             <p className="text-lg mb-4">As a Founding Flinger, you're not just getting lifetime access to an app; you're joining a community that values both pleasure and accountability—responsibly.</p>
             <p className="text-lg mb-8">Ready to flip the script on sexual health? Join us and be part of the solution.</p>
             
