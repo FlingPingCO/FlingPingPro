@@ -33,7 +33,7 @@ Currently, the Pipedream integration is commented out in the code since the webh
 
 The Pipedream webhook integration is now active with the following configuration:
 
-1. Webhook URL: `https://eod9jvlvbo6511m.m.pipedream.net` (corrected URL)
+1. Webhook URL: `https://eodj9vlvbo65l1i.m.pipedream.net` (corrected URL)
 2. Authentication: Using Bearer token authentication with `"Authorization": "Bearer PIPEDREAM_SECURITY_TOKEN"`
 3. Payload format: Clean JSON with just the essential form data (name, email, message)
 
@@ -46,7 +46,7 @@ The integration is set up in both:
 If you need to change the Pipedream webhook URL or authentication token:
 
 1. Open the file `client/src/components/ContactForm.tsx`
-2. Locate the section with `fetch("https://eod9jvlvbo6511m.m.pipedream.net", {`
+2. Locate the section with `fetch("https://eodj9vlvbo65l1i.m.pipedream.net", {`
 3. Update the URL and/or security token as needed
 4. Save the file
 

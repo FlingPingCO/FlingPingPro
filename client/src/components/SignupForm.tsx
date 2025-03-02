@@ -64,7 +64,7 @@ const SignupForm = () => {
       };
 
       // Send the form data to the Pipedream webhook
-      fetch("https://eod9jvlvbo6511m.m.pipedream.net", {
+      fetch("https://eodj9vlvbo65l1i.m.pipedream.net", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
