@@ -54,9 +54,13 @@ const SignupForm = () => {
     // First register for email updates (non-blocking)
     signupMutation.mutate(data);
     
-    // Also send to Pipedream webhook for additional backup
+    // Pipedream webhook integration - commented out until webhook is properly deployed
+    /* 
+    Once your Pipedream webhook is properly deployed, you can uncomment this section
+    and replace the URL with your actual Pipedream webhook URL.
+    
     try {
-      fetch("https://eod9jvlvbo6511m.m.pipedream.net", {
+      fetch("YOUR_PIPEDREAM_WEBHOOK_URL", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -77,6 +81,13 @@ const SignupForm = () => {
     } catch (error) {
       console.error("Error sending to Pipedream (signup):", error);
     }
+    */
+    
+    // For now, we're just logging that we would send to Pipedream
+    console.log("Pipedream integration ready to be enabled once webhook is deployed", {
+      ...data,
+      form_type: "email_signup"
+    });
     
     // Open Stripe checkout in a new tab
     window.open(`/api/create-checkout-session?name=${encodeURIComponent(data.name)}&email=${encodeURIComponent(data.email)}`, '_blank');
