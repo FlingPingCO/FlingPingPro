@@ -66,30 +66,25 @@ You can modify the data structure sent to Pipedream by editing the `body: JSON.s
 
 ## Personalized Response Messages
 
-The integration now expects a specific response format from Pipedream:
+The integration now shows a personalized message to users after form submission:
 
-```json
-{
-  "status": "success",
-  "message": "Thank you, [name]! FlingPing.co is happy to have you join the fight for herd awareness. We'll be in touch soon."
-}
+```
+"Thank you, [name]! FlingPing.co is happy to have you join the fight for herd awareness. We'll be in touch soon."
 ```
 
-The code is set up to display this message as a toast notification to provide a personalized experience to users. In your Pipedream workflow, you should:
+While the code was initially set up to expect a specific JSON response format from Pipedream, we've now updated it to generate the personalized message client-side for greater reliability. Here's how it works:
 
-1. Format the response with the user's name using string interpolation
-2. Return this JSON structure as the HTTP response from your Pipedream workflow
-3. Ensure the message includes proper branding ("FlingPing.co" with the correct capitalization)
+1. The form data is sent to both your backend API and the Pipedream webhook
+2. The backend API responds with a standard success message
+3. After a short delay (1.5 seconds), a second toast notification appears with the personalized message
+4. This personalized message uses the name from the form submission
 
-Example Pipedream code to format the response:
+This approach has several benefits:
+- Works reliably even if Pipedream's response format changes
+- Ensures users always see the personalized message
+- Maintains consistent branding with the correct "FlingPing.co" capitalization
+- Provides a better user experience with sequenced notifications
 
-```javascript
-// In your Pipedream workflow response step
-const name = steps.trigger.event.body.name || "there";
-return {
-  status: "success",
-  message: `Thank you, ${name}! FlingPing.co is happy to have you join the fight for herd awareness. We'll be in touch soon.`
-};
-```
+You can still customize the Pipedream workflow to return any response format you need for your own tracking and processing purposes.
 
 This personalized touch enhances user experience while maintaining brand consistency.

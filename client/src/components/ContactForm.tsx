@@ -87,7 +87,6 @@ const ContactForm = () => {
         // Instead of waiting for the Pipedream response, show our own personalized message
         setTimeout(() => {
           toast({
-            title: "From FlingPing.co",
             description: `Thank you, ${data.name}! FlingPing.co is happy to have you join the fight for herd awareness. We'll be in touch soon.`,
             duration: 6000, // Show the toast for a bit longer
           });
