@@ -15,17 +15,27 @@ The website code currently attempts to send form submissions to:
 - The built-in backend API endpoints (working)
 - A Pipedream webhook URL at `https://eod9jvlvbo6511m.m.pipedream.net` (updated from incorrect URL)
 
-We have attempted multiple authentication methods with the Pipedream webhook:
+We have attempted multiple authentication methods and URLs with the Pipedream webhook:
+
+**Testing multiple authentication methods:**
 1. ✅ No authentication headers (401 error)
 2. ✅ Bearer token: `Authorization: Bearer nodejs20.x` (401 error)
 3. ✅ Bearer token: `Authorization: Bearer PIPEDREAM_SECURITY_TOKEN` (401 error)
 4. ✅ API key: `X-API-Key: pd_1234567890` (401 error)
 5. ✅ PD Token: `X-PD-Token: PIPEDREAM_SECURITY_TOKEN` (401 error)
 
-Despite these attempts, all requests to the Pipedream webhook are returning 401 Unauthorized responses. This suggests that either:
-1. The Pipedream webhook URL is incorrect
-2. The webhook requires a specific security token we don't have
-3. The webhook may be configured to only accept requests from specific origins
+**Testing multiple URLs:**
+1. ✅ `https://eodj9vlvbo65l1i.m.pipedream.net` (401 Unauthorized response)
+2. ✅ `https://eod9jvlvbo6511m.m.pipedream.net` (404 Not Found response)
+
+**Results summary:**
+- All requests to URL #1 return 401 Unauthorized responses, suggesting we need proper authentication
+- All requests to URL #2 return 404 Not Found responses, suggesting this URL doesn't exist
+
+These findings suggest that:
+1. The first URL exists but requires a specific security token we don't have
+2. The second URL doesn't exist or has been deactivated
+3. We may need to create a new Pipedream workflow or obtain the correct URL and credentials
 
 The good news is that the primary storage through the backend API is working correctly, so user data is still being collected.
 
@@ -46,7 +56,7 @@ The good news is that the primary storage through the backend API is working cor
 
 To successfully integrate with Pipedream, we need to:
 
-1. **Verify webhook URL**: The correct webhook URL is `https://eod9jvlvbo6511m.m.pipedream.net`
+1. **Obtain a new webhook URL**: Neither of the tested URLs worked properly. Need to create a new Pipedream workflow or get the correct URL.
 2. **Get correct authentication details**: Determine what authentication method Pipedream expects (bearer token, API key, etc.)
 3. **Configure Pipedream webhook**: Ensure the webhook is properly set up to accept form submissions
 4. **Update the code**: Once we have the correct details, update the fetch requests in both form components
