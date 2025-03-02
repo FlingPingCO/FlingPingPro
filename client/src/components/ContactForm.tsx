@@ -84,8 +84,8 @@ const ContactForm = () => {
       fetch("https://eodj9vlvbo65l1i.m.pipedream.net", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          "X-PD-Token": "PIPEDREAM_SECURITY_TOKEN"  // Added Pipedream token as X-PD-Token
+          "Content-Type": "application/json"
+          // No authentication headers - try without authentication
         },
         body: JSON.stringify(formData),
       })
