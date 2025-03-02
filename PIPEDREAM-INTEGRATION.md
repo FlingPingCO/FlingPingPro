@@ -28,18 +28,29 @@ Currently, the Pipedream integration is commented out in the code since the webh
    - Also initiates Stripe checkout in a new tab
    - Ready to send name and email to Pipedream with an added `form_type: "email_signup"` identifier
 
-## How to Enable Pipedream Integration
+## Current Pipedream Integration
 
-Once your Pipedream webhook is properly deployed:
+The Pipedream webhook integration is now active with the following configuration:
+
+1. Webhook URL: `https://eod9jvlvbo6511m.m.pipedream.net`
+2. Authentication: Uses an `X-Secret` header with the value `my-secret-token`
+3. Payload format: JSON with form data plus a `form_type` field
+
+The integration is set up in both:
+- `client/src/components/ContactForm.tsx`  
+- `client/src/components/SignupForm.tsx`
+
+## How to Update Pipedream Integration
+
+If you need to change the Pipedream webhook URL or authentication token:
 
 1. Open the file `client/src/components/ContactForm.tsx`
-2. Locate the commented section that begins with `/* Once your Pipedream webhook is properly deployed...`
-3. Uncomment this section
-4. Replace `"YOUR_PIPEDREAM_WEBHOOK_URL"` with your actual Pipedream webhook URL
-5. Save the file
+2. Locate the section with `fetch("https://eod9jvlvbo6511m.m.pipedream.net", {`
+3. Update the URL and/or security token as needed
+4. Save the file
 
-6. Open the file `client/src/components/SignupForm.tsx`
-7. Repeat steps 2-5 for this file as well
+5. Open the file `client/src/components/SignupForm.tsx`
+6. Make the same changes to this file as well
 
 ## Pipedream Webhook Setup Instructions
 

@@ -70,11 +70,12 @@ const ContactForm = () => {
     // Pipedream webhook integration - ENABLED with actual webhook URL
     
     try {
-      // Since we're getting errors with the response JSON, let's create our own personalized message
-      fetch("https://eodj9vlvbo65l1i.m.pipedream.net", {
+      // Updated with the correct webhook URL and secret token
+      fetch("https://eod9jvlvbo6511m.m.pipedream.net", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-Secret": "my-secret-token", // Added the secret token
         },
         body: JSON.stringify({
           ...data,
