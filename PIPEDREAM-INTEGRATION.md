@@ -21,20 +21,21 @@ Currently, the Pipedream integration is commented out in the code since the webh
 
 1. **Contact Form** (`ContactForm.tsx`)
    - Sends name, email, and message to the backend API
-   - Ready to send the same data to Pipedream with an added `form_type: "contact_message"` identifier
+   - Sends the same data to Pipedream with an `X-Secret` header for authentication
+   - Clean payload format contains just name, email, and message
 
 2. **Email Signup Form** (`SignupForm.tsx`)
    - Sends name and email to the backend API
    - Also initiates Stripe checkout in a new tab
-   - Ready to send name and email to Pipedream with an added `form_type: "email_signup"` identifier
+   - Sends just name and email to Pipedream with the same authentication
 
 ## Current Pipedream Integration
 
 The Pipedream webhook integration is now active with the following configuration:
 
 1. Webhook URL: `https://eodj9vlvbo65l1i.m.pipedream.net`
-2. Security Token: Includes a `Security_Token` field in the JSON payload with the value `nodejs20.x`
-3. Payload format: JSON with form data plus a `form_type` field
+2. Security Token: Includes an `X-Secret` header with the value `my-secret-token` 
+3. Payload format: Clean JSON with just the essential form data (name, email, message)
 
 The integration is set up in both:
 - `client/src/components/ContactForm.tsx`  
@@ -59,8 +60,10 @@ If you need to change the Pipedream webhook URL or authentication token:
    - Select "HTTP / Webhook" as the trigger
    - Copy the generated webhook URL
 3. **Add processing steps** to your workflow:
-   - You can add steps to handle different form types based on the `form_type` field
+   - Configure your webhook trigger to expect the `X-Secret` header for authentication
+   - Add an "if/else" step to validate the `X-Secret` header value matches `my-secret-token`
    - Consider adding steps to save submissions to Google Sheets, send email notifications, etc.
+   - You'll need to distinguish between contact form and signup form based on the presence of a message field
 4. **Deploy the workflow**
 5. **Update the code** in the website as described above
 

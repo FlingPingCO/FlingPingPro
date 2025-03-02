@@ -57,17 +57,20 @@ const SignupForm = () => {
     // Pipedream webhook integration - ENABLED with actual webhook URL
     
     try {
-      // Updated with the original working webhook URL and Security_Token
+      // Using the exact format from the provided JavaScript example
+      const formData = {
+        name: data.name,
+        email: data.email,
+      };
+
+      // Send the form data to the Pipedream webhook
       fetch("https://eodj9vlvbo65l1i.m.pipedream.net", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-Secret": "my-secret-token", // Add the secret token here as shown in your JS example
         },
-        body: JSON.stringify({
-          ...data,
-          form_type: "email_signup", // Adding form type to differentiate in Pipedream
-          Security_Token: "nodejs20.x" // Adding security token as part of the payload
-        }),
+        body: JSON.stringify(formData),
       })
       .then(response => {
         console.log("Pipedream raw response (signup):", response);
@@ -113,9 +116,8 @@ const SignupForm = () => {
     
     // Log that we are sending to Pipedream
     console.log("Sending data to Pipedream webhook", {
-      ...data,
-      form_type: "email_signup",
-      Security_Token: "nodejs20.x"
+      name: data.name,
+      email: data.email
     });
     
     // Open Stripe checkout in a new tab
