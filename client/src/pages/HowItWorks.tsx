@@ -28,7 +28,7 @@ const HowItWorks = () => {
               <div className="md:w-1/2 md:pl-12 mt-6 md:mt-0">
                 <img 
                   src="/attached_assets/sign-up-form Background Removed.png" 
-                  alt="Sign up form" 
+                  alt="Mobile sign-up form for creating an account and getting a Ping Pin (PP)" 
                   className="rounded-xl w-full max-w-sm mx-auto"
                 />
               </div>
@@ -44,7 +44,7 @@ const HowItWorks = () => {
               <div className="md:w-1/2 md:pr-12 mt-6 md:mt-0">
                 <img 
                   src="/attached_assets/wifi-signal-in-two-phones-pairing Background Removed.png" 
-                  alt="Two phones connecting with WiFi" 
+                  alt="Two phones connecting securely via Bluetooth, representing the PP pairing process" 
                   className="rounded-xl w-full max-w-sm mx-auto"
                 />
               </div>
@@ -61,7 +61,7 @@ const HowItWorks = () => {
               <div className="md:w-1/2 md:pl-12 mt-6 md:mt-0">
                 <img 
                   src="/attached_assets/THought_Bubbles-noBG.png" 
-                  alt="Thought bubbles" 
+                  alt="Colorful thought bubbles in teal, blue, coral and yellow representing anonymous communication" 
                   className="rounded-xl w-full max-w-sm mx-auto"
                 />
               </div>
@@ -77,7 +77,7 @@ const HowItWorks = () => {
               <div className="md:w-1/2 md:pr-12 mt-6 md:mt-0">
                 <img 
                   src="/attached_assets/no-background--someone-exiting-a-door.gif" 
-                  alt="Person exiting door" 
+                  alt="Person confidently exiting through a doorway, representing taking action with health information" 
                   className="rounded-xl w-full max-w-sm mx-auto"
                 />
               </div>
@@ -101,7 +101,7 @@ const HowItWorks = () => {
           <div className="flex justify-center mb-8">
             <img 
               src="/attached_assets/Friends_NoBG.png" 
-              alt="Friends high-fiving" 
+              alt="Diverse group of friends celebrating with high-fives, representing the Founding Flinger community" 
               className="h-[200px] md:h-[240px] object-contain mx-auto"
             />
           </div>
