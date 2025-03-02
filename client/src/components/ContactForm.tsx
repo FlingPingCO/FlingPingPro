@@ -67,9 +67,13 @@ const ContactForm = () => {
     // Send to existing backend
     contactMutation.mutate(data);
     
-    // Also send to Pipedream webhook
+    // Pipedream webhook integration - commented out until webhook is properly deployed
+    /* 
+    Once your Pipedream webhook is properly deployed, you can uncomment this section
+    and replace the URL with your actual Pipedream webhook URL.
+    
     try {
-      fetch("https://eod9jvlvbo6511m.m.pipedream.net", {
+      fetch("YOUR_PIPEDREAM_WEBHOOK_URL", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -92,6 +96,13 @@ const ContactForm = () => {
       console.error("Error sending to Pipedream:", error);
       // Continue with the regular form submission flow
     }
+    */
+    
+    // For now, we're just logging that we would send to Pipedream
+    console.log("Pipedream integration ready to be enabled once webhook is deployed", {
+      ...data,
+      form_type: "contact_message"
+    });
   };
 
   return (
