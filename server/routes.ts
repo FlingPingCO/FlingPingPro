@@ -196,6 +196,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(500).json({ message: "Failed to get count" });
     }
   });
+  
+  // Get all email sign-ups (admin endpoint)
+  app.get("/api/email-signups", async (req: Request, res: Response) => {
+    try {
+      const signups = await storage.getAllEmailSignups();
+      return res.status(200).json({ 
+        count: signups.length,
+        signups
+      });
+    } catch (error) {
+      console.error("Email signup listing error:", error);
+      return res.status(500).json({ message: "Failed to get email signups" });
+    }
+  });
 
   const httpServer = createServer(app);
   return httpServer;
