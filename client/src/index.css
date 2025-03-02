@@ -157,6 +157,11 @@
     font-family: 'Figtree', sans-serif;
   }
   
+  /* FAQ Specific Styles */
+  .faq-content {
+    text-align: left !important;
+  }
+  
   .text-teal {
     @apply text-primary;
   }

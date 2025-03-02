@@ -1,8 +1,28 @@
 import FAQAccordion from "@/components/FAQAccordion";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 
 const FAQs = () => {
+  useEffect(() => {
+    // Add a global style to force left alignment inside accordion content
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .faq-content > div,
+      .faq-content p,
+      .faq-content span,
+      .faq-content div {
+        text-align: left !important;
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // Cleanup function
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+  
   const faqItems = [
     {
       question: "What is FlingPing.co?",
