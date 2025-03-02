@@ -8,7 +8,7 @@ const Investors = () => {
         
         <div className="max-w-4xl mx-auto mb-16">
           <p className="text-lg text-center mb-8">
-            FlingPing.co represents a unique opportunity in the digital health space, 
+            <span className="text-coral">FlingPing.co</span> represents a unique opportunity in the digital health space, 
             addressing a $16 billion market with innovative technology and multiple revenue streams.
           </p>
         </div>
