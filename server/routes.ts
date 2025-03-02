@@ -26,88 +26,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const signup = await storage.createEmailSignup(data);
       
-      // Try with Node.js https module - TRYING BOTH URLs MENTIONED IN DOCS
-      try {
-        console.log("Sending email signup to Pipedream webhook - trying both URLs");
-        
-        // Prepare JSON data
-        const postData = JSON.stringify(data);
-        
-        // URL 1: Try the URL from our code
-        const requestOptions1 = {
-          hostname: 'eodj9vlvbo65l1i.m.pipedream.net',
-          port: 443,
-          path: '/',
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Content-Length': Buffer.byteLength(postData)
-          }
-        };
-        
-        // Create the first request
-        console.log("Trying URL 1: eodj9vlvbo65l1i.m.pipedream.net");
-        const req1 = https.request(requestOptions1, (res) => {
-          console.log(`Pipedream URL 1 Response Status Code: ${res.statusCode}`);
-          
-          let responseData = '';
-          res.on('data', (chunk) => {
-            responseData += chunk;
-          });
-          
-          res.on('end', () => {
-            console.log(`Pipedream URL 1 Response Body: ${responseData}`);
-          });
-        });
-        
-        // Handle errors for request 1
-        req1.on('error', (e) => {
-          console.error(`Pipedream URL 1 Request Error: ${e.message}`);
-        });
-        
-        // Write data and end request 1
-        req1.write(postData);
-        req1.end();
-        
-        // URL 2: Try the URL from the documentation
-        const requestOptions2 = {
-          hostname: 'eod9jvlvbo6511m.m.pipedream.net',
-          port: 443,
-          path: '/',
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Content-Length': Buffer.byteLength(postData)
-          }
-        };
-        
-        // Create the second request
-        console.log("Trying URL 2: eod9jvlvbo6511m.m.pipedream.net");
-        const req2 = https.request(requestOptions2, (res) => {
-          console.log(`Pipedream URL 2 Response Status Code: ${res.statusCode}`);
-          
-          let responseData = '';
-          res.on('data', (chunk) => {
-            responseData += chunk;
-          });
-          
-          res.on('end', () => {
-            console.log(`Pipedream URL 2 Response Body: ${responseData}`);
-          });
-        });
-        
-        // Handle errors for request 2
-        req2.on('error', (e) => {
-          console.error(`Pipedream URL 2 Request Error: ${e.message}`);
-        });
-        
-        // Write data and end request 2
-        req2.write(postData);
-        req2.end();
-        
-      } catch (webhookError) {
-        console.error("Error sending to Pipedream webhook:", webhookError);
-      }
+      // Pipedream integration currently disabled due to authentication/URL issues
+      // Based on testing, none of the available URLs work properly:
+      // - eodj9vlvbo65l1i.m.pipedream.net (401 Unauthorized)
+      // - eod9jvlvbo6511m.m.pipedream.net (404 Not Found)
+      
+      console.log("Pipedream webhook integration is temporarily disabled - data saved to primary storage");
+      
+      // Future integration will be implemented here once correct URL and auth are provided
       
       return res.status(201).json({ message: "Email registration successful", data: signup });
     } catch (error) {
@@ -124,88 +50,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const data = insertContactMessageSchema.parse(req.body);
       const message = await storage.createContactMessage(data);
       
-      // Try with Node.js https module - TRYING BOTH URLs FOR CONTACT FORM
-      try {
-        console.log("Sending contact form to Pipedream webhook - trying both URLs");
-        
-        // Prepare JSON data
-        const postData = JSON.stringify(data);
-        
-        // URL 1: Try the URL from our code
-        const requestOptions1 = {
-          hostname: 'eodj9vlvbo65l1i.m.pipedream.net',
-          port: 443,
-          path: '/',
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Content-Length': Buffer.byteLength(postData)
-          }
-        };
-        
-        // Create the first request
-        console.log("Trying URL 1 for contact form: eodj9vlvbo65l1i.m.pipedream.net");
-        const req1 = https.request(requestOptions1, (res) => {
-          console.log(`Pipedream Contact URL 1 Response Status Code: ${res.statusCode}`);
-          
-          let responseData = '';
-          res.on('data', (chunk) => {
-            responseData += chunk;
-          });
-          
-          res.on('end', () => {
-            console.log(`Pipedream Contact URL 1 Response Body: ${responseData}`);
-          });
-        });
-        
-        // Handle errors for request 1
-        req1.on('error', (e) => {
-          console.error(`Pipedream Contact URL 1 Request Error: ${e.message}`);
-        });
-        
-        // Write data and end request 1
-        req1.write(postData);
-        req1.end();
-        
-        // URL 2: Try the URL from the documentation
-        const requestOptions2 = {
-          hostname: 'eod9jvlvbo6511m.m.pipedream.net',
-          port: 443,
-          path: '/',
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Content-Length': Buffer.byteLength(postData)
-          }
-        };
-        
-        // Create the second request
-        console.log("Trying URL 2 for contact form: eod9jvlvbo6511m.m.pipedream.net");
-        const req2 = https.request(requestOptions2, (res) => {
-          console.log(`Pipedream Contact URL 2 Response Status Code: ${res.statusCode}`);
-          
-          let responseData = '';
-          res.on('data', (chunk) => {
-            responseData += chunk;
-          });
-          
-          res.on('end', () => {
-            console.log(`Pipedream Contact URL 2 Response Body: ${responseData}`);
-          });
-        });
-        
-        // Handle errors for request 2
-        req2.on('error', (e) => {
-          console.error(`Pipedream Contact URL 2 Request Error: ${e.message}`);
-        });
-        
-        // Write data and end request 2
-        req2.write(postData);
-        req2.end();
-        
-      } catch (webhookError) {
-        console.error("Error sending contact form to Pipedream webhook:", webhookError);
-      }
+      // Pipedream integration currently disabled due to authentication/URL issues
+      // Based on testing, none of the available URLs work properly:
+      // - eodj9vlvbo65l1i.m.pipedream.net (401 Unauthorized)
+      // - eod9jvlvbo6511m.m.pipedream.net (404 Not Found)
+      
+      console.log("Pipedream webhook integration is temporarily disabled - contact form data saved to primary storage");
+      
+      // Future integration will be implemented here once correct URL and auth are provided
       
       return res.status(201).json({ message: "Message sent successfully", data: message });
     } catch (error) {
