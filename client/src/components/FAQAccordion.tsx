@@ -20,7 +20,7 @@ const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqItems }) => {
     // Special handling for refund question
     if (isRefundQuestion) {
       return (
-        <div style={{textAlign: "left"}}>
+        <div className="text-left">
           Due to the limited nature of Founding Flinger spots and the lifetime access they provide, memberships are non-refundable. Please see our Terms of Service for complete details.
         </div>
       );
@@ -41,6 +41,17 @@ const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqItems }) => {
           .replace(/className=/g, 'class=')
           .replace(/text-teal/g, 'text-primary')
           .replace(/text-coral/g, 'text-secondary')
+        }} />
+      );
+    }
+    
+    // For answers with text-align: left style
+    if (answer.includes('style=\'text-align: left;\'')) {
+      return (
+        <div className="text-left" dangerouslySetInnerHTML={{ __html: answer
+          .replace(/style='text-align: left;'/g, '')
+          .replace(/<div>/g, '')
+          .replace(/<\/div>/g, '')
         }} />
       );
     }
