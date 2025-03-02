@@ -68,7 +68,7 @@ const ContactForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="bg-dark border-2 border-teal rounded-xl p-6 md:p-8 space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="bg-dark border-2 border-teal rounded-lg p-6 space-y-4 w-full">
         <FormField
           control={form.control}
           name="name"
