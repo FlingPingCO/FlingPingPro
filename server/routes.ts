@@ -25,34 +25,61 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const signup = await storage.createEmailSignup(data);
       
-      // Also send to Pipedream if environment variable is present
+      // Simple test for Pipedream
       try {
-        if (process.env.PIPEDREAM_SECURITY_TOKEN) {
-          console.log("Sending email signup to Pipedream webhook");
+        console.log("Sending email signup to Pipedream webhook");
+        
+        // Using your exact code
+        const headers = new Headers();
+        headers.append("Content-Type", "application/json");
+
+        const body = {
+          "test": "event"
+        };
+
+        const options = {
+          method: "POST",
+          headers,
+          mode: "cors" as RequestMode,
+          body: JSON.stringify(body),
+        };
+
+        fetch("https://eodj9vlvbo65l1i.m.pipedream.net", options)
+          .then(response => {
+            console.log(`Pipedream test response status: ${response.status}`);
+            return response.text();
+          })
+          .then(text => {
+            console.log(`Pipedream test response body: ${text}`);
+          })
+          .catch(err => {
+            console.error("Pipedream test error:", err);
+          });
           
-          // Exactly matching the provided example code
-          const headers = new Headers();
-          headers.append("Content-Type", "application/json");
-          
-          const options = {
-            method: "POST",
-            headers,
-            mode: "cors" as RequestMode,
-            body: JSON.stringify(data)
-          };
-          
-          const response = await fetch("https://eodj9vlvbo65l1i.m.pipedream.net", options);
-          
-          console.log(`Pipedream webhook response status: ${response.status}`);
-          // Log more details for troubleshooting
-          if (response.status !== 200) {
-            const responseText = await response.text().catch(e => "Could not read response");
-            console.log(`Pipedream webhook response: ${responseText}`);
-          }
-        }
+        // Then try sending actual data
+        const realHeaders = new Headers();
+        realHeaders.append("Content-Type", "application/json");
+        
+        const realOptions = {
+          method: "POST",
+          headers: realHeaders,
+          mode: "cors" as RequestMode,
+          body: JSON.stringify(data)
+        };
+        
+        fetch("https://eodj9vlvbo65l1i.m.pipedream.net", realOptions)
+          .then(response => {
+            console.log(`Pipedream real data response status: ${response.status}`);
+            return response.text();
+          })
+          .then(text => {
+            console.log(`Pipedream real data response body: ${text}`);
+          })
+          .catch(err => {
+            console.error("Pipedream real data error:", err);
+          });
       } catch (webhookError) {
         console.error("Error sending to Pipedream webhook:", webhookError);
-        // Non-blocking error - continue with success response
       }
       
       return res.status(201).json({ message: "Email registration successful", data: signup });
@@ -70,34 +97,61 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const data = insertContactMessageSchema.parse(req.body);
       const message = await storage.createContactMessage(data);
       
-      // Also send to Pipedream if environment variable is present
+      // Simple test for Pipedream (contact form)
       try {
-        if (process.env.PIPEDREAM_SECURITY_TOKEN) {
-          console.log("Sending contact form to Pipedream webhook");
+        console.log("Sending contact form to Pipedream webhook");
+        
+        // Using your exact code
+        const headers = new Headers();
+        headers.append("Content-Type", "application/json");
+
+        const body = {
+          "test": "event"
+        };
+
+        const options = {
+          method: "POST",
+          headers,
+          mode: "cors" as RequestMode,
+          body: JSON.stringify(body),
+        };
+
+        fetch("https://eodj9vlvbo65l1i.m.pipedream.net", options)
+          .then(response => {
+            console.log(`Pipedream test response status: ${response.status}`);
+            return response.text();
+          })
+          .then(text => {
+            console.log(`Pipedream test response body: ${text}`);
+          })
+          .catch(err => {
+            console.error("Pipedream test error:", err);
+          });
           
-          // Exactly matching the provided example code
-          const headers = new Headers();
-          headers.append("Content-Type", "application/json");
-          
-          const options = {
-            method: "POST",
-            headers,
-            mode: "cors" as RequestMode,
-            body: JSON.stringify(data)
-          };
-          
-          const response = await fetch("https://eodj9vlvbo65l1i.m.pipedream.net", options);
-          
-          console.log(`Pipedream webhook response status: ${response.status}`);
-          // Log more details for troubleshooting
-          if (response.status !== 200) {
-            const responseText = await response.text().catch(e => "Could not read response");
-            console.log(`Pipedream webhook response: ${responseText}`);
-          }
-        }
+        // Then try sending actual data
+        const realHeaders = new Headers();
+        realHeaders.append("Content-Type", "application/json");
+        
+        const realOptions = {
+          method: "POST",
+          headers: realHeaders,
+          mode: "cors" as RequestMode,
+          body: JSON.stringify(data)
+        };
+        
+        fetch("https://eodj9vlvbo65l1i.m.pipedream.net", realOptions)
+          .then(response => {
+            console.log(`Pipedream real data response status: ${response.status}`);
+            return response.text();
+          })
+          .then(text => {
+            console.log(`Pipedream real data response body: ${text}`);
+          })
+          .catch(err => {
+            console.error("Pipedream real data error:", err);
+          });
       } catch (webhookError) {
         console.error("Error sending to Pipedream webhook:", webhookError);
-        // Non-blocking error - continue with success response
       }
       
       return res.status(201).json({ message: "Message sent successfully", data: message });
