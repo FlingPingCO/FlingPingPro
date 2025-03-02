@@ -16,7 +16,16 @@ interface FAQAccordionProps {
 }
 
 const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqItems }) => {
-  const renderAnswerContent = (answer: string) => {
+  const renderAnswerContent = (answer: string, isRefundQuestion: boolean) => {
+    // Special handling for refund question
+    if (isRefundQuestion) {
+      return (
+        <div style={{textAlign: "left"}}>
+          Due to the limited nature of Founding Flinger spots and the lifetime access they provide, memberships are non-refundable. Please see our Terms of Service for complete details.
+        </div>
+      );
+    }
+    
     if (answer.includes('Ping Pin (PP)')) {
       return (
         <>
@@ -43,16 +52,19 @@ const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqItems }) => {
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       <Accordion type="single" collapsible className="w-full">
-        {faqItems.map((item, index) => (
-          <AccordionItem key={index} value={`item-${index}`} className="border-b border-coral">
-            <AccordionTrigger className="text-2xl font-medium py-4 text-teal hover:text-coral">
-              {item.question}
-            </AccordionTrigger>
-            <AccordionContent className={`text-sand px-4 pb-4 text-lg ${item.question.toLowerCase().includes("refund") ? "!text-left" : ""}`} style={item.question.toLowerCase().includes("refund") ? {textAlign: "left"} : {}}>
-              {renderAnswerContent(item.answer)}
-            </AccordionContent>
-          </AccordionItem>
-        ))}
+        {faqItems.map((item, index) => {
+          const isRefundQuestion = item.question.toLowerCase().includes("refund");
+          return (
+            <AccordionItem key={index} value={`item-${index}`} className="border-b border-coral">
+              <AccordionTrigger className="text-2xl font-medium py-4 text-teal hover:text-coral">
+                {item.question}
+              </AccordionTrigger>
+              <AccordionContent className="text-sand px-4 pb-4 text-lg">
+                {renderAnswerContent(item.answer, isRefundQuestion)}
+              </AccordionContent>
+            </AccordionItem>
+          );
+        })}
       </Accordion>
     </div>
   );
