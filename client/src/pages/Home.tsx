@@ -338,18 +338,15 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
           />
           
           <div className="mt-12 sm:mt-16 flex justify-center px-4">
-            <div className="bg-[#f4e9d9] rounded-xl px-4 sm:px-6 md:px-8 py-4 sm:py-6 max-w-2xl text-center shadow-lg border-2 border-teal">
+            <div className="rounded-xl px-4 sm:px-6 md:px-8 py-4 sm:py-6 max-w-2xl text-center border-2 border-teal">
               <h3 className="text-coral text-xl sm:text-2xl font-bold mb-2 sm:mb-3">Still have questions?</h3>
-              <p className="text-[#3c3c3c] mb-6">We're here to help. Reach out to our team for any questions not covered in our FAQs.</p>
+              <p className="mb-6 font-sans">We're here to help. Reach out to our team for any questions not covered in our FAQs.</p>
               <div className="flex justify-center">
                 <Link href="/contact">
-                  <Button variant="outline" className="border-2 border-teal text-teal hover:bg-teal hover:text-[#3c3c3c] transition-all duration-300 font-poppins font-medium text-center px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-full text-sm sm:text-base shadow-sm">
+                  <Button variant="outline" className="border-2 border-teal text-teal hover:bg-teal hover:text-[#3c3c3c] transition-all duration-300 font-sans text-center px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-full text-sm sm:text-base shadow-sm">
                     Contact Us
                   </Button>
                 </Link>
-              </div>
-              <div className="flex justify-center mt-5">
-                <div className="text-teal font-poppins font-medium text-lg inline-flex">FlingPing<span className="text-coral">.co</span></div>
               </div>
             </div>
           </div>
