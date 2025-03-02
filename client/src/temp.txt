@@ -1,0 +1,1 @@
+<span className="text-teal">FlingPing</span><span className="text-coral">.co</span>
