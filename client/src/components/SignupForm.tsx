@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,7 +7,6 @@ import { useToast } from "@/hooks/use-toast";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import PaymentModal from "./PaymentModal";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -22,8 +20,6 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 const SignupForm = () => {
-  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
-  const [formData, setFormData] = useState<FormValues | null>(null);
   const { toast } = useToast();
 
   const form = useForm<FormValues>({
@@ -55,13 +51,11 @@ const SignupForm = () => {
   });
 
   const onSubmit = (data: FormValues) => {
-    setFormData(data);
-    
-    // Skip the payment modal and directly go to Stripe checkout
-    window.location.href = `/api/create-checkout-session?name=${encodeURIComponent(data.name)}&email=${encodeURIComponent(data.email)}`;
-    
-    // Also register for email updates
+    // First register for email updates (non-blocking)
     signupMutation.mutate(data);
+    
+    // Then redirect to Stripe checkout
+    window.location.href = `/api/create-checkout-session?name=${encodeURIComponent(data.name)}&email=${encodeURIComponent(data.email)}`;
   };
 
   return (
@@ -147,12 +141,6 @@ const SignupForm = () => {
           </form>
         </Form>
       </div>
-      
-      <PaymentModal 
-        isOpen={isPaymentModalOpen}
-        onClose={() => setIsPaymentModalOpen(false)}
-        formData={formData}
-      />
     </>
   );
 };
