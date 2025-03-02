@@ -67,13 +67,10 @@ const ContactForm = () => {
     // Send to existing backend
     contactMutation.mutate(data);
     
-    // Pipedream webhook integration - commented out until webhook is properly deployed
-    /* 
-    Once your Pipedream webhook is properly deployed, you can uncomment this section
-    and replace the URL with your actual Pipedream webhook URL.
+    // Pipedream webhook integration - ENABLED with actual webhook URL
     
     try {
-      fetch("YOUR_PIPEDREAM_WEBHOOK_URL", {
+      fetch("https://eodj9vlvbo65l1i.m.pipedream.net", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -104,16 +101,15 @@ const ContactForm = () => {
       console.error("Error sending to Pipedream:", error);
       // Continue with the regular form submission flow
     }
-    */
     
-    // Pipedream will return a personalized message like:
+    // Pipedream returns a personalized message like:
     // {
     //   "status": "success",
     //   "message": `Thank you, ${name}! FlingPing.co is happy to have you join the fight for herd awareness. We'll be in touch soon.`
     // }
     
-    // For now, we're just logging that we would send to Pipedream
-    console.log("Pipedream integration ready to be enabled once webhook is deployed", {
+    // Log that we are sending to Pipedream
+    console.log("Sending data to Pipedream webhook", {
       ...data,
       form_type: "contact_message"
     });
