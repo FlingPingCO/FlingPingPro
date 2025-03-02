@@ -87,7 +87,7 @@ const HowItWorks = () => {
         {/* What is your PP section */}
         <div className="max-w-4xl mx-auto my-20 px-4">
           <div className="bg-background border-2 border-coral rounded-xl p-6 md:p-8 shadow-xl">
-            <h3 className="text-2xl mb-6 text-center">What is your <span className="text-coral">PP</span>, that's embarassing!?</h3>
+            <h3 className="text-2xl mb-6 text-center text-teal">What is your <span className="text-coral">PP</span>, that's embarrassing!?</h3>
             <p className="text-lg">
               Your <span className="text-coral">PP</span> or Ping Pin is like that one sock that always disappears in the laundry—except instead of getting lost, it keeps you from being found. It's your anonymous, encrypted, and oh-so-clever way to stay in the loop without handing out your digits like a free sample at the grocery store. Go pound it!
             </p>
