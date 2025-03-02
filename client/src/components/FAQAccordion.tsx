@@ -70,7 +70,7 @@ const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqItems }) => {
               <AccordionTrigger className="text-2xl font-medium py-4 text-teal hover:text-coral">
                 {item.question}
               </AccordionTrigger>
-              <AccordionContent className="text-sand px-4 pb-4 text-lg text-left">
+              <AccordionContent className="text-sand px-4 pb-4 text-lg text-left faq-content">
                 {renderAnswerContent(item.answer, isRefundQuestion)}
               </AccordionContent>
             </AccordionItem>
