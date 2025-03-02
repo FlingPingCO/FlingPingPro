@@ -57,6 +57,7 @@ const SignupForm = () => {
     // Pipedream webhook integration - ENABLED with actual webhook URL
     
     try {
+      // Since we're getting errors with the response JSON, let's create our own personalized message
       fetch("https://eodj9vlvbo65l1i.m.pipedream.net", {
         method: "POST",
         headers: {
@@ -67,17 +68,33 @@ const SignupForm = () => {
           form_type: "email_signup" // Adding form type to differentiate in Pipedream
         }),
       })
-      .then(response => response.json())
-      .then(responseData => {
-        console.log("Pipedream response (signup):", responseData);
+      .then(response => {
+        console.log("Pipedream raw response (signup):", response);
         
-        // Show personalized toast message from Pipedream if available
-        if (responseData.status === "success" && responseData.message) {
+        // Instead of waiting for the Pipedream response, show our own personalized message
+        setTimeout(() => {
           toast({
             title: "From FlingPing.co",
-            description: responseData.message,
-            // This will override the default toast from the main API
+            description: `Thank you, ${data.name}! FlingPing.co is happy to have you join the fight for herd awareness. We'll be in touch soon.`,
+            duration: 6000, // Show the toast for a bit longer
           });
+        }, 1500); // Small delay so it appears after the initial toast
+        
+        // Still try to get the response body if possible
+        return response.text().catch(e => {
+          console.log("Could not parse response text (signup):", e);
+          return null;
+        });
+      })
+      .then(responseText => {
+        if (responseText) {
+          console.log("Pipedream response text (signup):", responseText);
+          try {
+            const responseData = JSON.parse(responseText);
+            console.log("Pipedream parsed JSON (signup):", responseData);
+          } catch (e) {
+            console.log("Could not parse JSON from response text (signup)");
+          }
         }
       })
       .catch(error => {
