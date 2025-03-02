@@ -53,11 +53,11 @@ The good news is that the primary storage through the backend API is working cor
 
 ## Integration Status
 
-The Pipedream webhook integration is now successfully configured:
+The Pipedream webhook integration is now configured with authentication:
 
 1. ✅ **Correct webhook URL**: Using `https://eodj9vlvbo65l1i.m.pipedream.net`
-2. ✅ **Authentication**: No additional authentication appears to be required
-3. ✅ **Webhook configuration**: The webhook is properly set up to accept form submissions
+2. ✅ **Authentication**: Using Bearer token authentication with PIPEDREAM_SECURITY_TOKEN
+3. ✅ **Data formatting**: Sending structured data with form_type identifier
 4. ✅ **Code implementation**: Both form handlers now send data to the Pipedream webhook
 
 ## Technical Implementation Details
