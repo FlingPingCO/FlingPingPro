@@ -11,6 +11,8 @@ import Investors from "@/pages/Investors";
 import Contact from "@/pages/Contact";
 import FAQs from "@/pages/FAQs";
 import Legal from "@/pages/Legal";
+import PaymentSuccess from "@/pages/PaymentSuccess";
+import PaymentCancelled from "@/pages/PaymentCancelled";
 
 function Router() {
   return (
@@ -22,8 +24,8 @@ function Router() {
       <Route path="/contact" component={Contact} />
       <Route path="/faqs" component={FAQs} />
       <Route path="/legal" component={Legal} />
-      <Route path="/payment-success" component={() => <Home paymentSuccess={true} />} />
-      <Route path="/payment-cancelled" component={() => <Home paymentCancelled={true} />} />
+      <Route path="/payment-success" component={PaymentSuccess} />
+      <Route path="/payment-cancelled" component={PaymentCancelled} />
       <Route component={NotFound} />
     </Switch>
   );
