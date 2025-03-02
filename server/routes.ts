@@ -29,18 +29,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         if (process.env.PIPEDREAM_SECURITY_TOKEN) {
           console.log("Sending email signup to Pipedream webhook");
+          // Try a simpler approach with the security token in the URL
           const response = await fetch("https://eodj9vlvbo65l1i.m.pipedream.net", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              "Authorization": `Bearer ${process.env.PIPEDREAM_SECURITY_TOKEN}`
             },
             body: JSON.stringify({
               source: "email-signup",
-              ...data
+              ...data,
+              security_token: process.env.PIPEDREAM_SECURITY_TOKEN
             })
           });
           console.log(`Pipedream webhook response status: ${response.status}`);
+          // Log more details for troubleshooting
+          if (response.status !== 200) {
+            const responseText = await response.text().catch(e => "Could not read response");
+            console.log(`Pipedream webhook response: ${responseText}`);
+          }
         }
       } catch (webhookError) {
         console.error("Error sending to Pipedream webhook:", webhookError);
@@ -66,18 +72,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         if (process.env.PIPEDREAM_SECURITY_TOKEN) {
           console.log("Sending contact form to Pipedream webhook");
+          // Try a simpler approach with the security token in the URL
           const response = await fetch("https://eodj9vlvbo65l1i.m.pipedream.net", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              "Authorization": `Bearer ${process.env.PIPEDREAM_SECURITY_TOKEN}`
             },
             body: JSON.stringify({
               source: "contact-form",
-              ...data
+              ...data,
+              security_token: process.env.PIPEDREAM_SECURITY_TOKEN
             })
           });
           console.log(`Pipedream webhook response status: ${response.status}`);
+          // Log more details for troubleshooting
+          if (response.status !== 200) {
+            const responseText = await response.text().catch(e => "Could not read response");
+            console.log(`Pipedream webhook response: ${responseText}`);
+          }
         }
       } catch (webhookError) {
         console.error("Error sending to Pipedream webhook:", webhookError);
