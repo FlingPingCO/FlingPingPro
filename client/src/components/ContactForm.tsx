@@ -84,8 +84,8 @@ const ContactForm = () => {
       fetch("https://eodj9vlvbo65l1i.m.pipedream.net", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
-          // No authentication headers - try without authentication
+          "Content-Type": "application/json",
+          "Authorization": "Bearer PIPEDREAM_SECURITY_TOKEN" // Using Bearer token authentication
         },
         body: JSON.stringify(formData),
       })
