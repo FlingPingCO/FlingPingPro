@@ -33,7 +33,7 @@ const Contact = () => {
             
             <div className="bg-dark border border-teal rounded-lg p-6">
               <h3 className="text-xl mb-4">Visit Our Social Media</h3>
-              <p className="mb-4">Stay up-to-date with the latest <span className="text-teal">FlingPing<span className="text-coral">.co</span></span> news and join our community on social media.</p>
+              <p className="mb-4">Stay up-to-date with the latest <span className="inline-flex"><span className="text-teal">FlingPing</span><span className="text-coral">.co</span></span> news and join our community on social media.</p>
               <div className="flex space-x-4">
                 <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" className="text-sand hover:text-primary transition-colors duration-300">
                   <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
