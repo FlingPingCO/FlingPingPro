@@ -54,8 +54,8 @@ const SignupForm = () => {
     // First register for email updates (non-blocking)
     signupMutation.mutate(data);
     
-    // Then redirect to Stripe checkout
-    window.location.href = `/api/create-checkout-session?name=${encodeURIComponent(data.name)}&email=${encodeURIComponent(data.email)}`;
+    // Open Stripe checkout in a new tab
+    window.open(`/api/create-checkout-session?name=${encodeURIComponent(data.name)}&email=${encodeURIComponent(data.email)}`, '_blank');
   };
 
   return (
@@ -109,11 +109,12 @@ const SignupForm = () => {
               type="submit" 
               className="w-full mt-4 sm:mt-6 bg-coral hover:bg-coral/90 text-[#3c3c3c] font-poppins font-medium text-center px-4 sm:px-6 py-2 sm:py-3 rounded-full text-base sm:text-lg shadow-lg border-2 border-coral transition-colors duration-300"
             >
-              Secure My Spot for $99
+              Secure My Spot for $99 →
             </Button>
             
             <div className="text-center text-xs sm:text-sm mt-3 sm:mt-4">
               <p className="mb-1 sm:mb-2">Secure payment powered by Stripe</p>
+              <p className="mb-1 sm:mb-2 text-xs">(Opens in a new tab)</p>
               <div className="flex flex-wrap justify-center gap-1 sm:gap-2">
                 <svg className="h-4 sm:h-6" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="visa-label">
                   <title id="visa-label">Visa</title>
