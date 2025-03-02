@@ -75,11 +75,11 @@ const ContactForm = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Security-Token": "nodejs20.x", // Added the security token as shown in your Pipedream workflow
         },
         body: JSON.stringify({
           ...data,
-          form_type: "contact_message" // Adding form type to differentiate in Pipedream
+          form_type: "contact_message", // Adding form type to differentiate in Pipedream
+          Security_Token: "nodejs20.x" // Adding security token as part of the payload
         }),
       })
       .then(response => {
@@ -128,7 +128,8 @@ const ContactForm = () => {
     // Log that we are sending to Pipedream
     console.log("Sending data to Pipedream webhook", {
       ...data,
-      form_type: "contact_message"
+      form_type: "contact_message",
+      Security_Token: "nodejs20.x"
     });
   };
 

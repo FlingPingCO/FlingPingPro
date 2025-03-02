@@ -33,7 +33,7 @@ Currently, the Pipedream integration is commented out in the code since the webh
 The Pipedream webhook integration is now active with the following configuration:
 
 1. Webhook URL: `https://eodj9vlvbo65l1i.m.pipedream.net`
-2. Security Token: Includes an `X-Security-Token` header with the value `nodejs20.x`
+2. Security Token: Includes a `Security_Token` field in the JSON payload with the value `nodejs20.x`
 3. Payload format: JSON with form data plus a `form_type` field
 
 The integration is set up in both:
