@@ -46,7 +46,7 @@ const Investors = () => {
             <li className="flex items-start">
               <span className="text-coral mr-3 text-xl">•</span>
               <span className="text-lg">
-                <span className="text-coral font-bold">Limited early investment spots available</span>
+                <span className="text-yellow font-bold">Limited early investment spots available</span>
               </span>
             </li>
           </ul>
@@ -57,9 +57,9 @@ const Investors = () => {
           
           <Button 
             onClick={() => window.location.href = "mailto:investments@flingping.co"}
-            className="btn-primary font-poppins font-medium text-center px-8 py-3 rounded-full text-lg mt-4 mb-4 hover:bg-opacity-90 transition-all bg-yellow text-[#3c3c3c]"
+            className="font-poppins font-medium text-center px-8 py-3 rounded-full text-lg mt-4 mb-4 hover:bg-opacity-90 transition-all bg-transparent border-2 border-coral text-coral"
           >
-            <span className="text-[#3c3c3c]">Claim Your Stake in</span> <span className="text-teal">Fling</span><span className="text-coral">Ping</span>.co
+            Claim Your Stake in <span className="text-teal">Fling</span><span className="text-coral">Ping</span>.co
           </Button>
           
           <p className="mt-4 text-lg">
