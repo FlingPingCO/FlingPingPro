@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom styles for FAQ content */
+.faq-content {
+  text-align: left !important;
+}
+
+.faq-content > div {
+  text-align: left !important;
+  color: #F4E9D9 !important;
+}
+
+/* Ensure accordion content is properly aligned when expanded */
+[data-state="open"] .faq-content {
+  text-align: left !important;
+  padding-left: 1rem !important;
+}
+
 @layer base {
   :root {
     --background: 0 0% 24%;
