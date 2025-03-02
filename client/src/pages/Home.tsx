@@ -139,14 +139,14 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
               <p className="mb-8 text-lg"><span className="inline-flex"><span className="text-teal">FlingPing</span><span className="text-coral">.co</span></span> is the bold, game-changing app that turns awkward conversations into confidence and empowerment. Say goodbye to uncomfortable "uh-oh" moments and hello to a smarter, safer, and discreet way to stay ahead of your sexual health.</p>
               
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                <Link href="/how-it-works">
-                  <Button variant="outline" className="border-2 border-teal text-teal hover:bg-teal hover:text-[#3c3c3c] transition-all duration-300 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto shadow-md">
-                    How It Works
+                <Link href="#founding-flinger">
+                  <Button variant="outline" className="border-2 border-coral text-coral hover:bg-coral hover:text-[#3c3c3c] transition-all duration-300 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto shadow-md">
+                    Become a Founding Flinger
                   </Button>
                 </Link>
-                <Link href="#founding-flinger">
-                  <Button className="bg-coral text-[#3c3c3c] hover:bg-yellow hover:text-[#3c3c3c] transition-all duration-300 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto shadow-md">
-                    Secure My Spot
+                <Link href="/how-it-works">
+                  <Button className="bg-teal text-[#3c3c3c] hover:bg-teal/90 hover:text-[#3c3c3c] transition-all duration-300 font-poppins font-medium text-center px-8 py-3 rounded-full text-lg w-full sm:w-auto shadow-md">
+                    How It Works
                   </Button>
                 </Link>
               </div>
