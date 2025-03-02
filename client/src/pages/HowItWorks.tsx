@@ -55,7 +55,8 @@ const HowItWorks = () => {
               <div className="md:w-1/2 md:pr-12 text-right">
                 <h3 className="text-2xl mb-4">Stay In The Loop</h3>
                 <p className="text-lg mb-4">If someone reports an issue later, you'll receive a discreet, anonymous notification. No awkward texts, no uncomfortable conversations—just the information you need to stay healthy.</p>
-                <p className="text-lg">Our system maintains privacy while still providing critical information. You'll know what you need to know, when you need to know it.</p>
+                <p className="text-lg mb-4">But here's the real kicker: it's not just your flings being tracked—it's their flings too. Because let's be real, STDs don't stop at one connection. If a previous partner of your fling has something that could now affect you, you'll get the heads-up before it becomes your problem.</p>
+                <p className="text-lg">Our system keeps things private while still keeping you informed. You'll know what you need to know, when you need to know it—without the stress, the shame, or the guesswork.</p>
               </div>
               <div className="md:w-1/2 md:pl-12 mt-6 md:mt-0">
                 <img 
