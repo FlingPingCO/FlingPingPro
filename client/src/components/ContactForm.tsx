@@ -84,7 +84,7 @@ const ContactForm = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer YOUR_SECURITY_TOKEN" // Using the exact token from your example
+          "Authorization": "Bearer PIPEDREAM_SECURITY_TOKEN" // Using the exact security token you provided
         },
         body: JSON.stringify(formData),
       })

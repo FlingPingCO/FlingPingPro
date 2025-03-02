@@ -34,7 +34,7 @@ Currently, the Pipedream integration is commented out in the code since the webh
 The Pipedream webhook integration is now active with the following configuration:
 
 1. Webhook URL: `https://eod9jvlvbo6511m.m.pipedream.net` (corrected URL)
-2. Authentication: Using Bearer token authentication with `"Authorization": "Bearer nodejs20.x"`
+2. Authentication: Using Bearer token authentication with `"Authorization": "Bearer PIPEDREAM_SECURITY_TOKEN"`
 3. Payload format: Clean JSON with just the essential form data (name, email, message)
 
 The integration is set up in both:
@@ -61,7 +61,7 @@ If you need to change the Pipedream webhook URL or authentication token:
    - Copy the generated webhook URL
 3. **Add processing steps** to your workflow:
    - Configure your webhook trigger to check for Bearer token authentication
-   - Verify that the token matches "nodejs20.x" in your Pipedream workflow
+   - Verify that the token matches "PIPEDREAM_SECURITY_TOKEN" in your Pipedream workflow
    - Consider adding steps to save submissions to Google Sheets, send email notifications, etc.
    - You'll need to distinguish between contact form and signup form based on the presence of a message field
 4. **Deploy the workflow**
