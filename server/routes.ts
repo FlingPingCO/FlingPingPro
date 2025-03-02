@@ -26,36 +26,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const signup = await storage.createEmailSignup(data);
       
-      // Attempt to send to Pipedream webhook but gracefully handle 401 errors
+      // Send to Pipedream webhook with proper authentication
       try {
-        console.log("Email signup received and saved to primary storage - form submission successful");
-        console.log("(Note: Secondary Pipedream integration requires authentication - data remains secure in primary storage)");
+        console.log("Sending email signup to Pipedream webhook with authentication");
         
-        // We've confirmed the webhook requires authentication that we don't currently have
-        // For now, we'll focus on ensuring the primary storage works correctly
-        // The code below is commented out but can be re-enabled once we have proper authentication
+        // Prepare JSON data
+        const postData = JSON.stringify(data);
         
-        /*
-        // Example code for when we have proper authentication:
-        fetch('https://eodj9vlvbo65l1i.m.pipedream.net', {
+        // Define the request options with authentication token
+        const requestOptions = {
+          hostname: 'eodj9vlvbo65l1i.m.pipedream.net',
+          port: 443,
+          path: '/',
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${process.env.PIPEDREAM_SECURITY_TOKEN}`,
             'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        })
-        .then(response => response.json())
-        .then(responseData => {
-          console.log('Pipedream Webhook Response:', responseData);
-        })
-        .catch(error => {
-          console.error('Error sending data to Pipedream:', error);
+            'Content-Length': Buffer.byteLength(postData),
+            'Authorization': `Bearer ${process.env.PIPEDREAM_SECURITY_TOKEN}`
+          }
+        };
+        
+        // Create the request
+        const req = https.request(requestOptions, (res) => {
+          console.log(`Pipedream Email Signup Response Status Code: ${res.statusCode}`);
+          
+          let responseData = '';
+          res.on('data', (chunk) => {
+            responseData += chunk;
+          });
+          
+          res.on('end', () => {
+            console.log(`Pipedream Email Signup Response Body: ${responseData || 'No response body'}`);
+          });
         });
-        */
+        
+        // Handle errors
+        req.on('error', (e) => {
+          console.error(`Pipedream Email Signup Request Error: ${e.message}`);
+        });
+        
+        // Write data and end request
+        req.write(postData);
+        req.end();
         
       } catch (webhookError) {
-        console.error("Error in webhook handling:", webhookError);
+        console.error("Error sending to Pipedream webhook:", webhookError);
         // Non-blocking error - continue with success response
       }
       
@@ -74,36 +89,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const data = insertContactMessageSchema.parse(req.body);
       const message = await storage.createContactMessage(data);
       
-      // Attempt to send to Pipedream webhook but gracefully handle 401 errors
+      // Send to Pipedream webhook with proper authentication
       try {
-        console.log("Contact form received and saved to primary storage - form submission successful");
-        console.log("(Note: Secondary Pipedream integration requires authentication - data remains secure in primary storage)");
+        console.log("Sending contact form to Pipedream webhook with authentication");
         
-        // We've confirmed the webhook requires authentication that we don't currently have
-        // For now, we'll focus on ensuring the primary storage works correctly
-        // The code below is commented out but can be re-enabled once we have proper authentication
+        // Prepare JSON data
+        const postData = JSON.stringify(data);
         
-        /*
-        // Example code for when we have proper authentication:
-        fetch('https://eodj9vlvbo65l1i.m.pipedream.net', {
+        // Define the request options with authentication token
+        const requestOptions = {
+          hostname: 'eodj9vlvbo65l1i.m.pipedream.net',
+          port: 443,
+          path: '/',
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${process.env.PIPEDREAM_SECURITY_TOKEN}`,
             'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        })
-        .then(response => response.json())
-        .then(responseData => {
-          console.log('Pipedream Webhook Response:', responseData);
-        })
-        .catch(error => {
-          console.error('Error sending data to Pipedream:', error);
+            'Content-Length': Buffer.byteLength(postData),
+            'Authorization': `Bearer ${process.env.PIPEDREAM_SECURITY_TOKEN}`
+          }
+        };
+        
+        // Create the request
+        const req = https.request(requestOptions, (res) => {
+          console.log(`Pipedream Contact Form Response Status Code: ${res.statusCode}`);
+          
+          let responseData = '';
+          res.on('data', (chunk) => {
+            responseData += chunk;
+          });
+          
+          res.on('end', () => {
+            console.log(`Pipedream Contact Form Response Body: ${responseData || 'No response body'}`);
+          });
         });
-        */
+        
+        // Handle errors
+        req.on('error', (e) => {
+          console.error(`Pipedream Contact Form Request Error: ${e.message}`);
+        });
+        
+        // Write data and end request
+        req.write(postData);
+        req.end();
         
       } catch (webhookError) {
-        console.error("Error in webhook handling:", webhookError);
+        console.error("Error sending to Pipedream webhook:", webhookError);
         // Non-blocking error - continue with success response
       }
       
