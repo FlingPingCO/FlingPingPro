@@ -40,6 +40,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
         
         // Define the request options with authentication token
+        // Using X-PD-Token header as per Pipedream documentation
         const requestOptions = {
           hostname: 'eodj9vlvbo65l1i.m.pipedream.net',
           port: 443,
@@ -48,7 +49,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           headers: {
             'Content-Type': 'application/json',
             'Content-Length': Buffer.byteLength(postData),
-            'Authorization': `Bearer ${process.env.PIPEDREAM_SECURITY_TOKEN}`
+            'X-PD-Token': process.env.PIPEDREAM_SECURITY_TOKEN
           }
         };
         
@@ -110,6 +111,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
         
         // Define the request options with authentication token
+        // Using X-PD-Token header as per Pipedream documentation
         const requestOptions = {
           hostname: 'eodj9vlvbo65l1i.m.pipedream.net',
           port: 443,
@@ -118,7 +120,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           headers: {
             'Content-Type': 'application/json',
             'Content-Length': Buffer.byteLength(postData),
-            'Authorization': `Bearer ${process.env.PIPEDREAM_SECURITY_TOKEN}`
+            'X-PD-Token': process.env.PIPEDREAM_SECURITY_TOKEN
           }
         };
         
