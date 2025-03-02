@@ -32,7 +32,7 @@ const Contact = () => {
             </div>
             
             <div className="mt-auto">
-              <div className="bg-dark border-2 border-teal rounded-lg p-6">
+              <div className="bg-dark border-2 border-coral rounded-lg p-6">
                 <h3 className="text-xl mb-4 text-coral">Visit Our Social Media</h3>
                 <p className="mb-4">Stay up-to-date with the latest <span className="inline-flex"><span className="text-teal">FlingPing</span><span className="text-coral">.co</span></span> news and join our community on social media.</p>
                 <div className="flex space-x-4">
