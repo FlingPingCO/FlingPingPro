@@ -136,7 +136,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
             <div className="md:w-1/2 md:pr-12">
               <h2 className="text-2xl md:text-3xl text-coral mb-6">Flip the Script on Sexual Health.</h2>
               <p className="text-lg mb-8">The First App to Outsmart STDs – Smart, Private, and Empowering.</p>
-              <p className="mb-8 text-lg">FlingPing.co is the bold, game-changing app that turns awkward conversations into confidence and empowerment. Say goodbye to uncomfortable "uh-oh" moments and hello to a smarter, safer, and discreet way to stay ahead of your sexual health.</p>
+              <p className="mb-8 text-lg"><span className="inline-flex"><span className="text-teal">FlingPing</span><span className="text-coral">.co</span></span> is the bold, game-changing app that turns awkward conversations into confidence and empowerment. Say goodbye to uncomfortable "uh-oh" moments and hello to a smarter, safer, and discreet way to stay ahead of your sexual health.</p>
               
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                 <Link href="#founding-flinger">
@@ -161,7 +161,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
       {/* Why FlingPing Section */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl text-center mb-12">Why <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>?</h2>
+          <h2 className="text-3xl md:text-4xl text-center mb-12">Why <span className="inline-flex"><span className="text-teal">FlingPing</span><span className="text-coral">.co</span></span>?</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="bg-background border-2 border-coral rounded-xl p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col h-full">
@@ -226,7 +226,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
                     <div className="flex items-start">
                       <span className="text-coral mr-2 flex-shrink-0 text-lg font-bold">✓</span>
                       <div>
-                        <span className="font-medium">Lifetime Membership:</span> Pay once and unlock a lifetime of <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>'s core features.
+                        <span className="font-medium">Lifetime Membership:</span> Pay once and unlock a lifetime of <span className="inline-flex"><span className="text-teal">FlingPing</span><span className="text-coral">.co</span></span>'s core features.
                       </div>
                     </div>
                   </li>
@@ -234,7 +234,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
                     <div className="flex items-start">
                       <span className="text-coral mr-2 flex-shrink-0 text-lg font-bold">✓</span>
                       <div>
-                        <span className="font-medium">Be a Founding Flinger:</span> Get exclusive early access and shape <span className="text-teal">FlingPing<span className="text-coral">.co</span></span> with your feedback.
+                        <span className="font-medium">Be a Founding Flinger:</span> Get exclusive early access and shape <span className="inline-flex"><span className="text-teal">FlingPing</span><span className="text-coral">.co</span></span> with your feedback.
                       </div>
                     </div>
                   </li>
@@ -273,7 +273,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
       {/* Testimonials Section */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl text-center mb-8 text-coral">Why Our Early Adopters Love <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>?</h2>
+          <h2 className="text-3xl md:text-4xl text-center mb-8 text-coral">Why Our Early Adopters Love <span className="inline-flex"><span className="text-teal">FlingPing</span><span className="text-coral">.co</span></span>?</h2>
           
           <div className="flex justify-center mb-12">
             {/* Image removed */}
@@ -316,7 +316,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
             faqItems={[
               {
                 question: "What is FlingPing.co?",
-                answer: "FlingPing.co is your bold, secure partner in smarter sexual health. Designed to empower you with tools to stay informed and in control, it reimagines how technology can keep you ahead of the curve."
+                answer: "<span class='inline-flex'><span class='text-teal'>FlingPing</span><span class='text-coral'>.co</span></span> is your bold, secure partner in smarter sexual health. Designed to empower you with tools to stay informed and in control, it reimagines how technology can keep you ahead of the curve."
               },
               {
                 question: "Who are the Flingers?",
@@ -349,7 +349,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
                 </Link>
               </div>
               <div className="flex justify-center mt-5">
-                <div className="text-teal font-poppins font-medium text-lg">FlingPing<span className="text-coral">.co</span></div>
+                <div className="text-teal font-poppins font-medium text-lg inline-flex">FlingPing<span className="text-coral">.co</span></div>
               </div>
             </div>
           </div>
