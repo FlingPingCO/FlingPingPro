@@ -5,7 +5,7 @@ const About = () => {
   return (
     <div className="py-8 sm:py-12 md:py-16 bg-dark">
       <div className="container mx-auto px-4 sm:px-6">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl text-center mb-8 sm:mb-12">About <span className="text-teal">FlingPing<span className="text-coral">.co</span></span>.</h1>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl text-center mb-8 sm:mb-12">About <span className="inline-flex"><span className="text-teal">FlingPing</span><span className="text-coral">.co</span></span>.</h1>
         
         <div className="flex flex-col md:flex-row items-center mb-12 sm:mb-16 md:mb-20">
           <div className="md:w-1/2 md:pr-8 lg:pr-12 order-2 md:order-1">
