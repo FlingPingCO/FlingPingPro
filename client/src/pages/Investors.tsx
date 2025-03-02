@@ -59,7 +59,7 @@ const Investors = () => {
             onClick={() => window.location.href = "mailto:investments@flingping.co"}
             className="font-poppins font-medium text-center px-8 py-3 rounded-full text-lg mt-4 mb-4 hover:bg-opacity-90 transition-all bg-transparent border-2 border-coral text-coral"
           >
-            Claim Your Stake in <span className="text-teal">FlingPing</span><span className="text-coral">.co</span>
+            Claim Your Stake in<span className="text-teal">FlingPing</span><span className="text-coral">.co</span>
           </Button>
           
           <p className="mt-4 text-lg">
