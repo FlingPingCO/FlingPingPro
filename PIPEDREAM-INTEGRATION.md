@@ -18,10 +18,16 @@ The website code currently attempts to send form submissions to:
 We have attempted multiple authentication methods with the Pipedream webhook:
 1. ✅ No authentication headers (401 error)
 2. ✅ Bearer token: `Authorization: Bearer nodejs20.x` (401 error)
-3. ✅ API key: `X-API-Key: pd_1234567890` (401 error)
-4. ✅ PD Token: `X-PD-Token: PIPEDREAM_SECURITY_TOKEN` (401 error)
+3. ✅ Bearer token: `Authorization: Bearer PIPEDREAM_SECURITY_TOKEN` (401 error)
+4. ✅ API key: `X-API-Key: pd_1234567890` (401 error)
+5. ✅ PD Token: `X-PD-Token: PIPEDREAM_SECURITY_TOKEN` (401 error)
 
-Despite these attempts, all requests to the Pipedream webhook are returning 401 Unauthorized responses. The good news is that the primary storage through the backend API is working correctly, so user data is still being collected.
+Despite these attempts, all requests to the Pipedream webhook are returning 401 Unauthorized responses. This suggests that either:
+1. The Pipedream webhook URL is incorrect
+2. The webhook requires a specific security token we don't have
+3. The webhook may be configured to only accept requests from specific origins
+
+The good news is that the primary storage through the backend API is working correctly, so user data is still being collected.
 
 ## Forms with Pipedream Integration Attempts
 
