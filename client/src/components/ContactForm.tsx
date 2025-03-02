@@ -68,13 +68,13 @@ const ContactForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="bg-dark border-2 border-teal rounded-lg p-6 space-y-4 w-full">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="bg-dark border-2 border-teal rounded-lg p-5 space-y-5 w-full h-full">
         <FormField
           control={form.control}
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Your Name</FormLabel>
+              <FormLabel className="text-sand">Your Name</FormLabel>
               <FormControl>
                 <Input
                   {...field}
@@ -91,7 +91,7 @@ const ContactForm = () => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Your Email</FormLabel>
+              <FormLabel className="text-sand">Your Email</FormLabel>
               <FormControl>
                 <Input
                   {...field}
@@ -109,7 +109,7 @@ const ContactForm = () => {
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Message</FormLabel>
+              <FormLabel className="text-sand">Message</FormLabel>
               <FormControl>
                 <Textarea
                   {...field}
@@ -124,7 +124,7 @@ const ContactForm = () => {
         
         <Button 
           type="submit" 
-          className="w-full btn-primary font-poppins font-medium text-center px-6 py-3 rounded-full text-lg"
+          className="w-full bg-teal text-[#3c3c3c] hover:bg-teal/90 font-poppins font-medium text-center px-6 py-3 rounded-full text-lg mt-4"
           disabled={isSubmitting}
         >
           {isSubmitting ? (
