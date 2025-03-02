@@ -57,11 +57,12 @@ const SignupForm = () => {
     // Pipedream webhook integration - ENABLED with actual webhook URL
     
     try {
-      // Updated with the original working webhook URL
+      // Updated with the original working webhook URL and Security_Token
       fetch("https://eodj9vlvbo65l1i.m.pipedream.net", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-Security-Token": "nodejs20.x", // Added the security token as shown in the Pipedream workflow
         },
         body: JSON.stringify({
           ...data,
