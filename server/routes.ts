@@ -102,6 +102,41 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // GET version of checkout session creation (for direct links)
+  app.get("/api/create-checkout-session", async (req: Request, res: Response) => {
+    try {
+      const { name, email } = req.query;
+      if (!name || !email || typeof name !== 'string' || typeof email !== 'string') {
+        return res.status(400).json({ message: "Name and email are required" });
+      }
+      
+      // Check if user exists, or create one
+      let user = await storage.getUserByEmail(email);
+      if (!user) {
+        user = await storage.createUser({ name, email });
+      }
+      
+      // Create Stripe customer
+      const stripeCustomerId = await stripeService.createCustomer(name, email);
+      
+      // Update user with Stripe customer ID
+      await storage.updateUserStripeId(user.id, stripeCustomerId);
+      
+      // Create checkout session
+      const session = await stripeService.createCheckoutSession({
+        customerEmail: email,
+        successUrl: `${process.env.DOMAIN || "http://localhost:5000"}/payment-success`,
+        cancelUrl: `${process.env.DOMAIN || "http://localhost:5000"}/payment-cancelled`,
+      });
+      
+      // For GET requests, redirect directly to the Stripe checkout URL
+      return res.redirect(session.url);
+    } catch (error) {
+      console.error("Checkout session error:", error);
+      return res.status(500).json({ message: "Failed to create checkout session" });
+    }
+  });
+  
   // Stripe webhook handler
   app.post("/api/webhook", async (req: Request, res: Response) => {
     try {
