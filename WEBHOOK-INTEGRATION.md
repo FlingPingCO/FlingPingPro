@@ -52,6 +52,8 @@ For enhanced security:
 - All requests are sent via HTTPS
 - Request data is properly formatted as JSON
 - No sensitive user data beyond basic form information is transmitted
+- Inbound webhooks are secured with the `X-Webhook-Secret` header using `SYSTEME_WEBHOOK_SECRET`
+- All webhook communication uses a single, unified security approach
 
 ## Development Considerations
 
@@ -66,6 +68,6 @@ For enhanced security:
 - Inspect server logs for detailed error messages
 
 ## Future Enhancements
-- Add authentication to webhook requests
 - Implement retry logic for failed webhook transmissions
 - Create dashboard to view webhook transmission history
+- Add webhook signature validation for even stronger security
