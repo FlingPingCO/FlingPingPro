@@ -1,0 +1,88 @@
+Alright, let’s keep it simple and use Webhook.site as a middle step to forward the data to Google Sheets. Once we get that working, we can later decide if we want to send it to Systeme.io.
+
+🔥 Updated Plan: Webhook.site → Google Sheets
+	1.	Website Form → Sends data to Webhook.site
+	2.	Webhook.site → Forwards the data to Google Sheets
+	3.	Google Sheets → Stores all sign-ups automatically
+
+🚀 Step 1: Set Up Webhook.site
+
+1️⃣ Go to Webhook.site
+2️⃣ Copy Your Unique Webhook URL (It looks like: https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)
+3️⃣ Keep this tab open (it will show the incoming data from your form)
+
+🚀 Step 2: Modify Your Website Form
+
+Update your form code to send submissions to Webhook.site.
+
+<form id="signupForm">
+  <input type="text" name="name" placeholder="Your Name" required>
+  <input type="email" name="email" placeholder="Your Email" required>
+  <textarea name="message" placeholder="Your Message"></textarea>
+  <button type="submit">Sign Up</button>
+</form>
+
+<script>
+document.getElementById("signupForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    
+    let formData = new FormData(event.target);
+    let jsonObject = {};
+    formData.forEach((value, key) => jsonObject[key] = value);
+
+    fetch("YOUR_WEBHOOK_SITE_URL", { // Replace with your Webhook.site URL
+        method: "POST",
+        body: JSON.stringify(jsonObject),
+        headers: {"Content-Type": "application/json"}
+    })
+    .then(response => alert("Signup successful!"))
+    .catch(error => alert("Error submitting form."));
+});
+</script>
+
+✅ Replace "YOUR_WEBHOOK_SITE_URL" with the actual Webhook.site URL.
+✅ Save & Test: Fill out the form and check if Webhook.site receives the data.
+
+🚀 Step 3: Forward Webhook Data to Google Sheets
+
+Since Webhook.site doesn’t automatically forward data, we need to send it from Webhook.site to Google Sheets.
+
+Option 1: Using Zapier (Easy)
+	1.	Go to Zapier → Click Create a Zap
+	2.	Trigger: Choose Webhook by Zapier
+	•	Event: Catch Hook
+	•	Paste your Webhook.site URL
+	•	Test it (submit your form once to verify)
+	3.	Action: Choose Google Sheets
+	•	Event: Create Spreadsheet Row
+	•	Connect your Google Sheets account
+	•	Choose the right sheet & match fields (Name, Email, Message)
+	4.	Test & Publish 🚀
+
+✅ Now, every form submission gets saved in Google Sheets automatically! 🎉
+
+Option 2: Using Google Apps Script (Manual, Free)
+	1.	Open Google Sheets → Create a new sheet
+	2.	Go to Extensions → Apps Script
+	3.	Delete existing code & paste this:
+
+function doPost(e) {
+  var sheet = SpreadsheetApp.openById("YOUR_SHEET_ID").getSheetByName("Signups");
+  var data = JSON.parse(e.postData.contents);
+
+  sheet.appendRow([data.name, data.email, new Date(), data.message]);
+
+  return ContentService.createTextOutput(JSON.stringify({"result": "success"})).setMimeType(ContentService.MimeType.JSON);
+}
+
+	4.	Replace "YOUR_SHEET_ID" with your actual Google Sheet ID.
+	5.	Deploy as Web App (set access to Anyone).
+	6.	Copy the Web App URL and paste it into Webhook.site → Forwarding.
+
+✅ Now Webhook.site will send the data straight to Google Sheets! 🚀
+
+🔥 Next Steps
+	•	Test the setup: Fill out the form & check if the data lands in Google Sheets.
+	•	If successful: Later, we can automate sending the Google Sheets data to Systeme.io.
+
+Let’s get this working first. Test it & let me know! 💥
