@@ -35,6 +35,7 @@ A cutting-edge sexual health platform providing inclusive, private, and accessib
 - [Systeme.io Integration](./SYSTEME-INTEGRATION.md)
 - [Systeme.io Test Report](./WEBHOOK-TEST-REPORT-SYSTEME.md)
 - [Comprehensive Webhook Documentation](./WEBHOOK-INTEGRATION-DOCS.md)
+- [Webhook Integration Flow](./WEBHOOK-INTEGRATION-FLOW.md)
 
 ## Getting Started
 
@@ -62,8 +63,9 @@ The following environment variables are used:
 - `STRIPE_PUBLISHABLE_KEY` - Stripe publishable key
 - `DOMAIN` - Domain for redirects (defaults to http://localhost:5000)
 
-### Systeme.io Integration Variables
-- `SYSTEME_WEBHOOK_SECRET` - Secret for validating Systeme.io webhook requests
+### Webhook & Systeme.io Integration Variables
+- `SYSTEME_WEBHOOK_SECRET` - Secret for validating all webhook requests (Systeme.io and inbound webhooks)
+- `SYSTEME_API_KEY` - API key for Systeme.io API integration
 
 ### Google Sheets Integration Variables
 - `GOOGLE_SERVICE_ACCOUNT_EMAIL` - Service account email for Google Sheets API
@@ -84,12 +86,25 @@ The following environment variables are used:
 
 ## Webhook Integration
 
-The application integrates with webhook.site for form data collection:
+The application implements a bidirectional webhook integration system:
 
+### Outbound (FlingPing.co → Webhook.site)
+- Forms on FlingPing.co send data to our backend first
+- Data is stored in our database and then forwarded to Webhook.site
 - Webhook URL: `https://webhook.site/00af6027-a80c-4b5f-bd0e-ce5408f954ed`
-- Two form types are supported: Email Signup and Contact Form
-- All form submissions are stored in both the primary storage and sent to webhook.site
-- See [Webhook Integration](./WEBHOOK-INTEGRATION.md) for detailed documentation
+- Two form types are supported: Email Signup (`form_type: "email_signup"`) and Contact Form (`form_type: "contact_form"`)
+
+### Inbound (Webhook.site → FlingPing.co → Systeme.io & Google Sheets)
+- Webhook.site processes the data and forwards it to our webhook endpoint
+- Endpoint: `/webhook/inbound` secured with `X-Webhook-Secret` header
+- Our system validates, processes, and stores the data
+- Data is then forwarded to Systeme.io's API for contact management
+- A backup copy is sent to Google Sheets for data redundancy
+
+### Testing & Development
+- Use the `webhook-test.js` script to test the integration flow
+- See [Webhook Integration Flow](./WEBHOOK-INTEGRATION-FLOW.md) for a detailed explanation of the entire process
+- Refer to [Systeme.io Integration](./SYSTEME-INTEGRATION.md) for specific details about the Systeme.io integration
 
 ## License
 
