@@ -665,25 +665,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
             timestamp: new Date().toISOString()
           });
           
-          // Even without Systeme.io, save to Google Sheets
-          const formData = {
-            name: name || "Unknown",
-            email: email,
-            source: "webhook.site",
-            form_name: form_type || "Unknown",
-            form_id: "webhook_inbound",
-            timestamp: new Date().toISOString(),
-            custom_fields: {
-              message: message || "",
-              form_type: form_type || "email_signup"
-            },
-            raw_data: req.body
-          };
-          
-          // Send to Google Sheets
-          sendToGoogleSheets(formData).catch(sheetsError => {
-            console.error("Error sending to Google Sheets:", sheetsError);
-          });
+          // We no longer need to send directly to Google Sheets
+          // webhook.site will handle forwarding this data to Google Sheets
+          console.log("Data received from webhook.site, which will forward to Google Sheets");
           
           return; // Skip the actual API call
         }
@@ -734,25 +718,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           systemeRes.on('end', () => {
             console.log(`Systeme.io API Response Body: ${responseData || 'No response body'}`);
             
-            // Forward to Google Sheets
-            const formData = {
-              name: name || "Unknown",
-              email: email,
-              source: "webhook.site",
-              form_name: form_type || "Unknown",
-              form_id: "webhook_inbound",
-              timestamp: new Date().toISOString(),
-              custom_fields: {
-                message: message || "",
-                form_type: form_type || "email_signup"
-              },
-              raw_data: req.body
-            };
-            
-            // Send to Google Sheets
-            sendToGoogleSheets(formData).catch(sheetsError => {
-              console.error("Error sending to Google Sheets:", sheetsError);
-            });
+            // We no longer need to send directly to Google Sheets
+            // webhook.site will handle forwarding this data to Google Sheets
+            console.log("Data sent to webhook.site, which will forward to Google Sheets");
           });
         });
         
@@ -760,25 +728,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         systemeReq.on('error', (e: Error) => {
           console.error(`Systeme.io API Request Error: ${e.message}`);
           
-          // Even if Systeme.io API fails, try to save to Google Sheets
-          const formData = {
-            name: name || "Unknown",
-            email: email,
-            source: "webhook.site",
-            form_name: form_type || "Unknown",
-            form_id: "webhook_inbound",
-            timestamp: new Date().toISOString(),
-            custom_fields: {
-              message: message || "",
-              form_type: form_type || "email_signup"
-            },
-            raw_data: req.body
-          };
-          
-          // Send to Google Sheets
-          sendToGoogleSheets(formData).catch(sheetsError => {
-            console.error("Error sending to Google Sheets:", sheetsError);
-          });
+          // We no longer need to send directly to Google Sheets
+          // webhook.site will handle forwarding this data to Google Sheets even if Systeme.io fails
+          console.log("Data sent to webhook.site, which will forward to Google Sheets");
         });
         
         // Write data and end request
