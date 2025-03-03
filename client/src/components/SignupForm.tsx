@@ -69,20 +69,14 @@ const SignupForm = () => {
       email: data.email
     });
     
-    // Support for direct payment links (commented for now, uncomment when links are properly set up)
-    // const systemePaymentLink = import.meta.env.VITE_SYSTEME_PAYMENT_LINK;
-    // const stripeProductLink = import.meta.env.VITE_STRIPE_PRODUCT_LINK;
+    // Direct Stripe payment link
+    const stripeProductLink = "https://buy.stripe.com/00g9Ee2HifDDety001";
     
-    // if (systemePaymentLink) {
-    //   window.open(systemePaymentLink, '_blank');
-    // } else if (stripeProductLink) {
-    //   window.open(stripeProductLink, '_blank');
-    // } else {
-    //   window.open(`/api/create-checkout-session?name=${encodeURIComponent(data.name)}&email=${encodeURIComponent(data.email)}`, '_blank');
-    // }
-
-    // For now, use the API-based checkout which is working correctly
-    window.open(`/api/create-checkout-session?name=${encodeURIComponent(data.name)}&email=${encodeURIComponent(data.email)}`, '_blank');
+    // Use direct Stripe product link (preferred method)
+    window.open(stripeProductLink, '_blank');
+    
+    // Fallback option (commented out, but can be enabled if needed)
+    // window.open(`/api/create-checkout-session?name=${encodeURIComponent(data.name)}&email=${encodeURIComponent(data.email)}`, '_blank');
   };
 
   return (
