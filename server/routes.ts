@@ -470,11 +470,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/webhook/inbound", async (req: Request, res: Response) => {
     try {
       // Validate webhook request before processing
-      if (!validateInboundWebhookRequest(req)) {
+      if (!validateWebhookRequest(req)) {
         console.error('Unauthorized webhook request to /webhook/inbound');
         return res.status(403).json({ 
           success: false, 
-          message: "Forbidden: Invalid or missing X-Security-Token header" 
+          message: "Forbidden: Invalid or missing webhook secret header" 
         });
       }
       
