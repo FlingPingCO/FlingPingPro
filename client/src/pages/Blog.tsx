@@ -102,6 +102,7 @@ const Blog = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("All Posts");
   const [categories, setCategories] = useState<CategoryData[]>([]);
   const [email, setEmail] = useState<string>("");
+  const [name, setName] = useState<string>("");
   const [isSubscribing, setIsSubscribing] = useState<boolean>(false);
   const [subscribeSuccess, setSubscribeSuccess] = useState<boolean>(false);
   const [subscribeError, setSubscribeError] = useState<string | null>(null);
@@ -140,6 +141,11 @@ const Blog = () => {
       return;
     }
     
+    if (!name) {
+      setSubscribeError("Please enter your name");
+      return;
+    }
+    
     setIsSubscribing(true);
     setSubscribeError(null);
     
@@ -150,15 +156,20 @@ const Blog = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ 
+          email, 
+          name 
+        }),
       });
       
       if (!response.ok) {
-        throw new Error('Subscription request failed');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Subscription request failed');
       }
       
       setSubscribeSuccess(true);
       setEmail("");
+      setName("");
       
       // Reset success message after 5 seconds
       setTimeout(() => {
@@ -259,21 +270,35 @@ const Blog = () => {
             </div>
           ) : (
             <form onSubmit={handleSubscribe} className="max-w-lg mx-auto">
-              <div className="flex flex-col sm:flex-row gap-4">
-                <input
-                  type="email"
-                  placeholder="Your email address"
-                  className={`flex-grow px-4 py-3 rounded-full bg-[#3c3c3c] text-sand border-2 ${
-                    subscribeError ? "border-coral" : "border-sand"
-                  } focus:border-teal focus:outline-none`}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  disabled={isSubscribing}
-                  required
-                />
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <input
+                    type="text"
+                    placeholder="Your name"
+                    className={`flex-grow px-4 py-3 rounded-full bg-[#3c3c3c] text-sand border-2 ${
+                      subscribeError && !name ? "border-coral" : "border-sand"
+                    } focus:border-teal focus:outline-none`}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    disabled={isSubscribing}
+                    required
+                  />
+                  <input
+                    type="email"
+                    placeholder="Your email address"
+                    className={`flex-grow px-4 py-3 rounded-full bg-[#3c3c3c] text-sand border-2 ${
+                      subscribeError && !email ? "border-coral" : "border-sand"
+                    } focus:border-teal focus:outline-none`}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={isSubscribing}
+                    required
+                  />
+                </div>
+                
                 <Button 
                   type="submit" 
-                  className="bg-coral text-[#3c3c3c] hover:bg-yellow hover:text-[#3c3c3c] rounded-full"
+                  className="bg-coral text-[#3c3c3c] hover:bg-yellow hover:text-[#3c3c3c] rounded-full mt-2"
                   disabled={isSubscribing}
                 >
                   {isSubscribing ? (
@@ -282,7 +307,7 @@ const Blog = () => {
                       <div className="w-4 h-4 border-2 border-[#3c3c3c] border-t-transparent rounded-full animate-spin"></div>
                     </>
                   ) : (
-                    "Subscribe"
+                    "Subscribe to Blog Updates"
                   )}
                 </Button>
               </div>
