@@ -157,16 +157,17 @@ export async function sendToNotion(formData: any): Promise<boolean> {
 
 // ======= Webhook Security =======
 
-const WEBHOOK_SECRET = process.env.SYSTEME_WEBHOOK_SECRET || '';
+const SYSTEME_WEBHOOK_SECRET = process.env.SYSTEME_WEBHOOK_SECRET || '';
+const PIPEDREAM_SECURITY_TOKEN = process.env.PIPEDREAM_SECURITY_TOKEN || '';
 
 export function validateWebhookRequest(req: any): boolean {
   // If no secret is configured, skip validation (not recommended for production)
-  if (!WEBHOOK_SECRET) {
+  if (!SYSTEME_WEBHOOK_SECRET) {
     console.warn('WARNING: No SYSTEME_WEBHOOK_SECRET configured. Webhook validation is disabled.');
     return true;
   }
 
-  console.log(`Debug: SYSTEME_WEBHOOK_SECRET is configured with length: ${WEBHOOK_SECRET.length}`);
+  console.log(`Debug: SYSTEME_WEBHOOK_SECRET is configured with length: ${SYSTEME_WEBHOOK_SECRET.length}`);
   
   // Get the secret from the headers
   const headerSecret = req.headers['x-webhook-secret'] as string;
@@ -178,10 +179,38 @@ export function validateWebhookRequest(req: any): boolean {
   console.log(`Debug: Received header secret with length: ${headerSecret.length}`);
 
   // Compare the received secret with the expected secret
-  const isValid = headerSecret === WEBHOOK_SECRET;
+  const isValid = headerSecret === SYSTEME_WEBHOOK_SECRET;
   
   if (!isValid) {
     console.error(`Webhook request rejected: Invalid X-Webhook-Secret. Headers sent: ${Object.keys(req.headers).join(', ')}`);
+  }
+  
+  return isValid;
+}
+
+export function validateInboundWebhookRequest(req: any): boolean {
+  // If no security token is configured, skip validation (not recommended for production)
+  if (!PIPEDREAM_SECURITY_TOKEN) {
+    console.warn('WARNING: No PIPEDREAM_SECURITY_TOKEN configured. Inbound webhook validation is disabled.');
+    return true;
+  }
+
+  console.log(`Debug: PIPEDREAM_SECURITY_TOKEN is configured with length: ${PIPEDREAM_SECURITY_TOKEN.length}`);
+  
+  // Get the security token from the headers
+  const headerToken = req.headers['x-security-token'] as string;
+  if (!headerToken) {
+    console.error('Inbound webhook request rejected: Missing X-Security-Token header');
+    return false;
+  }
+  
+  console.log(`Debug: Received security token with length: ${headerToken.length}`);
+
+  // Compare the received token with the expected token
+  const isValid = headerToken === PIPEDREAM_SECURITY_TOKEN;
+  
+  if (!isValid) {
+    console.error(`Inbound webhook request rejected: Invalid X-Security-Token. Headers sent: ${Object.keys(req.headers).join(', ')}`);
   }
   
   return isValid;

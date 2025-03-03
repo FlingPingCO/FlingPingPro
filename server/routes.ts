@@ -9,7 +9,7 @@ import {
   insertContactMessageSchema,
 } from "@shared/schema";
 import { ZodError } from "zod";
-import { sendToGoogleSheets, sendToNotion, validateWebhookRequest } from "./integrations";
+import { sendToGoogleSheets, validateWebhookRequest, validateInboundWebhookRequest } from "./integrations";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // API routes - all prefixed with /api
@@ -469,6 +469,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Webhook.site inbound webhook endpoint - receives data from Webhook.site and forwards to Systeme.io
   app.post("/webhook/inbound", async (req: Request, res: Response) => {
     try {
+      // Validate webhook request before processing
+      if (!validateInboundWebhookRequest(req)) {
+        console.error('Unauthorized webhook request to /webhook/inbound');
+        return res.status(403).json({ 
+          success: false, 
+          message: "Forbidden: Invalid or missing X-Security-Token header" 
+        });
+      }
+      
       console.log("Received inbound webhook from Webhook.site:", JSON.stringify(req.body));
       
       // Extract data from the webhook payload
