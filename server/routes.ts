@@ -402,7 +402,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
-      console.log("Received webhook at /webhook/legacy endpoint (formerly systeme endpoint)");
+      console.log("Received webhook at /webhook/legacy endpoint");
       
       // Extract data from the webhook payload
       const { email, first_name, last_name, message, form_type } = req.body;
