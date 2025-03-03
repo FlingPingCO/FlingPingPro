@@ -12,6 +12,7 @@ import Investors from "@/pages/Investors";
 import Contact from "@/pages/Contact";
 import FAQs from "@/pages/FAQs";
 import Legal from "@/pages/Legal";
+import Blog from "@/pages/Blog";
 import PaymentSuccess from "@/pages/PaymentSuccess";
 import PaymentCancelled from "@/pages/PaymentCancelled";
 
@@ -38,6 +39,9 @@ function Router() {
       </Route>
       <Route path="/legal">
         {() => <Legal />}
+      </Route>
+      <Route path="/blog">
+        {() => <Blog />}
       </Route>
       <Route path="/payment-success">
         {() => <PaymentSuccess />}
