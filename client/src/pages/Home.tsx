@@ -226,7 +226,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
                       <div className="flex items-center justify-center mb-4">
                         <div className="text-yellow text-xl">★★★★★</div>
                       </div>
-                      <p className="mb-4 italic text-center flex-grow">"{testimonial.text}"</p>
+                      <p className="mb-4 italic text-center flex-grow text-teal">"{testimonial.text}"</p>
                       <div className="text-coral text-center">- {testimonial.source}</div>
                     </div>
                   </CarouselItem>
