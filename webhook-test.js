@@ -23,7 +23,7 @@ const config = {
   webhookSiteId: '00af6027-a80c-4b5f-bd0e-ce5408f954ed',
   
   // Security token (for testing only - in production, this is in environment variables)
-  webhookSecret: env.SYSTEME_WEBHOOK_SECRET || 'test-webhook-secret',
+  webhookSecret: env.PIPEDREAM_SECURITY_TOKEN || 'test-webhook-secret',
 };
 
 // Generate unique email addresses with timestamps to avoid duplicate email errors
