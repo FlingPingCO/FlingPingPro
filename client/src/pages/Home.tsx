@@ -354,6 +354,21 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
           </div>
         </div>
       </section>
+
+      {/* Affiliate Disclosure */}
+      <section className="py-8 bg-dark">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto text-center">
+            <p className="text-sm text-sand">
+              <span className="text-coral">Affiliate Disclosure:</span> Some links on <span className="text-teal">FlingPing<span className="text-coral">.co</span></span> are affiliate links, which means we may earn a commission if you make a purchase through these links, at no additional cost to you. 
+              This helps support our mission to provide cutting-edge sexual health resources. 
+              <Link href="/legal#affiliate">
+                <span className="text-teal ml-1 hover:underline cursor-pointer">Learn more</span>
+              </Link>
+            </p>
+          </div>
+        </div>
+      </section>
     </>
   );
 };

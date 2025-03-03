@@ -204,6 +204,58 @@ const Legal = () => {
                   </p>
                 </AccordionContent>
               </AccordionItem>
+              
+              <AccordionItem value="affiliate" id="affiliate" className="border-b border-coral">
+                <AccordionTrigger className="text-xl font-medium py-4 hover:text-primary">
+                  Affiliate Disclosure
+                </AccordionTrigger>
+                <AccordionContent className="text-sand px-4 pb-4 space-y-4">
+                  <h3 className="text-lg font-medium text-primary">FTC Disclosure Compliance</h3>
+                  <p>
+                    In accordance with the Federal Trade Commission (FTC) guidelines, 
+                    <span className="text-teal"> FlingPing<span className="text-coral">.co</span></span> would like to disclose that 
+                    this website contains affiliate links. As an affiliate, we may earn a commission from qualifying purchases 
+                    made through these links at no additional cost to you.
+                  </p>
+                  
+                  <h3 className="text-lg font-medium text-primary">What Are Affiliate Links?</h3>
+                  <p>
+                    Affiliate links are special URLs that contain our affiliate ID or tracking code. When you click on these links 
+                    and make a purchase, we may receive a small commission from the merchant. These links may be present in our 
+                    blog posts, product recommendations, or resource pages.
+                  </p>
+                  
+                  <h3 className="text-lg font-medium text-primary">Our Affiliate Relationships</h3>
+                  <p>
+                    We currently have affiliate relationships with the following companies:
+                  </p>
+                  <ul className="list-disc pl-6 space-y-2">
+                    <li>Sexual health and wellness product retailers</li>
+                    <li>Health education platforms</li>
+                    <li>Privacy and security service providers</li>
+                  </ul>
+                  
+                  <h3 className="text-lg font-medium text-primary">Our Commitment to You</h3>
+                  <p>
+                    We want to be completely transparent about our affiliate relationships. Please know that:
+                  </p>
+                  <ul className="list-disc pl-6 space-y-2">
+                    <li>We only recommend products or services that we believe will provide value to our users</li>
+                    <li>We will always disclose when content contains affiliate links</li>
+                    <li>Your trust is our top priority, and we will never recommend products solely for the purpose of earning commissions</li>
+                  </ul>
+                  
+                  <h3 className="text-lg font-medium text-primary">Identifying Affiliate Links</h3>
+                  <p>
+                    Affiliate links on our site will be identified with a clear disclosure statement at the beginning of any content 
+                    containing such links, or with an indicator next to the link itself like [Affiliate Link].
+                  </p>
+                  
+                  <p className="mt-6 text-sm">
+                    Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
             </Accordion>
           </div>
           
