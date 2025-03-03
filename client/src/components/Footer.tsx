@@ -22,6 +22,7 @@ const Footer = () => {
             <Link href="/faqs"><span className="text-sand hover:text-teal cursor-pointer">FAQs</span></Link>
             <Link href="/contact"><span className="text-sand hover:text-teal cursor-pointer">Contact</span></Link>
             <Link href="/legal"><span className="text-sand hover:text-teal cursor-pointer">Legal</span></Link>
+            <Link href="/legal#affiliate"><span className="text-coral hover:text-teal cursor-pointer">Affiliate Disclosure</span></Link>
           </div>
           
           <div className="flex justify-center md:justify-end space-x-3">
