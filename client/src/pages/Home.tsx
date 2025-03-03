@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import FAQAccordion from "@/components/FAQAccordion";
+import SystemeFormCustomizer from "@/components/SystemeFormCustomizer";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
@@ -264,15 +265,8 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
               </div>
               
               <div className="bg-background rounded-3xl border-2 border-coral p-4 sm:p-6 md:p-8 shadow-md flex flex-col justify-center h-full">
-                <div className="systeme-form-container h-full flex flex-col justify-center">
-                  <iframe 
-                    src="https://1903-brad.systeme.io/42eeb962" 
-                    width="100%" 
-                    height="600px" 
-                    style={{ border: 'none', overflow: 'hidden' }}
-                    title="FlingPing.co Signup Form"
-                  />
-                </div>
+                {/* Enhanced Systeme.io form with styling and customization */}
+                <SystemeFormCustomizer />
               </div>
             </div>
           </div>
