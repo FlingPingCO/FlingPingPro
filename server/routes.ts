@@ -521,6 +521,39 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         console.log("Forwarding data to Systeme.io API");
         
+        // Check if Systeme.io API key is configured
+        if (!process.env.SYSTEME_API_KEY) {
+          console.log('Systeme.io API key not configured (SYSTEME_API_KEY). Using mock implementation.');
+          console.log('Would have sent to Systeme.io:', {
+            email: email,
+            name: name,
+            form_type: form_type || 'email_signup',
+            timestamp: new Date().toISOString()
+          });
+          
+          // Even without Systeme.io, save to Google Sheets
+          const formData = {
+            name: name || "Unknown",
+            email: email,
+            source: "webhook.site",
+            form_name: form_type || "Unknown",
+            form_id: "webhook_inbound",
+            timestamp: new Date().toISOString(),
+            custom_fields: {
+              message: message || "",
+              form_type: form_type || "email_signup"
+            },
+            raw_data: req.body
+          };
+          
+          // Send to Google Sheets
+          sendToGoogleSheets(formData).catch(sheetsError => {
+            console.error("Error sending to Google Sheets:", sheetsError);
+          });
+          
+          return; // Skip the actual API call
+        }
+        
         // Prepare data for Systeme.io
         const firstName = name ? name.split(' ')[0] : '';
         const lastName = name && name.split(' ').length > 1 ? name.split(' ').slice(1).join(' ') : '';
@@ -540,17 +573,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
         
         // Define the request options for Systeme.io API
-        // Note: Replace with actual Systeme.io API endpoint and authentication
+        // Using the standard Systeme.io API endpoint
         const requestOptions = {
-          hostname: 'systeme.io',
-          path: '/api/contacts', // Replace with actual API path
+          hostname: 'api.systeme.io',
+          path: '/api/v2/contacts',
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Content-Length': Buffer.byteLength(postData),
-            'X-API-Key': process.env.SYSTEME_API_KEY || '' // Replace with actual auth method
+            'X-API-Key': process.env.SYSTEME_API_KEY || ''
           }
         };
+        
+        console.log(`Debug: Using Systeme.io API endpoint: ${requestOptions.hostname}${requestOptions.path}`);
         
         // Create the request
         const systemeReq = https.request(requestOptions, (systemeRes: IncomingMessage) => {
