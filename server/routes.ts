@@ -319,6 +319,97 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Systeme.io webhook handler
+  app.post("/webhook/systeme", async (req: Request, res: Response) => {
+    try {
+      console.log("Received Systeme.io webhook payload:", JSON.stringify(req.body));
+      
+      // Extract relevant data from Systeme.io payload
+      // Note: Adjust these field names based on actual Systeme.io webhook format
+      const { 
+        contact_email, 
+        contact_first_name,
+        contact_last_name,
+        form_name,
+        form_id,
+        custom_fields,
+        purchase_amount,
+        ...otherFields
+      } = req.body;
+      
+      // Validate required fields
+      const email = contact_email || req.body.email || '';
+      if (!email) {
+        console.error("Missing email in Systeme.io webhook payload");
+        return res.status(400).json({ success: false, message: "Email is required" });
+      }
+      
+      // Construct a unified data object
+      const firstName = contact_first_name || req.body.first_name || '';
+      const lastName = contact_last_name || req.body.last_name || '';
+      const fullName = firstName && lastName ? `${firstName} ${lastName}` : (firstName || lastName || "Systeme Subscriber");
+      
+      const formData = {
+        name: fullName,
+        email: email.toLowerCase().trim(),
+        source: "systeme.io",
+        form_name: form_name || "Unknown Form",
+        form_id: form_id || "Unknown",
+        custom_fields: custom_fields || {},
+        timestamp: new Date().toISOString(),
+        raw_data: req.body
+      };
+      
+      // 1. Store in our local database
+      try {
+        // Check if email already exists
+        const existingSignup = await storage.getEmailSignupByEmail(email);
+        if (!existingSignup) {
+          // Only create if it doesn't exist
+          await storage.createEmailSignup({
+            name: fullName,
+            email: email.toLowerCase().trim()
+          });
+          console.log(`Created new email signup from Systeme.io for: ${email}`);
+        } else {
+          console.log(`Systeme.io submission for existing email: ${email}`);
+        }
+      } catch (dbError) {
+        console.error("Error storing Systeme.io data in database:", dbError);
+        // Continue processing - we don't want to fail the whole request
+      }
+      
+      // 2. Send to Google Sheets (implementation below)
+      try {
+        await sendToGoogleSheets(formData);
+      } catch (sheetsError) {
+        console.error("Error sending to Google Sheets:", sheetsError);
+      }
+      
+      // 3. Send to Notion (implementation below)
+      try {
+        await sendToNotion(formData);
+      } catch (notionError) {
+        console.error("Error sending to Notion:", notionError);
+      }
+      
+      // Always return success to Systeme.io to prevent retries
+      return res.status(200).json({ 
+        success: true, 
+        message: "Webhook received successfully",
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      console.error("Systeme.io webhook processing error:", error);
+      // Still return 200 to avoid Systeme.io retries
+      return res.status(200).json({ 
+        success: true, 
+        message: "Webhook processed with errors", 
+        error: process.env.NODE_ENV === 'development' ? error.message : undefined
+      });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
