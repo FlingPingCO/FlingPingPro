@@ -1,160 +1,119 @@
 # FlingPing.co Post-Deployment Verification Guide
 
-This guide outlines the steps to verify that all components of FlingPing.co are functioning correctly after deployment to Hostinger.
+This document provides a comprehensive checklist to verify that all functionality is working correctly after deployment to Hostinger.
 
-## Website Functionality Checks
+## Core Functionality Verification
 
-### Basic Page Loading
-- [ ] Home page loads correctly
-- [ ] About page loads correctly
-- [ ] FAQs page loads correctly
-- [ ] How It Works page loads correctly
-- [ ] Contact page loads correctly
-- [ ] Blog page loads correctly
-- [ ] Legal page loads correctly
-- [ ] Illustrations page is accessible (internal only)
+### 1. Website Loading
 
-### Navigation and UI
-- [ ] Navigation menu works on desktop
-- [ ] Navigation menu works on mobile (responsive)
-- [ ] Footer links work correctly
-- [ ] Logo and branding appear correctly
-- [ ] Animations and transitions work properly
+- [ ] Home page loads correctly and displays all elements
+- [ ] Navigation menu functions properly 
+- [ ] All pages render without visual issues
+- [ ] Website is responsive across desktop, tablet, and mobile
+- [ ] All assets (images, fonts, styles) load properly
 
-### Asset Loading
-- [ ] All images load correctly
-- [ ] Illustrations display properly
-- [ ] Icons appear correctly
-- [ ] Fonts and typography render as expected
+### 2. Form Submissions
 
-## Form Submission Testing
+#### Signup Form
+- [ ] Form loads correctly with all fields
+- [ ] Validation works for required fields
+- [ ] Submit button functions properly
+- [ ] Successful submission shows confirmation message
+- [ ] Data appears in Google Sheets correctly
+- [ ] Test with various email formats to ensure validation
 
-### Email Signup Form
-- [ ] Form displays correctly on home page
-- [ ] Form accepts valid inputs
-- [ ] Form rejects invalid inputs with appropriate error messages
-- [ ] Submission success message appears when form is submitted
-- [ ] Data is stored in backend
-- [ ] Data is sent to Google Sheets
-- [ ] Data is forwarded to Systeme.io
+#### Contact Form  
+- [ ] Form loads correctly with all fields
+- [ ] Validation works for required fields
+- [ ] Submit button functions properly
+- [ ] Successful submission shows confirmation message
+- [ ] Data appears in Google Sheets correctly
 
-### Contact Form
-- [ ] Form displays correctly on contact page
-- [ ] Form accepts valid inputs
-- [ ] Form validates required fields
-- [ ] Submission success message appears
-- [ ] Data is stored in backend
-- [ ] Data is sent to Google Sheets
-- [ ] Data is forwarded to Systeme.io
+### 3. Payment Processing
 
-## External Integration Tests
+- [ ] Checkout button triggers Stripe checkout process
+- [ ] Stripe checkout form loads correctly
+- [ ] Test payment with Stripe test card succeeds
+- [ ] Success and cancel pages function properly
+- [ ] Payment confirmation is recorded in the system
 
-### Payment Integration
-- [ ] Payment process initiates correctly when form is submitted
-- [ ] If Systeme.io payment link is configured (VITE_SYSTEME_PAYMENT_LINK):
-  - [ ] Systeme.io payment page opens in new tab
-  - [ ] Test payment succeeds with a test card
-  - [ ] Success page and thank you flow work as expected
-- [ ] If direct Stripe payment link is configured (VITE_STRIPE_PRODUCT_LINK):
-  - [ ] Stripe hosted payment page opens in new tab
-  - [ ] Test payment succeeds with test card (4242 4242 4242 4242)
-  - [ ] Success page specified in Stripe Dashboard appears after payment
-- [ ] If using API-generated checkout (fallback method):
-  - [ ] Stripe checkout page loads when payment is initiated
-  - [ ] Test payment succeeds with test card
-  - [ ] Success page appears after successful payment
-  - [ ] Cancel page appears if payment is cancelled
-- [ ] Webhook receives payment events
-- [ ] Founding Flinger count updates correctly
+### 4. API Endpoints
 
-### Google Sheets Integration
-- [ ] Email signup data appears in Google Sheet
-- [ ] Contact form data appears in Google Sheet
-- [ ] All required fields are populated correctly
-- [ ] Timestamps are accurate
+- [ ] `/api/email-signup` accepts and processes data
+- [ ] `/api/contact` accepts and processes data
+- [ ] `/api/create-checkout-session` creates Stripe sessions
+- [ ] `/webhook/legacy` accepts and processes data
+- [ ] `/webhook/inbound` accepts and processes data with correct security token
 
-### Systeme.io Integration
-- [ ] Contacts are created in Systeme.io when forms are submitted
-- [ ] Contact data is accurate and complete
-- [ ] Custom fields are populated correctly
-- [ ] Webhooks from Systeme.io are received and processed
+## Integration Verification
 
-### webhook.site Integration
-- [ ] Data is forwarded correctly from webhook.site to your application
-- [ ] Security token validation works properly
-- [ ] Error handling for invalid requests works correctly
+### 1. Google Sheets Integration
 
-## API Endpoint Testing
+- [ ] Test email signup and verify data appears in Google Sheets
+- [ ] Test contact form and verify data appears in Google Sheets
+- [ ] Check formatting of data in spreadsheet columns
+- [ ] Verify timestamp is recorded correctly
 
-Use a tool like Postman or curl to test API endpoints:
+### 2. Stripe Integration
 
-### GET Endpoints
-- [ ] `GET /api/blog-posts` returns blog posts
-- [ ] `GET /api/blog-posts/:id` returns specific blog post
-- [ ] `GET /api/blog-categories` returns categories
-- [ ] `GET /api/founding-flinger-count` returns count
+- [ ] Verify Stripe checkout customization (logo, name, description)
+- [ ] Test successful payment flow
+- [ ] Test canceled payment flow
+- [ ] Check webhook handling for payment events
+- [ ] Verify payment records in database
 
-### POST Endpoints
-- [ ] `POST /api/email-signup` accepts valid form data
-- [ ] `POST /api/contact` accepts valid form data
-- [ ] `POST /api/create-checkout-session` creates Stripe session
+### 3. Webhook Handling
 
-### Webhook Endpoints
-- [ ] `POST /webhook/systeme` accepts Systeme.io webhooks
-- [ ] `POST /webhook/inbound` accepts webhook.site forwards
-- [ ] `POST /api/webhook` accepts Stripe webhooks
+- [ ] Test inbound webhook with correct security token
+- [ ] Test inbound webhook with incorrect security token (should be rejected)
+- [ ] Verify data from webhooks is properly processed and stored
 
-## Browser Compatibility Testing
+## Performance Verification
 
-Test the website on different browsers:
-- [ ] Chrome
-- [ ] Firefox
-- [ ] Safari
-- [ ] Edge
+- [ ] Measure and record page load times
+- [ ] Check for console errors across all pages
+- [ ] Verify memory usage remains stable
+- [ ] Test under simulated load if possible
 
-## Mobile Responsiveness Testing
+## Security Verification
 
-Test the website on different devices:
-- [ ] Desktop (large screen)
-- [ ] Laptop (medium screen)
-- [ ] Tablet (portrait and landscape)
-- [ ] Mobile phone (small screen)
+- [ ] Verify environment variables are properly set and secured
+- [ ] Check that sensitive data is not exposed in client-side code
+- [ ] Verify webhook security token validation works correctly
+- [ ] Test HTTPS configuration and certificate validity
 
-## Performance Testing
+## Documentation Updates
 
-- [ ] Page load times are acceptable (<3 seconds)
-- [ ] Images are properly optimized
-- [ ] Server response times for API calls are good (<500ms)
-- [ ] No console errors or warnings
+- [ ] Update any remaining documentation references
+- [ ] Create backup of current deployment state
+- [ ] Document any issues encountered and their resolutions
 
-## Security Testing
+## Issue Reporting Template
 
-- [ ] SSL certificate is working correctly (https)
-- [ ] API endpoints reject unauthorized access
-- [ ] Webhook endpoints validate security tokens
-- [ ] Form submissions have rate limiting or other anti-spam measures
+If issues are found during verification, document them using this template:
 
-## Error Handling Verification
+```
+## Issue Report
 
-- [ ] Test invalid form submissions
-- [ ] Test invalid API requests
-- [ ] Test malformed webhook payloads
-- [ ] Verify error messages are user-friendly
+**Component:** [Form/API/Integration/etc.]
+**Severity:** [Critical/High/Medium/Low]
+**Description:** [Detailed description of the issue]
+**Steps to Reproduce:**
+1. [Step 1]
+2. [Step 2]
+3. [Step 3]
 
-## Tracking and Analytics
+**Expected Result:** [What should happen]
+**Actual Result:** [What actually happens]
+**Screenshots/Logs:** [Any relevant evidence]
 
-- [ ] Any analytics tools are correctly installed
-- [ ] Event tracking is working (if implemented)
+**Possible Solution:** [If known]
+```
 
-## Documentation and Issues
+## Verification Sign-off
 
-- [ ] Document any issues encountered during verification
-- [ ] Create a plan to address any issues found
-- [ ] Document successful verification for future reference
+Once all checks have been completed successfully, record the sign-off:
 
-## Regular Health Checks
-
-After initial verification, implement regular health checks:
-- [ ] Set up uptime monitoring
-- [ ] Create a schedule for regular feature testing
-- [ ] Implement automated tests if possible
+**Verification Completed By:** _____________________
+**Date:** _____________________
+**Notes:** _________________________________________________________
