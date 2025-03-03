@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import FAQAccordion from "@/components/FAQAccordion";
+import SignupForm from "@/components/SignupForm";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
@@ -297,57 +298,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
               </div>
               
               <div className="bg-background rounded-3xl border-2 border-coral p-4 sm:p-6 md:p-8 shadow-md flex flex-col justify-center h-full">
-                {/* Form Header */}
-                <div className="mb-5 text-center">
-                  <h3 className="text-teal text-xl sm:text-2xl font-bold mb-2">Spots Are Limited!</h3>
-                  <p className="text-yellow text-base sm:text-lg">Only 250 Founding Flinger spots left</p>
-                </div>
-                
-                {/* Custom Form with Systeme.io Integration */}
-                <div className="w-full mx-auto mb-4">
-                  <div className="bg-sand rounded-lg p-5 sm:p-6">
-                    <form action="https://1903-brad.systeme.io/42eeb962" method="post" target="_blank" className="space-y-5">
-                      <div>
-                        <input 
-                          type="text" 
-                          name="name" 
-                          placeholder="Full name*" 
-                          required
-                          className="w-full px-4 py-3 border-2 border-coral rounded-lg bg-white text-dark focus:outline-none focus:ring-2 focus:ring-teal"
-                        />
-                      </div>
-                      
-                      <div>
-                        <input 
-                          type="email" 
-                          name="email" 
-                          placeholder="Email address*" 
-                          required
-                          className="w-full px-4 py-3 border-2 border-coral rounded-lg bg-white text-dark focus:outline-none focus:ring-2 focus:ring-teal"
-                        />
-                      </div>
-                      
-                      <div className="pt-3">
-                        <button 
-                          type="submit"
-                          className="w-full bg-teal hover:bg-yellow text-dark font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-md text-lg"
-                        >
-                          Secure My Spot for $99
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-                
-                {/* Secure Payment Notice */}
-                <div className="text-center mt-2">
-                  <p className="text-sm text-gray-400 mb-2">Secure payment powered by Stripe</p>
-                  <div className="flex justify-center space-x-3">
-                    <img src="https://cdn.systeme.io/img/payment/visa.svg" alt="Visa" className="h-5" />
-                    <img src="https://cdn.systeme.io/img/payment/mastercard.svg" alt="Mastercard" className="h-5" />
-                    <img src="https://cdn.systeme.io/img/payment/amex.svg" alt="American Express" className="h-5" />
-                  </div>
-                </div>
+                <SignupForm />
               </div>
             </div>
           </div>
