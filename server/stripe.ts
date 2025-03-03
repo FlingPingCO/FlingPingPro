@@ -56,6 +56,9 @@ export class StripeService {
               product_data: {
                 name: 'Founding Flinger Lifetime Membership',
                 description: 'Lifetime access to FlingPing.co as a Founding Flinger',
+                images: [
+                  `${process.env.DOMAIN || 'http://localhost:5000'}/images/FlingPing.co_Logo_TP_Background_Removed.png`
+                ],
               },
               unit_amount: FOUNDING_FLINGER_PRICE,
             },
