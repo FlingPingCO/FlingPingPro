@@ -19,6 +19,7 @@ const Footer = () => {
             <Link href="/"><span className="text-sand hover:text-teal cursor-pointer">Home</span></Link>
             <Link href="/about"><span className="text-sand hover:text-teal cursor-pointer">About</span></Link>
             <Link href="/how-it-works"><span className="text-sand hover:text-teal cursor-pointer">How It Works</span></Link>
+            <Link href="/blog"><span className="text-sand hover:text-teal cursor-pointer">Blog</span></Link>
             <Link href="/faqs"><span className="text-sand hover:text-teal cursor-pointer">FAQs</span></Link>
             <Link href="/contact"><span className="text-sand hover:text-teal cursor-pointer">Contact</span></Link>
             <Link href="/legal"><span className="text-sand hover:text-teal cursor-pointer">Legal</span></Link>
