@@ -43,8 +43,7 @@ FlingPing.co is a full-stack Node.js application consisting of:
    NODE_ENV=production
    
    # Frontend Environment Variables (for the build process)
-   VITE_SYSTEME_PAYMENT_LINK=https://systeme.io/funnel/share/5210756a1cf4d53251d3b56e9e6343e4ea7dd71   # Systeme.io payment link (priority)
-   VITE_STRIPE_PRODUCT_LINK=https://buy.stripe.com/XXX   # Direct Stripe payment link URL (fallback)
+   VITE_STRIPE_PRODUCT_LINK=https://buy.stripe.com/00g9Ee2HifDDety001   # Direct Stripe payment link URL (preferred)
    ```
 
 ## Deployment Steps
@@ -115,7 +114,7 @@ After deployment, verify the following:
    - `/webhook/inbound`
 
 4. Test the integration with external services:
-   - Stripe payment processing
+   - Stripe payment processing (see `deploy-guide/PAYMENT-INTEGRATION-GUIDE.md` for details)
    - Form submissions to Google Sheets
    - Integration with webhook.site
    - Systeme.io interactions
@@ -137,6 +136,22 @@ After deployment, verify the following:
 ### Logs
 
 Access application logs through Hostinger's control panel or via SSH for troubleshooting.
+
+## Payment System Configuration
+
+FlingPing.co offers two methods for processing payments:
+
+1. **Direct Stripe Payment Link** (Recommended)
+   - Set `VITE_STRIPE_PRODUCT_LINK` environment variable to your Stripe payment link
+   - This bypasses the API and sends users directly to Stripe's hosted checkout page
+   - See `deploy-guide/PAYMENT-INTEGRATION-GUIDE.md` for detailed setup instructions
+
+2. **API-generated Stripe Checkout** (Fallback)
+   - Used automatically if no direct payment link is configured
+   - Requires `STRIPE_SECRET_KEY` and `STRIPE_PUBLISHABLE_KEY` to be properly set
+   - Creates a dynamic checkout session through the Stripe API
+
+Refer to `deploy-guide/PAYMENT-INTEGRATION-GUIDE.md` for complete documentation on payment options.
 
 ## Maintenance
 

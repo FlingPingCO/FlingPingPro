@@ -69,14 +69,16 @@ const SignupForm = () => {
       email: data.email
     });
     
-    // Direct Stripe payment link
-    const stripeProductLink = "https://buy.stripe.com/00g9Ee2HifDDety001";
+    // Check for environment variable-based payment link
+    const stripeProductLink = import.meta.env.VITE_STRIPE_PRODUCT_LINK;
     
-    // Use direct Stripe product link (preferred method)
-    window.open(stripeProductLink, '_blank');
-    
-    // Fallback option (commented out, but can be enabled if needed)
-    // window.open(`/api/create-checkout-session?name=${encodeURIComponent(data.name)}&email=${encodeURIComponent(data.email)}`, '_blank');
+    if (stripeProductLink) {
+      // If we have a direct payment link configured in env vars, use it
+      window.open(stripeProductLink, '_blank');
+    } else {
+      // Otherwise fall back to the API-generated checkout
+      window.open(`/api/create-checkout-session?name=${encodeURIComponent(data.name)}&email=${encodeURIComponent(data.email)}`, '_blank');
+    }
   };
 
   return (
