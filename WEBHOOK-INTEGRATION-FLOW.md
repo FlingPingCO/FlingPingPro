@@ -26,10 +26,10 @@ User Form Submission → Webhook.site → Our Backend → Systeme.io & Google Sh
 2. **Webhook.site receives and processes the data**
    - Acts as an intermediary service to allow filtering and routing
    - Sends the data to our `/webhook/inbound` endpoint
-   - Includes security validation with `X-Security-Token` header
+   - Includes security validation with `X-Webhook-Secret` header
 
 3. **Our `/webhook/inbound` endpoint processes the webhook**
-   - Validates the security token (`PIPEDREAM_SECURITY_TOKEN`)
+   - Validates the webhook secret (`SYSTEME_WEBHOOK_SECRET`)
    - Saves the data to our local database (if needed)
    - Forwards the data to Systeme.io API
    - Also sends the data to Google Sheets as a backup
@@ -44,15 +44,12 @@ User Form Submission → Webhook.site → Our Backend → Systeme.io & Google Sh
 
 ### Security Considerations
 
-All webhook communications are secured with token-based authentication:
+All webhook communications are secured with a single, unified webhook secret:
 
-1. **Inbound Webhooks (Webhook.site → Our Backend)**
-   - Protected by `X-Security-Token` header validation
-   - Uses `PIPEDREAM_SECURITY_TOKEN` environment variable
-
-2. **Systeme.io Webhooks (Systeme.io → Our Backend)**
+1. **All Webhook Communications**
    - Protected by `X-Webhook-Secret` header validation
-   - Uses `SYSTEME_WEBHOOK_SECRET` environment variable
+   - Uses `SYSTEME_WEBHOOK_SECRET` environment variable for all webhook endpoints
+   - Provides a consistent security model across the entire application
 
 ### Endpoint Reference
 
@@ -60,7 +57,7 @@ All webhook communications are secured with token-based authentication:
 |----------|---------|----------|----------------|
 | `/api/email-signup` | Frontend form submission | N/A (internal) | `POST` with JSON body containing `name` and `email` |
 | `/api/contact` | Frontend contact form | N/A (internal) | `POST` with JSON body containing `name`, `email`, and `message` |
-| `/webhook/inbound` | Receive data from Webhook.site | `X-Security-Token` header | `POST` with JSON body from Webhook.site |
+| `/webhook/inbound` | Receive data from Webhook.site | `X-Webhook-Secret` header | `POST` with JSON body from Webhook.site |
 | `/webhook/systeme` | Receive data from Systeme.io | `X-Webhook-Secret` header | `POST` with JSON body from Systeme.io |
 
 ## Data Format
@@ -91,7 +88,7 @@ All webhook communications are secured with token-based authentication:
 1. **Webhook.site Configuration**
    - Create a webhook at Webhook.site
    - Configure it to forward to your `/webhook/inbound` endpoint
-   - Add the `X-Security-Token` header with the value from `PIPEDREAM_SECURITY_TOKEN`
+   - Add the `X-Webhook-Secret` header with the value from `SYSTEME_WEBHOOK_SECRET`
 
 2. **Google Sheets Integration**
    - Requires service account credentials in environment variables:
@@ -111,7 +108,7 @@ Common issues and their solutions:
 
 1. **Webhook not being received**
    - Check that Webhook.site is properly configured
-   - Verify that the security token is correctly set
+   - Verify that the webhook secret is correctly set in both your environment and Webhook.site configuration
 
 2. **Data not appearing in Systeme.io**
    - Check Systeme.io API endpoints and authentication
