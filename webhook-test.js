@@ -26,16 +26,17 @@ const config = {
   webhookSecret: env.SYSTEME_WEBHOOK_SECRET || 'test-webhook-secret',
 };
 
-// Test data
+// Generate unique email addresses with timestamps to avoid duplicate email errors
+const timestamp = new Date().getTime();
 const testEmailSignup = {
   name: 'Test User',
-  email: 'test.user@gmail.com',
+  email: `test.user.${timestamp}@gmail.com`,
   form_type: 'email_signup'
 };
 
 const testContactForm = {
   name: 'Contact User',
-  email: 'contact.user@outlook.com',
+  email: `contact.user.${timestamp}@outlook.com`,
   message: 'This is a test contact message',
   form_type: 'contact_form'
 };
