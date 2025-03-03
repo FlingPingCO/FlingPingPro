@@ -249,4 +249,53 @@
   .border-sand {
     @apply border-[#F4E9D9];
   }
+  
+  /* Systeme.io Form Styling */
+  .systeme-form-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+  
+  .systeme-form-container iframe {
+    border: none;
+    overflow: hidden;
+    width: 100%;
+    min-height: 590px;
+    background: transparent;
+  }
+  
+  /* Fallback form styling if needed */
+  .custom-flingping-form {
+    background: #111;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    margin: auto;
+  }
+  
+  .custom-flingping-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ff5c5c;
+    background: #222;
+    color: #fff;
+  }
+  
+  .custom-flingping-form button {
+    background: #ff5c5c;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+  }
+  
+  .custom-flingping-form button:hover {
+    background: #e84a4a;
+  }
 }
