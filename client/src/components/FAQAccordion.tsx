@@ -82,6 +82,30 @@ const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqItems }) => {
       );
     }
     
+    // For answers with FlingPing.co (without span tags)
+    if (answer.includes('FlingPing.co')) {
+      return (
+        <div className="text-left text-sand">
+          {answer.split('FlingPing.co').map((part, i, arr) => {
+            // If this isn't the last part, we need to add FlingPing.co after it
+            if (i < arr.length - 1) {
+              return (
+                <>
+                  {part}
+                  <span className="inline-flex">
+                    <span className="text-teal">FlingPing</span>
+                    <span className="text-coral">.co</span>
+                  </span>
+                </>
+              );
+            }
+            // Last part doesn't need FlingPing.co after it
+            return part;
+          })}
+        </div>
+      );
+    }
+    
     // For regular text answers
     return <div className="text-left text-sand">{answer}</div>;
   };
