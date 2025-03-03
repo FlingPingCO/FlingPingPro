@@ -69,26 +69,20 @@ const SignupForm = () => {
       email: data.email
     });
     
-    // Hardcoded for testing - redirect directly to Systeme.io
-    window.open('https://systeme.io/funnel/share/5210756a1cf4d53251d3b56e9e6343e4ea7dd71', '_blank');
+    // Support for direct payment links (commented for now, uncomment when links are properly set up)
+    // const systemePaymentLink = import.meta.env.VITE_SYSTEME_PAYMENT_LINK;
+    // const stripeProductLink = import.meta.env.VITE_STRIPE_PRODUCT_LINK;
     
-    // Commented out the dynamic logic for testing
-    /*
-    // Check if we have a payment link configured (Systeme.io or Stripe)
-    const systemePaymentLink = import.meta.env.VITE_SYSTEME_PAYMENT_LINK;
-    const stripeProductLink = import.meta.env.VITE_STRIPE_PRODUCT_LINK;
-    
-    if (systemePaymentLink) {
-      // Priority 1: Use the Systeme.io payment link if available
-      window.open(systemePaymentLink, '_blank');
-    } else if (stripeProductLink) {
-      // Priority 2: Use direct Stripe product link if available
-      window.open(stripeProductLink, '_blank');
-    } else {
-      // Priority 3: Fallback to our API-based checkout session
-      window.open(`/api/create-checkout-session?name=${encodeURIComponent(data.name)}&email=${encodeURIComponent(data.email)}`, '_blank');
-    }
-    */
+    // if (systemePaymentLink) {
+    //   window.open(systemePaymentLink, '_blank');
+    // } else if (stripeProductLink) {
+    //   window.open(stripeProductLink, '_blank');
+    // } else {
+    //   window.open(`/api/create-checkout-session?name=${encodeURIComponent(data.name)}&email=${encodeURIComponent(data.email)}`, '_blank');
+    // }
+
+    // For now, use the API-based checkout which is working correctly
+    window.open(`/api/create-checkout-session?name=${encodeURIComponent(data.name)}&email=${encodeURIComponent(data.email)}`, '_blank');
   };
 
   return (
