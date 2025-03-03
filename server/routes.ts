@@ -1,4 +1,4 @@
-import type { Express, Request, Response } from "express";
+import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server, IncomingMessage } from "http";
 import * as https from "https";
 import { storage } from "./storage";
@@ -9,6 +9,7 @@ import {
   insertContactMessageSchema,
 } from "@shared/schema";
 import { ZodError } from "zod";
+import { sendToGoogleSheets, sendToNotion, validateWebhookRequest } from "./integrations";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // API routes - all prefixed with /api
@@ -405,7 +406,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(200).json({ 
         success: true, 
         message: "Webhook processed with errors", 
-        error: process.env.NODE_ENV === 'development' ? error.message : undefined
+        error: process.env.NODE_ENV === 'development' 
+               ? (error instanceof Error ? error.message : String(error)) 
+               : undefined
       });
     }
   });
