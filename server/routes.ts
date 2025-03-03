@@ -88,90 +88,71 @@ export async function registerRoutes(app: Express): Promise<Server> {
           console.error("Error sending to Google Apps Script:", googleScriptError);
         }
         
-        // Create the request using imported https module
-        const webhookReq = https.request(requestOptions, (webhookRes: IncomingMessage) => {
-          console.log(`Webhook.site Email Signup Response Status Code: ${webhookRes.statusCode}`);
+        // Create the request using node-fetch
+        fetch('https://webhook.site/00af6027-a80c-4b5f-bd0e-ce5408f954ed', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: postData
+        })
+        .then(response => {
+          console.log(`Webhook.site Email Signup Response Status Code: ${response.status}`);
+          return response.text();
+        })
+        .then(responseText => {
+          console.log(`Webhook.site Email Signup Response Body: ${responseText || 'No response body'}`);
           
-          let responseData = '';
-          webhookRes.on('data', (chunk: Buffer) => {
-            responseData += chunk;
-          });
-          
-          webhookRes.on('end', () => {
-            console.log(`Webhook.site Email Signup Response Body: ${responseData || 'No response body'}`);
+          // After webhook.site success, send to Systeme.io
+          try {
+            console.log("Sending email signup to Systeme.io");
             
-            // After webhook.site success, send to Systeme.io
-            try {
-              console.log("Sending email signup to Systeme.io");
+            // Prepare data for Systeme.io
+            const systemeData = JSON.stringify({
+              email: data.email,
+              firstName: data.name.split(' ')[0] || 'Subscriber',
+              lastName: data.name.split(' ').slice(1).join(' ') || '',
+              source: "FlingPing.co Direct Signup",
+              ipAddress: req.ip || "unknown",
+              customFields: {
+                signupType: "email_signup",
+                signupDate: new Date().toISOString(),
+                origin: "website_form"
+              }
+            });
+            
+            // Send to Systeme.io using node-fetch
+            fetch('https://api.systeme.io/api/contacts', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-API-Key': process.env.SYSTEME_API_KEY || '',
+                'Accept': 'application/json'
+              },
+              body: systemeData
+            })
+            .then(systemeRes => {
+              console.log(`Systeme.io Email Signup Response Status Code: ${systemeRes.status}`);
+              return systemeRes.text();
+            })
+            .then(systemeResponseText => {
+              console.log(`Systeme.io Email Signup Response Body: ${systemeResponseText || 'No response body'}`);
               
-              // Prepare data for Systeme.io
-              const systemeData = JSON.stringify({
-                email: data.email,
-                firstName: data.name.split(' ')[0] || 'Subscriber',
-                lastName: data.name.split(' ').slice(1).join(' ') || '',
-                source: "FlingPing.co Direct Signup",
-                ipAddress: req.ip || "unknown",
-                customFields: {
-                  signupType: "email_signup",
-                  signupDate: new Date().toISOString(),
-                  origin: "website_form"
-                }
-              });
-              
-              // Define the Systeme.io API options
-              const systemeOptions = {
-                hostname: 'api.systeme.io',
-                path: '/api/contacts',
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Content-Length': Buffer.byteLength(systemeData),
-                  'X-API-Key': process.env.SYSTEME_API_KEY || '',
-                  'Accept': 'application/json'
-                }
-              };
-              
-              // Send request to Systeme.io
-              const systemeReq = https.request(systemeOptions, (systemeRes: IncomingMessage) => {
-                console.log(`Systeme.io Email Signup Response Status Code: ${systemeRes.statusCode}`);
-                
-                let systemeResponseData = '';
-                systemeRes.on('data', (chunk: Buffer) => {
-                  systemeResponseData += chunk;
-                });
-                
-                systemeRes.on('end', () => {
-                  console.log(`Systeme.io Email Signup Response Body: ${systemeResponseData || 'No response body'}`);
-                  
-                  // We no longer need to send directly to Google Sheets
-                  // webhook.site will handle forwarding this data to Google Sheets
-                  console.log("Data sent to webhook.site, which will forward to Google Sheets");
-                });
-              });
-              
-              // Handle Systeme.io errors
-              systemeReq.on('error', (e: Error) => {
-                console.error(`Systeme.io Email Signup Request Error: ${e.message}`);
-              });
-              
-              // Send Systeme.io request
-              systemeReq.write(systemeData);
-              systemeReq.end();
-              
-            } catch (systemeError) {
-              console.error("Error sending to Systeme.io:", systemeError);
-            }
-          });
+              // We no longer need to send directly to Google Sheets
+              // webhook.site will handle forwarding this data to Google Sheets
+              console.log("Data sent to webhook.site, which will forward to Google Sheets");
+            })
+            .catch(systemeError => {
+              console.error(`Systeme.io Email Signup Request Error: ${systemeError.message}`);
+            });
+            
+          } catch (systemeError) {
+            console.error("Error sending to Systeme.io:", systemeError);
+          }
+        })
+        .catch(error => {
+          console.error(`Webhook.site Email Signup Request Error: ${error.message}`);
         });
-        
-        // Handle webhook.site errors
-        webhookReq.on('error', (e: Error) => {
-          console.error(`Webhook.site Email Signup Request Error: ${e.message}`);
-        });
-        
-        // Write data and end request to webhook.site
-        webhookReq.write(postData);
-        webhookReq.end();
         
       } catch (webhookError) {
         console.error("Error sending to webhook.site:", webhookError);
@@ -225,131 +206,101 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
         };
         
-        // Also send directly to Google Apps Script
+        // Also send directly to Google Apps Script using node-fetch (handles redirects)
         try {
           console.log("Sending contact form directly to Google Apps Script");
           
-          const googleScriptOptions = {
-            hostname: 'script.google.com',
-            port: 443,
-            path: '/macros/s/AKfycbyHH0EG9iOxbumMMs098mXdSSh3q9mzlKnCd8rfJAPCWhM8_aPK1xV4UPv_Arm4vZPHBA/exec',
+          // Using node-fetch to handle redirects automatically
+          fetch('https://script.google.com/macros/s/AKfycbyHH0EG9iOxbumMMs098mXdSSh3q9mzlKnCd8rfJAPCWhM8_aPK1xV4UPv_Arm4vZPHBA/exec', {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
-              'Content-Length': Buffer.byteLength(postData)
+              'Content-Type': 'application/json'
+            },
+            body: postData,
+            redirect: 'follow' // Follow redirects automatically
+          })
+          .then(response => {
+            console.log(`Google Apps Script Response Status Code: ${response.status}`);
+            return response.text();
+          })
+          .then(responseText => {
+            console.log(`Google Apps Script Response: ${responseText || 'No response'}`);
+            if (responseText.includes('Success')) {
+              console.log("Contact form successfully submitted to Google Sheets via Apps Script");
             }
-          };
-          
-          const googleScriptReq = https.request(googleScriptOptions, (googleScriptRes: IncomingMessage) => {
-            console.log(`Google Apps Script Response Status Code: ${googleScriptRes.statusCode}`);
-            
-            let googleScriptResponseData = '';
-            googleScriptRes.on('data', (chunk: Buffer) => {
-              googleScriptResponseData += chunk;
-            });
-            
-            googleScriptRes.on('end', () => {
-              console.log(`Google Apps Script Response: ${googleScriptResponseData || 'No response'}`);
-              if (googleScriptResponseData === 'Success') {
-                console.log("Contact form successfully submitted to Google Sheets via Apps Script");
-              }
-            });
+          })
+          .catch(error => {
+            console.error(`Google Apps Script Request Error: ${error.message}`);
           });
-          
-          googleScriptReq.on('error', (e: Error) => {
-            console.error(`Google Apps Script Request Error: ${e.message}`);
-          });
-          
-          googleScriptReq.write(postData);
-          googleScriptReq.end();
         } catch (googleScriptError) {
           console.error("Error sending to Google Apps Script:", googleScriptError);
         }
         
-        // Create the request using imported https module
-        const webhookReq = https.request(requestOptions, (webhookRes: IncomingMessage) => {
-          console.log(`Webhook.site Contact Form Response Status Code: ${webhookRes.statusCode}`);
+        // Create the request using node-fetch
+        fetch('https://webhook.site/00af6027-a80c-4b5f-bd0e-ce5408f954ed', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: postData
+        })
+        .then(response => {
+          console.log(`Webhook.site Contact Form Response Status Code: ${response.status}`);
+          return response.text();
+        })
+        .then(responseText => {
+          console.log(`Webhook.site Contact Form Response Body: ${responseText || 'No response body'}`);
           
-          let responseData = '';
-          webhookRes.on('data', (chunk: Buffer) => {
-            responseData += chunk;
-          });
-          
-          webhookRes.on('end', () => {
-            console.log(`Webhook.site Contact Form Response Body: ${responseData || 'No response body'}`);
+          // After webhook.site success, send to Systeme.io
+          try {
+            console.log("Sending contact form to Systeme.io");
             
-            // After webhook.site success, send to Systeme.io
-            try {
-              console.log("Sending contact form to Systeme.io");
+            // Prepare data for Systeme.io
+            const systemeData = JSON.stringify({
+              email: data.email,
+              firstName: data.name.split(' ')[0],
+              lastName: data.name.split(' ').slice(1).join(' '),
+              source: "FlingPing.co Contact Form",
+              ipAddress: req.ip || "unknown",
+              customFields: {
+                contactMessage: data.message,
+                contactDate: new Date().toISOString(),
+                formType: "contact_form"
+              }
+            });
+            
+            // Send to Systeme.io using node-fetch
+            fetch('https://api.systeme.io/api/contacts', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-API-Key': process.env.SYSTEME_API_KEY || '',
+                'Accept': 'application/json'
+              },
+              body: systemeData
+            })
+            .then(systemeRes => {
+              console.log(`Systeme.io Contact Form Response Status Code: ${systemeRes.status}`);
+              return systemeRes.text();
+            })
+            .then(systemeResponseText => {
+              console.log(`Systeme.io Contact Form Response Body: ${systemeResponseText || 'No response body'}`);
               
-              // Prepare data for Systeme.io
-              const systemeData = JSON.stringify({
-                email: data.email,
-                firstName: data.name.split(' ')[0],
-                lastName: data.name.split(' ').slice(1).join(' '),
-                source: "FlingPing.co Contact Form",
-                ipAddress: req.ip || "unknown",
-                customFields: {
-                  contactMessage: data.message,
-                  contactDate: new Date().toISOString(),
-                  formType: "contact_form"
-                }
-              });
-              
-              // Define the Systeme.io API options
-              const systemeOptions = {
-                hostname: 'api.systeme.io',
-                path: '/api/contacts',
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Content-Length': Buffer.byteLength(systemeData),
-                  'X-API-Key': process.env.SYSTEME_API_KEY || '',
-                  'Accept': 'application/json'
-                }
-              };
-              
-              // Send request to Systeme.io
-              const systemeReq = https.request(systemeOptions, (systemeRes: IncomingMessage) => {
-                console.log(`Systeme.io Contact Form Response Status Code: ${systemeRes.statusCode}`);
-                
-                let systemeResponseData = '';
-                systemeRes.on('data', (chunk: Buffer) => {
-                  systemeResponseData += chunk;
-                });
-                
-                systemeRes.on('end', () => {
-                  console.log(`Systeme.io Contact Form Response Body: ${systemeResponseData || 'No response body'}`);
-                  
-                  // We no longer need to send directly to Google Sheets
-                  // webhook.site will handle forwarding this data to Google Sheets
-                  console.log("Contact form data sent to webhook.site, which will forward to Google Sheets");
-                });
-              });
-              
-              // Handle Systeme.io errors
-              systemeReq.on('error', (e: Error) => {
-                console.error(`Systeme.io Contact Form Request Error: ${e.message}`);
-              });
-              
-              // Send Systeme.io request
-              systemeReq.write(systemeData);
-              systemeReq.end();
-              
-            } catch (systemeError) {
-              console.error("Error sending to Systeme.io:", systemeError);
-            }
-          });
+              // We no longer need to send directly to Google Sheets
+              // webhook.site will handle forwarding this data to Google Sheets
+              console.log("Contact form data sent to webhook.site, which will forward to Google Sheets");
+            })
+            .catch(systemeError => {
+              console.error(`Systeme.io Contact Form Request Error: ${systemeError.message}`);
+            });
+            
+          } catch (systemeError) {
+            console.error("Error sending to Systeme.io:", systemeError);
+          }
+        })
+        .catch(error => {
+          console.error(`Webhook.site Contact Form Request Error: ${error.message}`);
         });
-        
-        // Handle webhook.site errors
-        webhookReq.on('error', (e: Error) => {
-          console.error(`Webhook.site Contact Form Request Error: ${e.message}`);
-        });
-        
-        // Write data and end request to webhook.site
-        webhookReq.write(postData);
-        webhookReq.end();
         
       } catch (webhookError) {
         console.error("Error sending to webhook.site:", webhookError);
@@ -621,28 +572,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
         };
         
-        // Create the request
-        const req = https.request(requestOptions, (res: IncomingMessage) => {
-          console.log(`Webhook.site Systeme.io Forward Response Status Code: ${res.statusCode}`);
-          
-          let responseData = '';
-          res.on('data', (chunk: Buffer) => {
-            responseData += chunk;
-          });
-          
-          res.on('end', () => {
-            console.log(`Webhook.site Systeme.io Forward Response Body: ${responseData || 'No response body'}`);
-          });
+        // Create the request using node-fetch
+        fetch('https://webhook.site/00af6027-a80c-4b5f-bd0e-ce5408f954ed', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: postData
+        })
+        .then(response => {
+          console.log(`Webhook.site Systeme.io Forward Response Status Code: ${response.status}`);
+          return response.text();
+        })
+        .then(responseText => {
+          console.log(`Webhook.site Systeme.io Forward Response Body: ${responseText || 'No response body'}`);
+        })
+        .catch(error => {
+          console.error(`Webhook.site Systeme.io Forward Request Error: ${error.message}`);
         });
-        
-        // Handle errors
-        req.on('error', (e: Error) => {
-          console.error(`Webhook.site Systeme.io Forward Request Error: ${e.message}`);
-        });
-        
-        // Write data and end request
-        req.write(postData);
-        req.end();
         
       } catch (webhookError) {
         console.error("Error forwarding to webhook.site:", webhookError);
@@ -778,36 +725,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
         
         console.log(`Debug: Using Systeme.io API endpoint: ${requestOptions.hostname}${requestOptions.path}`);
         
-        // Create the request
-        const systemeReq = https.request(requestOptions, (systemeRes: IncomingMessage) => {
-          console.log(`Systeme.io API Response Status Code: ${systemeRes.statusCode}`);
+        // Create the request using node-fetch
+        fetch('https://api.systeme.io/api/contacts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-API-Key': process.env.SYSTEME_API_KEY || '',
+            'Accept': 'application/json'
+          },
+          body: postData
+        })
+        .then(response => {
+          console.log(`Systeme.io API Response Status Code: ${response.status}`);
+          return response.text();
+        })
+        .then(responseText => {
+          console.log(`Systeme.io API Response Body: ${responseText || 'No response body'}`);
           
-          let responseData = '';
-          systemeRes.on('data', (chunk: Buffer) => {
-            responseData += chunk;
-          });
-          
-          systemeRes.on('end', () => {
-            console.log(`Systeme.io API Response Body: ${responseData || 'No response body'}`);
-            
-            // We no longer need to send directly to Google Sheets
-            // webhook.site will handle forwarding this data to Google Sheets
-            console.log("Data sent to webhook.site, which will forward to Google Sheets");
-          });
-        });
-        
-        // Handle errors
-        systemeReq.on('error', (e: Error) => {
-          console.error(`Systeme.io API Request Error: ${e.message}`);
+          // We no longer need to send directly to Google Sheets
+          // webhook.site will handle forwarding this data to Google Sheets
+          console.log("Data sent to webhook.site, which will forward to Google Sheets");
+        })
+        .catch(error => {
+          console.error(`Systeme.io API Request Error: ${error.message}`);
           
           // We no longer need to send directly to Google Sheets
           // webhook.site will handle forwarding this data to Google Sheets even if Systeme.io fails
           console.log("Data sent to webhook.site, which will forward to Google Sheets");
         });
-        
-        // Write data and end request
-        systemeReq.write(postData);
-        systemeReq.end();
         
       } catch (apiError) {
         console.error("Error forwarding to Systeme.io API:", apiError);
