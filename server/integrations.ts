@@ -212,16 +212,16 @@ export async function sendToNotion(formData: any): Promise<boolean> {
 
 // ======= Webhook Security =======
 
-const WEBHOOK_SECRET = process.env.SYSTEME_WEBHOOK_SECRET || '';
+const WEBHOOK_SECRET = process.env.PIPEDREAM_SECURITY_TOKEN || '';
 
 export function validateWebhookRequest(req: any): boolean {
   // If no secret is configured, skip validation (not recommended for production)
   if (!WEBHOOK_SECRET) {
-    console.warn('WARNING: No SYSTEME_WEBHOOK_SECRET configured. Webhook validation is disabled.');
+    console.warn('WARNING: No PIPEDREAM_SECURITY_TOKEN configured. Webhook validation is disabled.');
     return true;
   }
 
-  console.log(`Debug: SYSTEME_WEBHOOK_SECRET is configured with length: ${WEBHOOK_SECRET.length}`);
+  console.log(`Debug: PIPEDREAM_SECURITY_TOKEN is configured with length: ${WEBHOOK_SECRET.length}`);
   
   // First try the standard header 'x-webhook-secret'
   let headerSecret = req.headers['x-webhook-secret'] as string;
