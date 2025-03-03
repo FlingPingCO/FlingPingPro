@@ -43,7 +43,8 @@ FlingPing.co is a full-stack Node.js application consisting of:
    NODE_ENV=production
    
    # Frontend Environment Variables (for the build process)
-   VITE_STRIPE_PRODUCT_LINK=https://buy.stripe.com/XXX   # Direct Stripe payment link URL
+   VITE_SYSTEME_PAYMENT_LINK=https://systeme.io/funnel/share/5210756a1cf4d53251d3b56e9e6343e4ea7dd71   # Systeme.io payment link (priority)
+   VITE_STRIPE_PRODUCT_LINK=https://buy.stripe.com/XXX   # Direct Stripe payment link URL (fallback)
    ```
 
 ## Deployment Steps
