@@ -8,7 +8,8 @@ A cutting-edge sexual health platform providing inclusive, private, and accessib
 - **Backend:** Node.js with Express
 - **Data Storage:** In-memory database with webhook backup
 - **Payments:** Stripe integration
-- **Form Data Collection:** webhook.site integration
+- **Form Data Collection:** webhook.site, Google Sheets, and Notion integrations
+- **Email Marketing:** Systeme.io webhook integration
 - **Authentication:** Custom user auth system
 
 ## Key Features
@@ -31,6 +32,9 @@ A cutting-edge sexual health platform providing inclusive, private, and accessib
 - [Stripe Integration](./STRIPE-INTEGRATION.md)
 - [Webhook Integration](./WEBHOOK-INTEGRATION.md)
 - [Webhook Test Report](./WEBHOOK-TEST-REPORT.md)
+- [Systeme.io Integration](./SYSTEME-INTEGRATION.md)
+- [Systeme.io Test Report](./WEBHOOK-TEST-REPORT-SYSTEME.md)
+- [Comprehensive Webhook Documentation](./WEBHOOK-INTEGRATION-DOCS.md)
 
 ## Getting Started
 
@@ -53,9 +57,23 @@ A cutting-edge sexual health platform providing inclusive, private, and accessib
 
 The following environment variables are used:
 
+### Core Environment Variables
 - `STRIPE_SECRET_KEY` - Stripe API secret key
 - `STRIPE_PUBLISHABLE_KEY` - Stripe publishable key
 - `DOMAIN` - Domain for redirects (defaults to http://localhost:5000)
+
+### Systeme.io Integration Variables
+- `SYSTEME_WEBHOOK_SECRET` - Secret for validating Systeme.io webhook requests
+
+### Google Sheets Integration Variables
+- `GOOGLE_SERVICE_ACCOUNT_EMAIL` - Service account email for Google Sheets API
+- `GOOGLE_PRIVATE_KEY` - Private key for Google service account
+- `GOOGLE_SPREADSHEET_ID` - ID of the target Google Spreadsheet
+- `GOOGLE_SHEET_ID` - Index of the target sheet (defaults to 0)
+
+### Notion Integration Variables
+- `NOTION_API_KEY` - Notion API integration token
+- `NOTION_DATABASE_ID` - ID of the target Notion database
 
 ## Development Guidelines
 
