@@ -37,6 +37,9 @@ const Footer = () => {
               <FaTiktok className="h-4 w-4" />
             </a>
             <span className="text-sand text-xs ml-2">&copy; {new Date().getFullYear()}</span>
+            <Link href="/illustrations">
+              <span className="text-sand text-[10px] ml-1 opacity-50 hover:opacity-100" title="Internal Illustration Library">&bull;</span>
+            </Link>
           </div>
         </div>
       </div>

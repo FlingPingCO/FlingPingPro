@@ -18,16 +18,24 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const navLinks = [
+  // Public navigation links visible to all users
+  const publicNavLinks = [
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
     { name: "How It Works", path: "/how-it-works" },
     { name: "Blog", path: "/blog" },
-    { name: "Illustrations", path: "/illustrations" },
     { name: "Investors", path: "/investors" },
     { name: "FAQs", path: "/faqs" },
     { name: "Contact", path: "/contact" }
   ];
+  
+  // Internal links (not shown in main navigation)
+  const internalLinks = [
+    { name: "Illustrations", path: "/illustrations" }
+  ];
+  
+  // We'll use public links for navigation
+  const navLinks = publicNavLinks;
 
   return (
     <header className="sticky top-0 z-50 bg-[#f4e9d9] shadow-md">
