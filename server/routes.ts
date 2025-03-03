@@ -391,18 +391,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Legacy webhook handler (maintained for backward compatibility)
-  app.post("/webhook/systeme", async (req: Request, res: Response) => {
+  app.post("/webhook/legacy", async (req: Request, res: Response) => {
     try {
       // Validate webhook request before processing
       if (!validateWebhookRequest(req)) {
-        console.error('Unauthorized webhook request to /webhook/systeme');
+        console.error('Unauthorized webhook request to /webhook/legacy');
         return res.status(403).json({ 
           success: false, 
           message: "Forbidden: Invalid or missing security token" 
         });
       }
       
-      console.log("Received webhook at /webhook/systeme endpoint (note: this endpoint is maintained for backward compatibility)");
+      console.log("Received webhook at /webhook/legacy endpoint (formerly systeme endpoint)");
       
       // Extract data from the webhook payload
       const { email, first_name, last_name, message, form_type } = req.body;
