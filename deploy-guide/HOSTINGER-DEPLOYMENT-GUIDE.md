@@ -41,6 +41,9 @@ FlingPing.co is a full-stack Node.js application consisting of:
    DOMAIN=https://flingping.co (update to your actual domain)
    PORT=3000 (or as required by Hostinger)
    NODE_ENV=production
+   
+   # Frontend Environment Variables (for the build process)
+   VITE_STRIPE_PRODUCT_LINK=https://buy.stripe.com/XXX   # Direct Stripe payment link URL
    ```
 
 ## Deployment Steps
