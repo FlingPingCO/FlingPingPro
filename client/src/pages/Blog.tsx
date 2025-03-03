@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { apiRequest } from "@/lib/queryClient";
 import { useQuery } from "@tanstack/react-query";
+import { getThemedBlogImage } from "@/lib/imageService";
 
 // Interface for blog post data
 interface BlogPost {
@@ -11,7 +12,8 @@ interface BlogPost {
   excerpt: string;
   date: string;
   category: string;
-  imageUrl: string;
+  imageUrl?: string;
+  imageKeywords?: string;
   readTime: string;
   isAffiliate: boolean;
   content?: string;
@@ -31,7 +33,7 @@ const defaultBlogPosts: BlogPost[] = [
     excerpt: "Taking charge of your sexual health has never been more important. Here are our top tips for navigating a healthier, more confident you in 2025.",
     date: "March 1, 2025",
     category: "Health Tips",
-    imageUrl: "/images/blog/sexual-health-tips.jpg",
+    imageKeywords: "healthcare,consultation,doctor,wellness",
     readTime: "4 min read",
     isAffiliate: true
   },
@@ -41,7 +43,7 @@ const defaultBlogPosts: BlogPost[] = [
     excerpt: "From awkward face-to-face conversations to anonymous digital notifications, the way we communicate about health has transformed dramatically.",
     date: "February 25, 2025",
     category: "Privacy",
-    imageUrl: "/images/blog/health-communication.jpg",
+    imageKeywords: "privacy,security,confidential,encryption",
     readTime: "6 min read",
     isAffiliate: false
   },
@@ -51,7 +53,7 @@ const defaultBlogPosts: BlogPost[] = [
     excerpt: "Discover the cutting-edge technology that's revolutionizing how we approach sexual health and wellness in the digital age.",
     date: "February 18, 2025",
     category: "Technology",
-    imageUrl: "/images/blog/health-tech.jpg",
+    imageKeywords: "smart,technology,innovation,digital health",
     readTime: "5 min read",
     isAffiliate: true
   },
@@ -61,7 +63,7 @@ const defaultBlogPosts: BlogPost[] = [
     excerpt: "The dating landscape continues to evolve, but one thing remains constant: the importance of open communication and mutual respect.",
     date: "February 10, 2025",
     category: "Relationships",
-    imageUrl: "/images/blog/modern-dating.jpg",
+    imageKeywords: "couple,conversation,coffee,date",
     readTime: "7 min read",
     isAffiliate: false
   },
@@ -71,7 +73,7 @@ const defaultBlogPosts: BlogPost[] = [
     excerpt: "Our comprehensive review of the most effective, user-friendly sexual health products on the market today.",
     date: "February 3, 2025",
     category: "Product Reviews",
-    imageUrl: "/images/blog/prevention-products.jpg",
+    imageKeywords: "product,review,healthcare,protection",
     readTime: "8 min read",
     isAffiliate: true
   },
@@ -81,7 +83,7 @@ const defaultBlogPosts: BlogPost[] = [
     excerpt: "Learn about the vision behind FlingPing.co and how our growing community is creating a new standard for private, respectful health notifications.",
     date: "January 28, 2025",
     category: "Community",
-    imageUrl: "/images/blog/founding-flingers.jpg",
+    imageKeywords: "community,support,teamwork,diversity",
     readTime: "5 min read",
     isAffiliate: false
   }
@@ -217,12 +219,19 @@ const Blog = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredPosts && filteredPosts.map((post) => (
             <div key={post.id} className="bg-background border-2 border-teal rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col h-full">
-              {/* Placeholder for blog post image */}
-              <div className="h-48 bg-dark flex items-center justify-center">
-                <div className="text-center px-6">
-                  <span className="text-teal font-medium">[Featured Image]</span>
-                  <p className="text-xs text-sand mt-1">Image would display here in production</p>
-                </div>
+              {/* Blog post featured image */}
+              <div className="h-48 bg-dark overflow-hidden">
+                <img 
+                  src={post.imageUrl || getThemedBlogImage(post.category, post.imageKeywords)}
+                  alt={post.title}
+                  className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
+                  loading="lazy"
+                  onError={(e) => {
+                    // Fallback if image fails to load
+                    const target = e.target as HTMLImageElement;
+                    target.src = getThemedBlogImage(post.category, "alternative");
+                  }}
+                />
               </div>
               
               <div className="p-6 flex flex-col flex-grow">
