@@ -1,0 +1,128 @@
+Yes! Since the Systeme.io form needs to match the old sign-up form’s styling, we need to override its default styles and apply the exact look and feel of the old form. Here’s the plan:
+
+🛠 Fixing Systeme.io Form Styling (Step-by-Step for Replit Agent)
+
+1️⃣ Key Styling Adjustments Needed
+
+✅ Container & Layout:
+	•	Background: Transparent (so it blends seamlessly).
+	•	Alignment: Centered for consistency.
+	•	Layout: Flex-column for a structured layout.
+
+✅ Headers & Text:
+	•	Title: “Spots Are Limited!”
+	•	Font: Bold, Poppins
+	•	Color: Teal
+	•	Size: xl (mobile), 2xl (desktop)
+	•	Subtitle: “Only 250 Founding Flinger spots left”
+	•	Font: Medium, Poppins
+	•	Color: Yellow (#FFD166)
+	•	Size: base (mobile), lg (desktop)
+
+✅ Input Fields:
+	•	Width: 100%
+	•	Padding: px-3 sm:px-4 py-2 sm:py-3
+	•	Border: 2px solid coral
+	•	Border Radius: Rounded-lg
+	•	Background: Dark (#3C3C3C)
+	•	Text Color: Sand (#F4E9D9)
+	•	Focus State: Teal ring, no outline
+	•	Font Size: sm (mobile), base (desktop)
+
+✅ Submit Button:
+	•	Width: 100%
+	•	Margin-top: mt-4 sm:mt-6
+	•	Background: Coral
+	•	Hover State: Slightly transparent coral (90% opacity)
+	•	Text Color: Dark Gray (#3c3c3c)
+	•	Font: Poppins, Medium Weight
+	•	Border: 2px solid Coral
+	•	Border Radius: Full (pill shape)
+	•	Shadow: Large
+	•	Animation: 300ms transition on hover
+
+2️⃣ Inject the Correct CSS (for Replit Agent)
+
+🛠 Replit Agent Task:
+	•	Force the Systeme.io form to inherit these styles
+	•	Ensure all buttons, fonts, and colors match
+	•	Override Systeme.io’s default styles with this:
+
+/* Ensure the embedded form matches the site */
+.systeme-io-form iframe {
+    width: 100% !important;
+    max-width: 600px;
+    height: auto;
+    border: none;
+}
+
+/* Style form headers */
+.systeme-io-form h1 {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: bold;
+    font-size: 1.5rem !important; /* xl */
+    color: #20B2AA !important; /* Teal */
+    text-align: center;
+}
+
+.systeme-io-form h2 {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: medium;
+    font-size: 1.2rem !important; /* lg */
+    color: #FFD166 !important; /* Yellow */
+    text-align: center;
+}
+
+/* Input field styling */
+.systeme-io-form input, 
+.systeme-io-form select, 
+.systeme-io-form textarea {
+    width: 100% !important;
+    padding: 12px !important;
+    margin-top: 5px !important;
+    border: 2px solid #FF6B6B !important; /* Coral */
+    border-radius: 8px !important;
+    background-color: #3C3C3C !important; /* Dark */
+    color: #F4E9D9 !important; /* Sand */
+    font-size: 16px !important;
+}
+
+/* Button styling */
+.systeme-io-form button {
+    width: 100% !important;
+    margin-top: 20px !important;
+    background-color: #FF6B6B !important; /* Coral */
+    color: #3C3C3C !important; /* Dark Gray */
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 600 !important;
+    padding: 12px 20px !important;
+    border-radius: 50px !important;
+    border: 2px solid #FF6B6B !important;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2) !important;
+    transition: background 0.3s ease-in-out !important;
+}
+
+.systeme-io-form button:hover {
+    background-color: rgba(255, 107, 107, 0.9) !important; /* Slightly Transparent Coral */
+}
+
+3️⃣ Implement in Replit
+
+✅ Replit Agent Task:
+	•	Inject the above CSS globally so it applies to the Systeme.io embedded form.
+	•	Ensure the button styles, input fields, and headers match the existing website.
+	•	Test responsiveness on mobile & desktop.
+
+4️⃣ Verify the Fix
+
+✅ Check if:
+	•	The form blends seamlessly into the site.
+	•	Buttons & text match the old form’s look.
+	•	Input fields have proper spacing & styling.
+	•	Mobile scaling is correct & responsive.
+
+📌 Final Step: Apply These Fixes to the Order Form Too
+
+Since the order form also needs to match, apply the same fixes to keep everything visually consistent across the site.
+
+Once this is done, test it live and we’re good to go! 🚀

@@ -255,47 +255,108 @@
     position: relative;
     overflow: hidden;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   
   .systeme-form-container iframe {
     border: none;
     overflow: hidden;
-    width: 100%;
-    min-height: 590px;
+    width: 100% !important;
+    min-height: 600px;
+    max-width: 600px;
     background: transparent;
   }
   
-  /* Fallback form styling if needed */
-  .custom-flingping-form {
-    background: #111;
-    color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    max-width: 400px;
-    margin: auto;
+  /* Custom styles to override Systeme.io defaults */
+  /* These will be applied to the form via iframe */
+  /* Will need to use !important to override Systeme's styles */
+  
+  /* Style form headers */
+  .systeme-io-form h1,
+  iframe[src*="systeme.io"] body h1 {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: bold !important;
+    font-size: 1.5rem !important; /* xl */
+    color: #20B2AA !important; /* Teal */
+    text-align: center !important;
   }
   
-  .custom-flingping-form input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ff5c5c;
-    background: #222;
-    color: #fff;
+  .systeme-io-form h2,
+  iframe[src*="systeme.io"] body h2 {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: medium !important;
+    font-size: 1.2rem !important; /* lg */
+    color: #FFD166 !important; /* Yellow */
+    text-align: center !important;
   }
   
-  .custom-flingping-form button {
-    background: #ff5c5c;
-    color: #fff;
-    padding: 12px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    font-weight: bold;
+  /* Input field styling */
+  .systeme-io-form input, 
+  .systeme-io-form select, 
+  .systeme-io-form textarea,
+  iframe[src*="systeme.io"] body input,
+  iframe[src*="systeme.io"] body select,
+  iframe[src*="systeme.io"] body textarea {
+    width: 100% !important;
+    padding: 12px !important;
+    margin-top: 5px !important;
+    border: 2px solid #FF6B6B !important; /* Coral */
+    border-radius: 8px !important;
+    background-color: #3C3C3C !important; /* Dark */
+    color: #F4E9D9 !important; /* Sand */
+    font-size: 16px !important;
   }
   
-  .custom-flingping-form button:hover {
-    background: #e84a4a;
+  /* Button styling */
+  .systeme-io-form button,
+  iframe[src*="systeme.io"] body button,
+  iframe[src*="systeme.io"] body .btn {
+    width: 100% !important;
+    margin-top: 20px !important;
+    background-color: #FF6B6B !important; /* Coral */
+    color: #3C3C3C !important; /* Dark Gray */
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 600 !important;
+    padding: 12px 20px !important;
+    border-radius: 50px !important;
+    border: 2px solid #FF6B6B !important;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2) !important;
+    transition: background 0.3s ease-in-out !important;
+  }
+  
+  .systeme-io-form button:hover,
+  iframe[src*="systeme.io"] body button:hover,
+  iframe[src*="systeme.io"] body .btn:hover {
+    background-color: rgba(255, 107, 107, 0.9) !important; /* Slightly Transparent Coral */
+  }
+  
+  /* Labels */
+  .systeme-io-form label,
+  iframe[src*="systeme.io"] body label {
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 1rem !important;
+    color: #F4E9D9 !important; /* Sand */
+    margin-bottom: 5px !important;
+    display: block !important;
+  }
+  
+  /* Additional systemio specific overrides */
+  iframe[src*="systeme.io"] body {
+    background: transparent !important;
+    font-family: 'Poppins', sans-serif !important;
+  }
+  
+  iframe[src*="systeme.io"] body .form-container {
+    background: transparent !important;
+    box-shadow: none !important;
+    max-width: 100% !important;
+  }
+  
+  /* Force loading text to match the site's palette */
+  iframe[src*="systeme.io"] body .systeme-form-loading {
+    color: #20B2AA !important; /* Teal */
+    font-family: 'Poppins', sans-serif !important;
   }
 }
