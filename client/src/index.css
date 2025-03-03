@@ -264,9 +264,11 @@
     border: none;
     overflow: hidden;
     width: 100% !important;
-    min-height: 600px;
-    max-width: 600px;
+    min-height: 450px;
+    max-width: 550px;
     background: transparent;
+    margin: 0 auto;
+    display: block;
   }
   
   /* Custom styles to override Systeme.io defaults */
