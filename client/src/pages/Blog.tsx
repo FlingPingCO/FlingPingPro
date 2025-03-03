@@ -145,12 +145,17 @@ const Blog = () => {
     
     try {
       // Use the same endpoint as the email signup form
-      await apiRequest({
-        path: '/api/email-signup',
+      const response = await fetch('/api/email-signup', {
         method: 'POST',
-        data: { email },
-        on401: "throw"
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
       });
+      
+      if (!response.ok) {
+        throw new Error('Subscription request failed');
+      }
       
       setSubscribeSuccess(true);
       setEmail("");
