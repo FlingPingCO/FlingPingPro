@@ -19,14 +19,25 @@ FlingPing.co is a full-stack Node.js application consisting of:
 2. **Environment Variables**
    The following environment variables need to be configured on Hostinger:
    ```
+   # Google Sheets Integration
    GOOGLE_PRIVATE_KEY=<value>
    GOOGLE_SERVICE_ACCOUNT_EMAIL=<value>
+   GOOGLE_SPREADSHEET_ID=<value>
+   
+   # Stripe Payment Integration
    STRIPE_PUBLISHABLE_KEY=<value>
    STRIPE_SECRET_KEY=<value>
+   STRIPE_PRODUCT_ID=<value>        # The Stripe product ID for the membership
+   STRIPE_PRICE_ID=<value>          # The Stripe price ID for the membership
+   
+   # Systeme.io Integration
    SYSTEME_API_KEY=<value>
    SYSTEME_WEBHOOK_SECRET=<value>
+   
+   # Webhook Integration
    PIPEDREAM_SECURITY_TOKEN=<value>
-   GOOGLE_SPREADSHEET_ID=<value>
+   
+   # Server Configuration
    DOMAIN=https://flingping.co (update to your actual domain)
    PORT=3000 (or as required by Hostinger)
    NODE_ENV=production

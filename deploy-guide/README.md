@@ -16,7 +16,9 @@ This deployment package includes the following guides:
 
 4. **[BACKEND-CONFIGURATION-GUIDE.md](./BACKEND-CONFIGURATION-GUIDE.md)** - Specific instructions for configuring the backend server, ensuring all API endpoints and integrations work correctly.
 
-5. **[POST-DEPLOYMENT-VERIFICATION.md](./POST-DEPLOYMENT-VERIFICATION.md)** - Comprehensive guide for testing all aspects of the application after deployment to ensure everything is functioning correctly.
+5. **[STRIPE-PRODUCT-CONFIGURATION.md](./STRIPE-PRODUCT-CONFIGURATION.md)** - Detailed guide for setting up and configuring the Stripe product/price for membership and properly integrating it with the application.
+
+6. **[POST-DEPLOYMENT-VERIFICATION.md](./POST-DEPLOYMENT-VERIFICATION.md)** - Comprehensive guide for testing all aspects of the application after deployment to ensure everything is functioning correctly.
 
 ## Deployment Process Summary
 
