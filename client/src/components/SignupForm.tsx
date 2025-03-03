@@ -69,8 +69,16 @@ const SignupForm = () => {
       email: data.email
     });
     
-    // Open Stripe checkout in a new tab
-    window.open(`/api/create-checkout-session?name=${encodeURIComponent(data.name)}&email=${encodeURIComponent(data.email)}`, '_blank');
+    // Check if we have a direct Stripe product link configured
+    const stripeProductLink = import.meta.env.VITE_STRIPE_PRODUCT_LINK;
+    
+    if (stripeProductLink) {
+      // Open the direct Stripe product link in a new tab
+      window.open(stripeProductLink, '_blank');
+    } else {
+      // Fallback to our API-based checkout session
+      window.open(`/api/create-checkout-session?name=${encodeURIComponent(data.name)}&email=${encodeURIComponent(data.email)}`, '_blank');
+    }
   };
 
   return (
