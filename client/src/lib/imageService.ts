@@ -1,37 +1,86 @@
 /**
  * Image Service for FlingPing.co blog
- * Uses Unsplash API to fetch relevant images based on keywords
+ * Uses curated Unsplash image IDs to display relevant images
  */
 
-// Base URL for the Unsplash API
-const UNSPLASH_URL = 'https://source.unsplash.com';
+// Map of predefined Unsplash image IDs organized by category
+// These are selected high-quality images that match our topics
+const UNSPLASH_IMAGE_MAP: Record<string, string[]> = {
+  'Health Tips': [
+    'L8tWZT4CcVQ', // Doctor with patient
+    'hIgeoQjS_iE', // Medical healthcare concept
+    'NTyBbu66_SI', // Wellness center
+    '7jjnJ-QA9fY', // Health checkup
+    'oZ61KFUQsus', // Medical professional
+  ],
+  'Privacy': [
+    'C2P00tDJgYA', // Lock and security
+    '_9a-3NO5KJE', // Privacy shield
+    'uBe2mknURG4', // Secure data concept
+    'H7SCRwU1aiM', // Digital privacy
+    '60GsdOMRFGc', // Data protection
+  ],
+  'Technology': [
+    'XJXWbfSo2f0', // Tech innovation
+    '8qEB0fTwXnU', // Smart devices
+    'JpZ_0dIzP7w', // Digital health tech
+    '77JACslA8G0', // Tech innovation
+    'IgUR1iX0mqM', // Futuristic technology
+  ],
+  'Relationships': [
+    'cYrMQA7a3Wc', // Couple talking
+    '1K8pIbIrhkQ', // Coffee date
+    '8VI6WwEEEHY', // People connecting
+    'YwdqvZU-L_I', // Friends conversation
+    'V5vqWC9gyEU', // Meaningful connection
+  ],
+  'Product Reviews': [
+    'LqKhnDzSF-8', // Product review
+    'ZihPQeQBNSk', // Testing products
+    'gcsNOsPEXfs', // Product comparison
+    '0-frPETzEb8', // Product showcase
+    'FRDDb5sgzVI', // Review concept
+  ],
+  'Community': [
+    'yCdPU73kGSc', // Community group
+    'HOrhCnQsxnQ', // Diverse community
+    '9Q_pLLP86Yg', // Community support
+    'UJm-Fkt2yvk', // Team collaboration
+    'gMsnXqILjp4', // Community gathering
+  ],
+  // Fallback category
+  'Default': [
+    'L8tWZT4CcVQ', // Healthcare
+    'RLw-UC03Gwc', // Professional meeting
+    '6anudmpILw4', // Technology
+    'ZihPQeQBNSk', // Products
+    'yCdPU73kGSc', // Community
+  ]
+};
 
 /**
- * Get an image URL from Unsplash based on search terms
+ * Get an Unsplash image URL using a fixed photo ID
  * 
- * @param searchTerms - Keywords to search for, separated by commas or spaces
- * @param width - Desired image width (default: 800)
- * @param height - Desired image height (default: 600)
- * @returns URL to an Unsplash image matching the search terms
+ * @param photoId - Unsplash photo ID
+ * @param width - Desired image width (optional)
+ * @param height - Desired image height (optional)
+ * @returns URL to the Unsplash image
  */
-export function getUnsplashImage(searchTerms: string, width = 800, height = 600): string {
-  // Format search terms for the URL (replace spaces with commas)
-  const formattedTerms = searchTerms.replace(/\s+/g, ',');
+export function getUnsplashImageById(photoId: string, width?: number, height?: number): string {
+  let url = `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&q=80`;
   
-  // Generate a cache-busting random parameter
-  // This ensures we get different images when using the same search terms
-  const random = Math.floor(Math.random() * 1000);
+  if (width && height) {
+    url += `&w=${width}&h=${height}`;
+  }
   
-  // Construct the URL
-  // Format: https://source.unsplash.com/WxWxH/?search-terms&random-param
-  return `${UNSPLASH_URL}/${width}x${height}/?${formattedTerms}&random=${random}`;
+  return url;
 }
 
 /**
  * Get a themed image URL relevant to FlingPing topics
  * 
- * @param category - Blog post category (used to determine relevant keywords)
- * @param customTerms - Optional additional keywords to include
+ * @param category - Blog post category (used to determine relevant image)
+ * @param customTerms - Optional additional keywords (used to deterministically select an image)
  * @param width - Desired image width (default: 800)
  * @param height - Desired image height (default: 600)
  * @returns URL to a relevant Unsplash image
@@ -42,37 +91,29 @@ export function getThemedBlogImage(
   width = 800, 
   height = 600
 ): string {
-  let searchTerms = '';
+  // Get the appropriate image list based on category
+  const imageList = UNSPLASH_IMAGE_MAP[category] || UNSPLASH_IMAGE_MAP['Default'];
   
-  // Base terms for all images
-  const baseTerms = 'professional,clean';
+  // Use customTerms to deterministically select an image if provided
+  // Otherwise, use a random selection
+  let index = 0;
   
-  // Category-specific terms
-  switch (category) {
-    case 'Health Tips':
-      searchTerms = 'health,wellness,medical,healthcare';
-      break;
-    case 'Privacy':
-      searchTerms = 'privacy,secure,protection,lock';
-      break;
-    case 'Technology':
-      searchTerms = 'technology,digital,innovation,app';
-      break;
-    case 'Relationships':
-      searchTerms = 'connection,people,conversation,communication';
-      break;
-    case 'Product Reviews':
-      searchTerms = 'product,review,testing,comparison';
-      break;
-    case 'Community':
-      searchTerms = 'community,group,together,diversity';
-      break;
-    default:
-      searchTerms = 'health,communication,technology';
+  if (customTerms) {
+    // Create a simple hash from customTerms to consistently select the same image
+    // This is useful for ensuring blog posts always get the same image
+    const hash = customTerms.split('').reduce((acc, char) => {
+      return acc + char.charCodeAt(0);
+    }, 0);
+    
+    index = hash % imageList.length;
+  } else {
+    // Random selection if no customTerms provided
+    index = Math.floor(Math.random() * imageList.length);
   }
   
-  // Combine base terms with category terms and custom terms if provided
-  const combinedTerms = `${baseTerms},${searchTerms}${customTerms ? `,${customTerms}` : ''}`;
+  // Get the selected image ID
+  const photoId = imageList[index];
   
-  return getUnsplashImage(combinedTerms, width, height);
+  // Return the full Unsplash URL
+  return getUnsplashImageById(photoId, width, height);
 }
