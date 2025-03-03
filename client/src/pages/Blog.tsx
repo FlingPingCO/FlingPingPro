@@ -101,6 +101,10 @@ const defaultCategories = [
 const Blog = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("All Posts");
   const [categories, setCategories] = useState<CategoryData[]>([]);
+  const [email, setEmail] = useState<string>("");
+  const [isSubscribing, setIsSubscribing] = useState<boolean>(false);
+  const [subscribeSuccess, setSubscribeSuccess] = useState<boolean>(false);
+  const [subscribeError, setSubscribeError] = useState<string | null>(null);
 
   // Initialize with default categories
   useEffect(() => {
@@ -126,6 +130,42 @@ const Blog = () => {
   const filteredPosts = defaultBlogPosts.filter(post => 
     selectedCategory === "All Posts" || post.category === selectedCategory
   );
+
+  // Handle newsletter subscription
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email || !email.includes('@')) {
+      setSubscribeError("Please enter a valid email address");
+      return;
+    }
+    
+    setIsSubscribing(true);
+    setSubscribeError(null);
+    
+    try {
+      // Use the same endpoint as the email signup form
+      await apiRequest({
+        path: '/api/email-signup',
+        method: 'POST',
+        data: { email },
+        on401: "throw"
+      });
+      
+      setSubscribeSuccess(true);
+      setEmail("");
+      
+      // Reset success message after 5 seconds
+      setTimeout(() => {
+        setSubscribeSuccess(false);
+      }, 5000);
+    } catch (error) {
+      console.error("Newsletter subscription error:", error);
+      setSubscribeError("Failed to subscribe. Please try again later.");
+    } finally {
+      setIsSubscribing(false);
+    }
+  };
 
   return (
     <div className="py-16 bg-background">
@@ -207,16 +247,47 @@ const Blog = () => {
           <p className="text-sand mb-6 max-w-2xl mx-auto">
             Subscribe to our newsletter to receive exclusive content, valuable resources, and important updates directly to your inbox.
           </p>
-          <div className="flex flex-col sm:flex-row max-w-lg mx-auto gap-4">
-            <input
-              type="email"
-              placeholder="Your email address"
-              className="flex-grow px-4 py-3 rounded-full bg-[#3c3c3c] text-sand border-2 border-sand focus:border-teal focus:outline-none"
-            />
-            <Button className="bg-coral text-[#3c3c3c] hover:bg-yellow hover:text-[#3c3c3c] rounded-full">
-              Subscribe
-            </Button>
-          </div>
+          
+          {subscribeSuccess ? (
+            <div className="bg-teal/20 text-teal p-4 rounded-xl border border-teal max-w-lg mx-auto mb-4">
+              Thank you for subscribing! You'll start receiving our updates shortly.
+            </div>
+          ) : (
+            <form onSubmit={handleSubscribe} className="max-w-lg mx-auto">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <input
+                  type="email"
+                  placeholder="Your email address"
+                  className={`flex-grow px-4 py-3 rounded-full bg-[#3c3c3c] text-sand border-2 ${
+                    subscribeError ? "border-coral" : "border-sand"
+                  } focus:border-teal focus:outline-none`}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={isSubscribing}
+                  required
+                />
+                <Button 
+                  type="submit" 
+                  className="bg-coral text-[#3c3c3c] hover:bg-yellow hover:text-[#3c3c3c] rounded-full"
+                  disabled={isSubscribing}
+                >
+                  {isSubscribing ? (
+                    <>
+                      <span className="mr-2">Subscribing</span>
+                      <div className="w-4 h-4 border-2 border-[#3c3c3c] border-t-transparent rounded-full animate-spin"></div>
+                    </>
+                  ) : (
+                    "Subscribe"
+                  )}
+                </Button>
+              </div>
+              
+              {subscribeError && (
+                <p className="mt-2 text-coral text-sm">{subscribeError}</p>
+              )}
+            </form>
+          )}
+          
           <p className="text-xs text-sand mt-4">
             By subscribing, you agree to our <Link href="/legal" className="text-teal hover:underline">Privacy Policy</Link>. We respect your privacy and will never share your information.
           </p>
