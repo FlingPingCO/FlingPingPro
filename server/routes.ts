@@ -52,27 +52,99 @@ export async function registerRoutes(app: Express): Promise<Server> {
         };
         
         // Create the request using imported https module
-        const req = https.request(requestOptions, (res: IncomingMessage) => {
-          console.log(`Webhook.site Email Signup Response Status Code: ${res.statusCode}`);
+        const webhookReq = https.request(requestOptions, (webhookRes: IncomingMessage) => {
+          console.log(`Webhook.site Email Signup Response Status Code: ${webhookRes.statusCode}`);
           
           let responseData = '';
-          res.on('data', (chunk: Buffer) => {
+          webhookRes.on('data', (chunk: Buffer) => {
             responseData += chunk;
           });
           
-          res.on('end', () => {
+          webhookRes.on('end', () => {
             console.log(`Webhook.site Email Signup Response Body: ${responseData || 'No response body'}`);
+            
+            // After webhook.site success, send to Systeme.io
+            try {
+              console.log("Sending email signup to Systeme.io");
+              
+              // Prepare data for Systeme.io
+              const systemeData = JSON.stringify({
+                email: data.email,
+                firstName: data.name.split(' ')[0],
+                lastName: data.name.split(' ').slice(1).join(' '),
+                source: "FlingPing.co Direct Signup",
+                ipAddress: req.ip || "unknown",
+                customFields: {
+                  signupType: "email_signup",
+                  signupDate: new Date().toISOString()
+                }
+              });
+              
+              // Define the Systeme.io API options
+              const systemeOptions = {
+                hostname: 'api.systeme.io',
+                path: '/api/contacts',
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Content-Length': Buffer.byteLength(systemeData),
+                  'X-API-Key': process.env.SYSTEME_API_KEY || '',
+                  'Accept': 'application/json'
+                }
+              };
+              
+              // Send request to Systeme.io
+              const systemeReq = https.request(systemeOptions, (systemeRes: IncomingMessage) => {
+                console.log(`Systeme.io Email Signup Response Status Code: ${systemeRes.statusCode}`);
+                
+                let systemeResponseData = '';
+                systemeRes.on('data', (chunk: Buffer) => {
+                  systemeResponseData += chunk;
+                });
+                
+                systemeRes.on('end', () => {
+                  console.log(`Systeme.io Email Signup Response Body: ${systemeResponseData || 'No response body'}`);
+                  
+                  // Also send to Google Sheets (non-blocking)
+                  sendToGoogleSheets({
+                    name: data.name,
+                    email: data.email,
+                    source: "direct_signup",
+                    form_name: "Email Signup Form",
+                    form_id: "direct_api",
+                    timestamp: new Date().toISOString(),
+                    custom_fields: {
+                      form_type: "email_signup"
+                    }
+                  }).catch(sheetsError => {
+                    console.error("Error sending email signup to Google Sheets:", sheetsError);
+                  });
+                });
+              });
+              
+              // Handle Systeme.io errors
+              systemeReq.on('error', (e: Error) => {
+                console.error(`Systeme.io Email Signup Request Error: ${e.message}`);
+              });
+              
+              // Send Systeme.io request
+              systemeReq.write(systemeData);
+              systemeReq.end();
+              
+            } catch (systemeError) {
+              console.error("Error sending to Systeme.io:", systemeError);
+            }
           });
         });
         
-        // Handle errors
-        req.on('error', (e: Error) => {
+        // Handle webhook.site errors
+        webhookReq.on('error', (e: Error) => {
           console.error(`Webhook.site Email Signup Request Error: ${e.message}`);
         });
         
-        // Write data and end request
-        req.write(postData);
-        req.end();
+        // Write data and end request to webhook.site
+        webhookReq.write(postData);
+        webhookReq.end();
         
       } catch (webhookError) {
         console.error("Error sending to webhook.site:", webhookError);
@@ -573,15 +645,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
         
         // Define the request options for Systeme.io API
-        // Using the standard Systeme.io API endpoint
+        // Using the current working Systeme.io API endpoint
         const requestOptions = {
           hostname: 'api.systeme.io',
-          path: '/api/v2/contacts',
+          path: '/api/contacts', // Using base endpoint without version
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Content-Length': Buffer.byteLength(postData),
-            'X-API-Key': process.env.SYSTEME_API_KEY || ''
+            'X-API-Key': process.env.SYSTEME_API_KEY || '',
+            'Accept': 'application/json'
           }
         };
         
