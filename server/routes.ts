@@ -1,6 +1,5 @@
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
-import * as https from 'https';
 import { storage } from "./storage";
 import { stripeService } from "./stripe";
 import {
@@ -26,60 +25,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const signup = await storage.createEmailSignup(data);
       
-      // Send to Pipedream webhook with proper authentication
-      try {
-        console.log("Sending email signup to Pipedream webhook with authentication");
-        
-        // Prepare JSON data - sending direct key-value pairs as expected by Pipedream
-        // No nested objects, just plain values with keys matching Google Sheets column names
-        const postData = JSON.stringify({
-          form_type: "email_signup",
-          name: data.name,
-          email: data.email,
-          timestamp: new Date().toISOString()
-        });
-        
-        // Define the request options with authentication token
-        // Using X-PD-Token header as per Pipedream documentation
-        const requestOptions = {
-          hostname: 'eodj9vlvbo65l1i.m.pipedream.net',
-          port: 443,
-          path: '/',
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Content-Length': Buffer.byteLength(postData),
-            'X-PD-Token': process.env.PIPEDREAM_SECURITY_TOKEN
-          }
-        };
-        
-        // Create the request
-        const req = https.request(requestOptions, (res) => {
-          console.log(`Pipedream Email Signup Response Status Code: ${res.statusCode}`);
-          
-          let responseData = '';
-          res.on('data', (chunk) => {
-            responseData += chunk;
-          });
-          
-          res.on('end', () => {
-            console.log(`Pipedream Email Signup Response Body: ${responseData || 'No response body'}`);
-          });
-        });
-        
-        // Handle errors
-        req.on('error', (e) => {
-          console.error(`Pipedream Email Signup Request Error: ${e.message}`);
-        });
-        
-        // Write data and end request
-        req.write(postData);
-        req.end();
-        
-      } catch (webhookError) {
-        console.error("Error sending to Pipedream webhook:", webhookError);
-        // Non-blocking error - continue with success response
-      }
+      // Webhook integration removed
+      // Data is still stored locally in the application
       
       return res.status(201).json({ message: "Email registration successful", data: signup });
     } catch (error) {
@@ -96,61 +43,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const data = insertContactMessageSchema.parse(req.body);
       const message = await storage.createContactMessage(data);
       
-      // Send to Pipedream webhook with proper authentication
-      try {
-        console.log("Sending contact form to Pipedream webhook with authentication");
-        
-        // Prepare JSON data - sending direct key-value pairs as expected by Pipedream
-        // No nested objects, just plain values with keys matching Google Sheets column names
-        const postData = JSON.stringify({
-          form_type: "contact_form",
-          name: data.name, 
-          email: data.email,
-          message: data.message,
-          timestamp: new Date().toISOString()
-        });
-        
-        // Define the request options with authentication token
-        // Using X-PD-Token header as per Pipedream documentation
-        const requestOptions = {
-          hostname: 'eodj9vlvbo65l1i.m.pipedream.net',
-          port: 443,
-          path: '/',
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Content-Length': Buffer.byteLength(postData),
-            'X-PD-Token': process.env.PIPEDREAM_SECURITY_TOKEN
-          }
-        };
-        
-        // Create the request
-        const req = https.request(requestOptions, (res) => {
-          console.log(`Pipedream Contact Form Response Status Code: ${res.statusCode}`);
-          
-          let responseData = '';
-          res.on('data', (chunk) => {
-            responseData += chunk;
-          });
-          
-          res.on('end', () => {
-            console.log(`Pipedream Contact Form Response Body: ${responseData || 'No response body'}`);
-          });
-        });
-        
-        // Handle errors
-        req.on('error', (e) => {
-          console.error(`Pipedream Contact Form Request Error: ${e.message}`);
-        });
-        
-        // Write data and end request
-        req.write(postData);
-        req.end();
-        
-      } catch (webhookError) {
-        console.error("Error sending to Pipedream webhook:", webhookError);
-        // Non-blocking error - continue with success response
-      }
+      // Webhook integration removed
+      // Data is still stored locally in the application
       
       return res.status(201).json({ message: "Message sent successfully", data: message });
     } catch (error) {
