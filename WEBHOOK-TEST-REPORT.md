@@ -100,7 +100,7 @@ The webhook.site integration is ready for use in the production environment. To 
 
 1. Adding retry logic for failed webhook requests
 2. Implementing a monitoring system for webhook transmission status
-3. Adding authentication to the webhook requests for enhanced security
+3. Enhancing webhook security with signature validation in addition to the current X-Webhook-Secret authentication
 
 ## Next Steps
 
