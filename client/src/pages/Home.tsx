@@ -367,7 +367,7 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
             faqItems={[
               {
                 question: "What is FlingPing.co?",
-                answer: "<span class='inline-flex'><span class='text-teal'>FlingPing</span><span class='text-coral'>.co</span></span> is your bold, secure partner in smarter sexual health. Designed to empower you with tools to stay informed and in control, it reimagines how technology can keep you ahead of the curve."
+                answer: "FlingPing.co is your bold, secure partner in smarter sexual health. Designed to empower you with tools to stay informed and in control, it reimagines how technology can keep you ahead of the curve."
               },
               {
                 question: "Who are the Flingers?",
