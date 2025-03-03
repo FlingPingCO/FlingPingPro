@@ -1,96 +1,71 @@
-# Webhook Integration for FlingPing.co
-
-This document outlines the migration from Pipedream to webhook.site for collecting form data from the FlingPing.co website.
+# Webhook Integration Documentation
 
 ## Overview
+This document outlines the integration of webhook.site as a data collection endpoint for form submissions on FlingPing.co.
 
-FlingPing.co is set up to collect and store form data in two ways:
+## Integration Details
 
-1. **Primary Storage**: Backend API with in-memory storage (currently working)
-2. **Backup Storage**: Webhook integration (in progress)
+### Webhook URL
+- Production URL: `https://webhook.site/00af6027-a80c-4b5f-bd0e-ce5408f954ed`
 
-## Migration from Pipedream to webhook.site
+### Form Types and Data Structure
 
-We have removed the Pipedream integration and will be implementing webhook.site instead for the following reasons:
+1. **Email Signup Form**
+   ```json
+   {
+     "form_type": "email_signup",
+     "name": "User's name",
+     "email": "user@example.com",
+     "timestamp": "ISO-8601 timestamp"
+   }
+   ```
 
-1. **Simpler Setup**: webhook.site provides an instant, zero-configuration endpoint for testing
-2. **No Authentication Complexity**: Easy to use for development and testing
-3. **Real-time Inspection**: Allows immediate viewing of webhook payloads
-4. **Robust Debugging**: Helps identify data format issues quickly
+2. **Contact Form**
+   ```json
+   {
+     "form_type": "contact_form",
+     "name": "User's name",
+     "email": "user@example.com",
+     "message": "User's message content",
+     "timestamp": "ISO-8601 timestamp"
+   }
+   ```
 
-## Current Implementation Status
+### Integration Implementation
 
-The status of our webhook implementation is:
+The webhook integration is implemented as a non-blocking HTTP request to webhook.site. This means:
+- Form submissions are first stored in the application's primary storage system
+- A webhook request is then sent to webhook.site as a secondary backup
+- Any failures in the webhook request do not affect the user experience or primary data storage
+- Detailed logs are maintained for both successful and failed webhook requests
 
-1. ✅ **Pipedream removal**: All Pipedream code has been removed from the application
-2. ✅ **Primary storage**: Backend API storage is working correctly for all form submissions
-3. ⏳ **webhook.site setup**: Need to generate a new webhook URL from webhook.site
-4. ⏳ **Code implementation**: Need to implement webhook calls to the new URL
+### Error Handling
 
-## Forms That Will Use Webhook Integration
+The webhook implementation includes robust error handling:
+- Try/catch blocks to prevent webhook failures from affecting core functionality
+- Detailed console logging for monitoring request/response cycles
+- Non-blocking request pattern to maintain application performance
 
-1. **Contact Form** (`ContactForm.tsx`)
-   - Currently sends name, email, and message to the backend API
-   - Will send the same data to webhook.site
+### Webhook Security
 
-2. **Email Signup Form** (`SignupForm.tsx`)
-   - Currently sends name and email to the backend API
-   - Will send the same data to webhook.site
+For enhanced security:
+- All requests are sent via HTTPS
+- Request data is properly formatted as JSON
+- No sensitive user data beyond basic form information is transmitted
 
-## Implementation Plan
+## Development Considerations
 
-To implement the webhook.site integration:
+### Testing the Integration
+- Submit test data through both the email signup and contact forms
+- Verify data is properly received in the webhook.site dashboard
+- Check server logs to confirm successful webhook transmission
 
-1. **Get webhook URL**: Generate a new webhook URL from webhook.site
-2. **Update code**: Implement the HTTP requests to send form data
-3. **Implement proper error handling**: Ensure non-blocking behavior
-4. **Add logging**: Log response status and any errors for debugging
-5. **Test thoroughly**: Verify data is being properly received
+### Troubleshooting
+- If webhook requests fail, check the webhook URL for validity
+- Verify network connectivity to webhook.site
+- Inspect server logs for detailed error messages
 
-## Data Format
-
-The data will be sent in the following format for consistency and clarity:
-
-```json
-// For email signup form
-{
-  "form_type": "email_signup",
-  "name": "User's Name",
-  "email": "user@example.com",
-  "timestamp": "2025-03-02T23:59:59Z"
-}
-
-// For contact form
-{
-  "form_type": "contact_form",
-  "name": "User's Name",
-  "email": "user@example.com",
-  "message": "The user's message content",
-  "timestamp": "2025-03-02T23:59:59Z"
-}
-```
-
-## Benefits of Using webhook.site
-
-- **Instant Setup**: No configuration or account required
-- **Visual Interface**: See all received webhook data in real-time
-- **Request Inspection**: Examine headers, payload, and timing
-- **Filtering Options**: Filter by source or content
-- **Export Capability**: Export data for further analysis
-
-## Next Steps
-
-1. Create a webhook.site endpoint
-2. Implement the HTTP requests in the server/routes.ts file
-3. Update this documentation with the actual implementation details
-4. Test all forms to verify proper data transmission
-
-## User Experience
-
-The application will continue to provide users with personalized messages:
-
-```
-"Thank you, [name]! FlingPing.co is happy to have you join the fight for herd awareness. We'll be in touch soon."
-```
-
-This personalized approach works reliably with our storage system, ensuring users always receive clear confirmation.
+## Future Enhancements
+- Add authentication to webhook requests
+- Implement retry logic for failed webhook transmissions
+- Create dashboard to view webhook transmission history

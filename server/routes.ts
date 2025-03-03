@@ -119,7 +119,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         };
         
         // Create the request using imported https module
-        const req = https.request(requestOptions, (res: https.IncomingMessage) => {
+        const req = https.request(requestOptions, (res: IncomingMessage) => {
           console.log(`Webhook.site Contact Form Response Status Code: ${res.statusCode}`);
           
           let responseData = '';
