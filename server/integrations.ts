@@ -166,18 +166,22 @@ export function validateWebhookRequest(req: any): boolean {
     return true;
   }
 
+  console.log(`Debug: SYSTEME_WEBHOOK_SECRET is configured with length: ${WEBHOOK_SECRET.length}`);
+  
   // Get the secret from the headers
   const headerSecret = req.headers['x-webhook-secret'] as string;
   if (!headerSecret) {
     console.error('Webhook request rejected: Missing X-Webhook-Secret header');
     return false;
   }
+  
+  console.log(`Debug: Received header secret with length: ${headerSecret.length}`);
 
   // Compare the received secret with the expected secret
   const isValid = headerSecret === WEBHOOK_SECRET;
   
   if (!isValid) {
-    console.error('Webhook request rejected: Invalid X-Webhook-Secret');
+    console.error(`Webhook request rejected: Invalid X-Webhook-Secret. Headers sent: ${Object.keys(req.headers).join(', ')}`);
   }
   
   return isValid;
