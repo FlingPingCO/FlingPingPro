@@ -231,7 +231,8 @@ const Blog = () => {
                   onError={(e) => {
                     // If image fails to load, use a fallback image
                     const target = e.target as HTMLImageElement;
-                    target.src = "https://cdn.pixabay.com/photo/2018/09/04/10/27/health-3653380_1280.jpg";
+                    target.src = "/illustrations/THought_Bubbles-noBG.png";
+                    console.log(`Failed to load blog image: ${post.imageKeywords}, using fallback`);
                   }}
                 />
               </div>
