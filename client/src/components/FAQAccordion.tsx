@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -90,17 +89,17 @@ const FAQAccordion: React.FC<FAQAccordionProps> = ({ faqItems }) => {
             // If this isn't the last part, we need to add FlingPing.co after it
             if (i < arr.length - 1) {
               return (
-                <>
+                <span key={`part-${i}`}>
                   {part}
                   <span className="inline-flex">
                     <span className="text-teal">FlingPing</span>
                     <span className="text-coral">.co</span>
                   </span>
-                </>
+                </span>
               );
             }
             // Last part doesn't need FlingPing.co after it
-            return part;
+            return <span key={`part-${i}`}>{part}</span>;
           })}
         </div>
       );
