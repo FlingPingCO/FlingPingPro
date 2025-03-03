@@ -77,8 +77,8 @@ const defaultBlogPosts: BlogPost[] = [
   },
   {
     id: 6,
-    title: "Founding Flingers: Meet the Early Adopters Changing Health Communication",
-    excerpt: "Interviews with our pioneering members who are leading the charge in revolutionizing how we think about sexual health notifications.",
+    title: "Founding Flingers: Building a Safer Health Communication Community",
+    excerpt: "Learn about the vision behind FlingPing.co and how our growing community is creating a new standard for private, respectful health notifications.",
     date: "January 28, 2025",
     category: "Community",
     imageUrl: "/images/blog/founding-flingers.jpg",
