@@ -69,14 +69,18 @@ const SignupForm = () => {
       email: data.email
     });
     
-    // Check if we have a direct Stripe product link configured
+    // Check if we have a payment link configured (Systeme.io or Stripe)
+    const systemePaymentLink = import.meta.env.VITE_SYSTEME_PAYMENT_LINK;
     const stripeProductLink = import.meta.env.VITE_STRIPE_PRODUCT_LINK;
     
-    if (stripeProductLink) {
-      // Open the direct Stripe product link in a new tab
+    if (systemePaymentLink) {
+      // Priority 1: Use the Systeme.io payment link if available
+      window.open(systemePaymentLink, '_blank');
+    } else if (stripeProductLink) {
+      // Priority 2: Use direct Stripe product link if available
       window.open(stripeProductLink, '_blank');
     } else {
-      // Fallback to our API-based checkout session
+      // Priority 3: Fallback to our API-based checkout session
       window.open(`/api/create-checkout-session?name=${encodeURIComponent(data.name)}&email=${encodeURIComponent(data.email)}`, '_blank');
     }
   };
@@ -136,7 +140,7 @@ const SignupForm = () => {
             </Button>
             
             <div className="text-center text-xs sm:text-sm mt-3 sm:mt-4">
-              <p className="mb-1 sm:mb-2">Secure payment powered by Stripe</p>
+              <p className="mb-1 sm:mb-2">Secure payment processing</p>
               <p className="mb-1 sm:mb-2 text-xs">(Opens in a new tab)</p>
               <div className="flex flex-wrap justify-center gap-1 sm:gap-2">
                 <svg className="h-4 sm:h-6" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="visa-label">

@@ -49,9 +49,13 @@ This guide outlines the steps to verify that all components of FlingPing.co are 
 
 ## External Integration Tests
 
-### Stripe Payment Integration
+### Payment Integration
 - [ ] Payment process initiates correctly when form is submitted
-- [ ] If direct payment link is configured (VITE_STRIPE_PRODUCT_LINK):
+- [ ] If Systeme.io payment link is configured (VITE_SYSTEME_PAYMENT_LINK):
+  - [ ] Systeme.io payment page opens in new tab
+  - [ ] Test payment succeeds with a test card
+  - [ ] Success page and thank you flow work as expected
+- [ ] If direct Stripe payment link is configured (VITE_STRIPE_PRODUCT_LINK):
   - [ ] Stripe hosted payment page opens in new tab
   - [ ] Test payment succeeds with test card (4242 4242 4242 4242)
   - [ ] Success page specified in Stripe Dashboard appears after payment
