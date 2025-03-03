@@ -50,11 +50,16 @@ This guide outlines the steps to verify that all components of FlingPing.co are 
 ## External Integration Tests
 
 ### Stripe Payment Integration
-- [ ] Payment modal opens correctly
-- [ ] Stripe checkout page loads when payment is initiated
-- [ ] Test payment succeeds with test card
-- [ ] Success page appears after successful payment
-- [ ] Cancel page appears if payment is cancelled
+- [ ] Payment process initiates correctly when form is submitted
+- [ ] If direct payment link is configured (VITE_STRIPE_PRODUCT_LINK):
+  - [ ] Stripe hosted payment page opens in new tab
+  - [ ] Test payment succeeds with test card (4242 4242 4242 4242)
+  - [ ] Success page specified in Stripe Dashboard appears after payment
+- [ ] If using API-generated checkout (fallback method):
+  - [ ] Stripe checkout page loads when payment is initiated
+  - [ ] Test payment succeeds with test card
+  - [ ] Success page appears after successful payment
+  - [ ] Cancel page appears if payment is cancelled
 - [ ] Webhook receives payment events
 - [ ] Founding Flinger count updates correctly
 
