@@ -3,7 +3,6 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import FAQAccordion from "@/components/FAQAccordion";
-import SystemeFormCustomizer from "@/components/SystemeFormCustomizer";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
@@ -265,8 +264,36 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
               </div>
               
               <div className="bg-background rounded-3xl border-2 border-coral p-4 sm:p-6 md:p-8 shadow-md flex flex-col justify-center h-full">
-                {/* Enhanced Systeme.io form with styling and customization */}
-                <SystemeFormCustomizer />
+                {/* Form Header */}
+                <div className="mb-6 text-center">
+                  <h3 className="text-teal text-xl sm:text-2xl font-bold mb-2">Spots Are Limited!</h3>
+                  <p className="text-yellow text-base sm:text-lg">Only 250 Founding Flinger spots left</p>
+                </div>
+                
+                {/* Systeme.io Form Iframe */}
+                <div className="w-full mx-auto mb-4 systeme-form-container">
+                  <iframe 
+                    src="https://1903-brad.systeme.io/42eeb962" 
+                    frameBorder="0" 
+                    scrolling="no"
+                    width="100%" 
+                    height="420" 
+                    className="overflow-hidden bg-transparent"
+                    title="Founding Flinger Signup"
+                    allowtransparency="true"
+                    loading="lazy"
+                  />
+                </div>
+                
+                {/* Secure Payment Notice */}
+                <div className="text-center mt-2">
+                  <p className="text-sm text-gray-400 mb-2">Secure payment powered by Stripe</p>
+                  <div className="flex justify-center space-x-2">
+                    <img src="https://cdn.systeme.io/img/payment/visa.svg" alt="Visa" className="h-6" />
+                    <img src="https://cdn.systeme.io/img/payment/mastercard.svg" alt="Mastercard" className="h-6" />
+                    <img src="https://cdn.systeme.io/img/payment/amex.svg" alt="American Express" className="h-6" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
