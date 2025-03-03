@@ -1,0 +1,102 @@
+Last login: Sat Mar  1 22:14:26 on console
+bkerwood@Brad-Kerwood ~ % curl -X POST "https://api.systeme.io/contact" \
+     -H "Content-Type: application/json" \
+     -H "X-API-KEY: wvgcm9cnghcikkxc7z1uily25jhetiz7w8yn1dbep4nrniqtfcrawsjz3v6px5ky" \   
+     -d '{                            
+       "email": "brad@hnmloft.com",   
+       "first_name": "Test",
+       "last_name": "User"                                                  
+      }'                                                 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+    <title>An Error Occurred: Not Found</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>❌</text></svg>" />
+    <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; }
+.container { margin: 30px; max-width: 600px; }
+h1 { color: #dc3545; font-size: 24px; }
+h2 { font-size: 18px; }</style>
+</head>
+<body>
+<div class="container">
+    <h1>Oops! An Error Occurred</h1>
+    <h2>The server returned a "404 Not Found".</h2>
+
+    <p>
+        Something is broken. Please let us know what you were doing when this error occurred.
+        We will fix it as soon as possible. Sorry for any inconvenience caused.
+    </p>
+</div>
+</body>
+</html>%                                                                        bkerwood@Brad-Kerwood ~ % curl -X POST "https://api.systeme.io/users" \
+     -H "Content-Type: application/json" \
+     -H "X-API-KEY: wvgcm9cnghcikkxc7z1uily25jhetiz7w8yn1dbep4nrniqtfcrawsjz3v6px5ky" \
+     -d '{
+       "email": "brad@hnmloft.com",
+       "first_name": "Test",
+       "last_name": "User"
+     }'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+    <title>An Error Occurred: Not Found</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>❌</text></svg>" />
+    <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; }
+.container { margin: 30px; max-width: 600px; }
+h1 { color: #dc3545; font-size: 24px; }
+h2 { font-size: 18px; }</style>
+</head>
+<body>
+<div class="container">
+    <h1>Oops! An Error Occurred</h1>
+    <h2>The server returned a "404 Not Found".</h2>
+
+    <p>
+        Something is broken. Please let us know what you were doing when this error occurred.
+        We will fix it as soon as possible. Sorry for any inconvenience caused.
+    </p>
+</div>
+</body>
+</html>%                                                                        bkerwood@Brad-Kerwood ~ % curl -X GET "https://api.systeme.io/contacts" \
+     -H "Authorization: Bearer rjpsticpr77m2o0k5hf5ml7utir4qfqnglwlzgl33ksxn039wk7ipy5pkmja83gg"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+    <title>An Error Occurred: Not Found</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>❌</text></svg>" />
+    <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; }
+.container { margin: 30px; max-width: 600px; }
+h1 { color: #dc3545; font-size: 24px; }
+h2 { font-size: 18px; }</style>
+</head>
+<body>
+<div class="container">
+    <h1>Oops! An Error Occurred</h1>
+    <h2>The server returned a "404 Not Found".</h2>
+
+    <p>
+        Something is broken. Please let us know what you were doing when this error occurred.
+        We will fix it as soon as possible. Sorry for any inconvenience caused.
+    </p>
+</div>
+</body>
+</html>%                                                                        bkerwood@Brad-Kerwood ~ % 
+  [Restored Mar 3, 2025 at 6:04:52 PM]
+Last login: Mon Mar  3 05:01:18 on ttys000
+Restored session: Mon Mar  3 18:03:18 EST 2025
+bkerwood@Brad-Kerwood ~ % npm run build
+npm error code ENOENT
+npm error syscall open
+npm error path /Users/bkerwood/package.json
+npm error errno -2
+npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open '/Users/bkerwood/package.json'
+npm error enoent This is related to npm not being able to find a file.
+npm error enoent
+npm error A complete log of this run can be found in: /Users/bkerwood/.npm/_logs/2025-03-03T23_05_02_612Z-debug-0.log
+bkerwood@Brad-Kerwood ~ % 

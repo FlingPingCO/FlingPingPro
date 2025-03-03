@@ -619,7 +619,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
-  // Webhook.site inbound webhook endpoint - receives data from Webhook.site and forwards to Systeme.io
+  // Webhook.site inbound webhook endpoint - receives data from Webhook.site and sends to Google Sheets
   app.post("/webhook/inbound", async (req: Request, res: Response) => {
     try {
       // Validate webhook request before processing
@@ -670,92 +670,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Continue processing - we don't want to fail the whole request
       }
       
-      // Forward to Systeme.io API
+      // Send data to Google Sheets
       try {
-        console.log("Forwarding data to Systeme.io API");
-        
-        // Check if Systeme.io API key is configured
-        if (!process.env.SYSTEME_API_KEY) {
-          console.log('Systeme.io API key not configured (SYSTEME_API_KEY). Using mock implementation.');
-          console.log('Would have sent to Systeme.io:', {
-            email: email,
-            name: name,
-            form_type: form_type || 'email_signup',
-            timestamp: new Date().toISOString()
-          });
-          
-          // We no longer need to send directly to Google Sheets
-          // webhook.site will handle forwarding this data to Google Sheets
-          console.log("Data received from webhook.site, which will forward to Google Sheets");
-          
-          return; // Skip the actual API call
-        }
-        
-        // Prepare data for Systeme.io
-        const firstName = name ? name.split(' ')[0] : '';
-        const lastName = name && name.split(' ').length > 1 ? name.split(' ').slice(1).join(' ') : '';
-        
-        const postData = JSON.stringify({
-          email: email,
-          firstName: firstName,
-          lastName: lastName,
+        // Prepare data for Google Sheets
+        const formData = {
+          name: name || "Webhook Subscriber",
+          email: email.toLowerCase().trim(),
           source: "flingping_website",
-          ipAddress: req.ip || "127.0.0.1",
-          tags: [form_type || "email_signup"],
-          customFields: {
+          form_name: form_type || "email_signup",
+          form_id: "webhook_form",
+          custom_fields: {
             message: message || "",
-            form_type: form_type || "email_signup",
-            timestamp: new Date().toISOString()
-          }
-        });
-        
-        // Define the request options for Systeme.io API
-        // Using the current working Systeme.io API endpoint
-        const requestOptions = {
-          hostname: 'api.systeme.io',
-          path: '/api/contacts', // Using base endpoint without version
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Content-Length': Buffer.byteLength(postData),
-            'X-API-Key': process.env.SYSTEME_API_KEY || '',
-            'Accept': 'application/json'
-          }
+            form_type: form_type || "email_signup"
+          },
+          timestamp: new Date().toISOString()
         };
         
-        console.log(`Debug: Using Systeme.io API endpoint: ${requestOptions.hostname}${requestOptions.path}`);
-        
-        // Create the request using node-fetch
-        fetch('https://api.systeme.io/api/contacts', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-API-Key': process.env.SYSTEME_API_KEY || '',
-            'Accept': 'application/json'
-          },
-          body: postData
-        })
-        .then(response => {
-          console.log(`Systeme.io API Response Status Code: ${response.status}`);
-          return response.text();
-        })
-        .then(responseText => {
-          console.log(`Systeme.io API Response Body: ${responseText || 'No response body'}`);
-          
-          // We no longer need to send directly to Google Sheets
-          // webhook.site will handle forwarding this data to Google Sheets
-          console.log("Data sent to webhook.site, which will forward to Google Sheets");
-        })
-        .catch(error => {
-          console.error(`Systeme.io API Request Error: ${error.message}`);
-          
-          // We no longer need to send directly to Google Sheets
-          // webhook.site will handle forwarding this data to Google Sheets even if Systeme.io fails
-          console.log("Data sent to webhook.site, which will forward to Google Sheets");
-        });
-        
-      } catch (apiError) {
-        console.error("Error forwarding to Systeme.io API:", apiError);
+        // Send to Google Sheets
+        await sendToGoogleSheets(formData);
+        console.log("Data sent to Google Sheets");
+      } catch (sheetsError) {
+        console.error("Error sending to Google Sheets:", sheetsError);
       }
       
       // Return success to Webhook.site
