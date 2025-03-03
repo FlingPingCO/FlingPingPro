@@ -9,8 +9,9 @@
  * 2. Run this script: node webhook-test.js
  */
 
-const https = require('https');
-const http = require('http');
+import https from 'https';
+import http from 'http';
+import { env } from 'process';
 
 // Configuration
 const config = {
@@ -22,7 +23,7 @@ const config = {
   webhookSiteId: '00af6027-a80c-4b5f-bd0e-ce5408f954ed',
   
   // Security token (for testing only - in production, this is in environment variables)
-  webhookSecret: process.env.SYSTEME_WEBHOOK_SECRET || 'test-webhook-secret',
+  webhookSecret: env.SYSTEME_WEBHOOK_SECRET || 'test-webhook-secret',
 };
 
 // Test data
