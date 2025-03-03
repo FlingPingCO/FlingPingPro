@@ -219,17 +219,19 @@ const Blog = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredPosts && filteredPosts.map((post) => (
             <div key={post.id} className="bg-background border-2 border-teal rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col h-full">
-              {/* Blog post featured image */}
-              <div className="h-48 bg-dark overflow-hidden">
+              {/* Blog post featured image - styled as illustration */}
+              <div className="h-48 bg-dark overflow-hidden relative">
+                {/* Background gradient to help illustrations pop */}
+                <div className="absolute inset-0 bg-gradient-to-br from-teal/10 to-coral/10 z-0"></div>
                 <img 
                   src={getThemedBlogImage(post.category, post.imageKeywords)}
                   alt={post.title}
-                  className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
+                  className="w-full h-full object-contain p-2 transition-all duration-500 hover:scale-105 z-10 relative"
                   loading="lazy"
                   onError={(e) => {
                     // If image fails to load, use a fallback image
                     const target = e.target as HTMLImageElement;
-                    target.src = "https://images.pexels.com/photos/6382300/pexels-photo-6382300.jpeg";
+                    target.src = "https://cdn.pixabay.com/photo/2018/09/04/10/27/health-3653380_1280.jpg";
                   }}
                 />
               </div>
