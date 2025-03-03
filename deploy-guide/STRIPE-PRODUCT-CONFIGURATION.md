@@ -12,7 +12,7 @@ This guide explains how to set up and configure the Stripe product (membership) 
      - Name: "Founding Flinger Membership"
      - Description: "Exclusive founding member access to FlingPing.co with premium features"
    - Pricing Information:
-     - Price: $49.99 (or your desired price)
+     - Price: $99.00 (to match your current pricing)
      - Recurring: One-time (or subscription if desired)
    - Click "Save product"
 
@@ -20,13 +20,27 @@ This guide explains how to set up and configure the Stripe product (membership) 
    - After creating the product, you'll see both a Product ID (prod_XXX) and a Price ID (price_XXX)
    - These IDs are crucial for your integration
 
+4. **Create a Direct Payment Link (Optional but Recommended)**:
+   - From the Stripe Dashboard, navigate to Products
+   - Find your Founding Flinger Membership product
+   - Click on "..." (more options) and select "Create payment link"
+   - Configure the payment link settings (you can add metadata if needed)
+   - Copy the generated payment link URL (looks like https://buy.stripe.com/XXX)
+
 ## Configuring Environment Variables
 
 Add the following environment variables to your Hostinger configuration:
 
+### Backend Environment Variables (server-side)
 ```
 STRIPE_PRODUCT_ID=prod_XXX      # Replace with your actual Product ID
 STRIPE_PRICE_ID=price_XXX       # Replace with your actual Price ID
+```
+
+### Frontend Environment Variables
+For Vite frontend (these will be included in the build):
+```
+VITE_STRIPE_PRODUCT_LINK=https://buy.stripe.com/XXX   # Direct payment link
 ```
 
 ## Updating Your Checkout Integration
