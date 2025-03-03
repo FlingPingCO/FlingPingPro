@@ -1,6 +1,7 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server, IncomingMessage } from "http";
 import * as https from "https";
+import fetch from 'node-fetch';
 import { storage } from "./storage";
 import { stripeService } from "./stripe";
 import {
@@ -45,7 +46,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
         });
         
-        // Define the request options
+        // Define the request options for webhook.site (kept for backward compatibility)
         const requestOptions = {
           hostname: 'webhook.site',
           port: 443,
@@ -56,6 +57,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
             'Content-Length': Buffer.byteLength(postData)
           }
         };
+        
+        // Also send directly to Google Apps Script using node-fetch (handles redirects)
+        try {
+          console.log("Sending email signup directly to Google Apps Script");
+          
+          // Using node-fetch to handle redirects automatically
+          fetch('https://script.google.com/macros/s/AKfycbyHH0EG9iOxbumMMs098mXdSSh3q9mzlKnCd8rfJAPCWhM8_aPK1xV4UPv_Arm4vZPHBA/exec', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: postData,
+            redirect: 'follow' // Follow redirects automatically
+          })
+          .then(response => {
+            console.log(`Google Apps Script Response Status Code: ${response.status}`);
+            return response.text();
+          })
+          .then(responseText => {
+            console.log(`Google Apps Script Response: ${responseText || 'No response'}`);
+            if (responseText.includes('Success')) {
+              console.log("Email signup successfully submitted to Google Sheets via Apps Script");
+            }
+          })
+          .catch(error => {
+            console.error(`Google Apps Script Request Error: ${error.message}`);
+          });
+        } catch (googleScriptError) {
+          console.error("Error sending to Google Apps Script:", googleScriptError);
+        }
         
         // Create the request using imported https module
         const webhookReq = https.request(requestOptions, (webhookRes: IncomingMessage) => {
@@ -182,7 +213,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
         });
         
-        // Define the request options
+        // Define the request options for webhook.site (kept for backward compatibility)
         const requestOptions = {
           hostname: 'webhook.site',
           port: 443,
@@ -193,6 +224,47 @@ export async function registerRoutes(app: Express): Promise<Server> {
             'Content-Length': Buffer.byteLength(postData)
           }
         };
+        
+        // Also send directly to Google Apps Script
+        try {
+          console.log("Sending contact form directly to Google Apps Script");
+          
+          const googleScriptOptions = {
+            hostname: 'script.google.com',
+            port: 443,
+            path: '/macros/s/AKfycbyHH0EG9iOxbumMMs098mXdSSh3q9mzlKnCd8rfJAPCWhM8_aPK1xV4UPv_Arm4vZPHBA/exec',
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Content-Length': Buffer.byteLength(postData)
+            }
+          };
+          
+          const googleScriptReq = https.request(googleScriptOptions, (googleScriptRes: IncomingMessage) => {
+            console.log(`Google Apps Script Response Status Code: ${googleScriptRes.statusCode}`);
+            
+            let googleScriptResponseData = '';
+            googleScriptRes.on('data', (chunk: Buffer) => {
+              googleScriptResponseData += chunk;
+            });
+            
+            googleScriptRes.on('end', () => {
+              console.log(`Google Apps Script Response: ${googleScriptResponseData || 'No response'}`);
+              if (googleScriptResponseData === 'Success') {
+                console.log("Contact form successfully submitted to Google Sheets via Apps Script");
+              }
+            });
+          });
+          
+          googleScriptReq.on('error', (e: Error) => {
+            console.error(`Google Apps Script Request Error: ${e.message}`);
+          });
+          
+          googleScriptReq.write(postData);
+          googleScriptReq.end();
+        } catch (googleScriptError) {
+          console.error("Error sending to Google Apps Script:", googleScriptError);
+        }
         
         // Create the request using imported https module
         const webhookReq = https.request(requestOptions, (webhookRes: IncomingMessage) => {
