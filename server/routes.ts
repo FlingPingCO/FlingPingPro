@@ -447,13 +447,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.error("Error sending to Google Sheets:", sheetsError);
       }
       
-      // 3. Send to Notion (implementation below)
-      try {
-        await sendToNotion(formData);
-      } catch (notionError) {
-        console.error("Error sending to Notion:", notionError);
-      }
-      
       // Always return success to Systeme.io to prevent retries
       return res.status(200).json({ 
         success: true, 
@@ -466,6 +459,168 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(200).json({ 
         success: true, 
         message: "Webhook processed with errors", 
+        error: process.env.NODE_ENV === 'development' 
+               ? (error instanceof Error ? error.message : String(error)) 
+               : undefined
+      });
+    }
+  });
+  
+  // Webhook.site inbound webhook endpoint - receives data from Webhook.site and forwards to Systeme.io
+  app.post("/webhook/inbound", async (req: Request, res: Response) => {
+    try {
+      console.log("Received inbound webhook from Webhook.site:", JSON.stringify(req.body));
+      
+      // Extract data from the webhook payload
+      const { name, email, message, form_type } = req.body;
+      
+      if (!email) {
+        console.error("Missing email in inbound webhook payload");
+        return res.status(400).json({ success: false, message: "Email is required" });
+      }
+      
+      // Store in our database
+      try {
+        // For email signups
+        if (form_type === "email_signup" || !form_type) {
+          const existingSignup = await storage.getEmailSignupByEmail(email);
+          if (!existingSignup) {
+            await storage.createEmailSignup({
+              name: name || "Webhook Subscriber",
+              email: email.toLowerCase().trim()
+            });
+            console.log(`Created new email signup from webhook for: ${email}`);
+          } else {
+            console.log(`Webhook submission for existing email: ${email}`);
+          }
+        } 
+        // For contact messages
+        else if (form_type === "contact_form" && message) {
+          await storage.createContactMessage({
+            name: name || "Webhook Contact",
+            email: email.toLowerCase().trim(),
+            message: message
+          });
+          console.log(`Created new contact message from webhook for: ${email}`);
+        }
+      } catch (dbError) {
+        console.error("Error storing webhook data in database:", dbError);
+        // Continue processing - we don't want to fail the whole request
+      }
+      
+      // Forward to Systeme.io API
+      try {
+        console.log("Forwarding data to Systeme.io API");
+        
+        // Prepare data for Systeme.io
+        const firstName = name ? name.split(' ')[0] : '';
+        const lastName = name && name.split(' ').length > 1 ? name.split(' ').slice(1).join(' ') : '';
+        
+        const postData = JSON.stringify({
+          email: email,
+          firstName: firstName,
+          lastName: lastName,
+          source: "flingping_website",
+          ipAddress: req.ip || "127.0.0.1",
+          tags: [form_type || "email_signup"],
+          customFields: {
+            message: message || "",
+            form_type: form_type || "email_signup",
+            timestamp: new Date().toISOString()
+          }
+        });
+        
+        // Define the request options for Systeme.io API
+        // Note: Replace with actual Systeme.io API endpoint and authentication
+        const requestOptions = {
+          hostname: 'systeme.io',
+          path: '/api/contacts', // Replace with actual API path
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': Buffer.byteLength(postData),
+            'X-API-Key': process.env.SYSTEME_API_KEY || '' // Replace with actual auth method
+          }
+        };
+        
+        // Create the request
+        const systemeReq = https.request(requestOptions, (systemeRes: IncomingMessage) => {
+          console.log(`Systeme.io API Response Status Code: ${systemeRes.statusCode}`);
+          
+          let responseData = '';
+          systemeRes.on('data', (chunk: Buffer) => {
+            responseData += chunk;
+          });
+          
+          systemeRes.on('end', () => {
+            console.log(`Systeme.io API Response Body: ${responseData || 'No response body'}`);
+            
+            // Forward to Google Sheets
+            const formData = {
+              name: name || "Unknown",
+              email: email,
+              source: "webhook.site",
+              form_name: form_type || "Unknown",
+              form_id: "webhook_inbound",
+              timestamp: new Date().toISOString(),
+              custom_fields: {
+                message: message || "",
+                form_type: form_type || "email_signup"
+              },
+              raw_data: req.body
+            };
+            
+            // Send to Google Sheets
+            sendToGoogleSheets(formData).catch(sheetsError => {
+              console.error("Error sending to Google Sheets:", sheetsError);
+            });
+          });
+        });
+        
+        // Handle errors
+        systemeReq.on('error', (e: Error) => {
+          console.error(`Systeme.io API Request Error: ${e.message}`);
+          
+          // Even if Systeme.io API fails, try to save to Google Sheets
+          const formData = {
+            name: name || "Unknown",
+            email: email,
+            source: "webhook.site",
+            form_name: form_type || "Unknown",
+            form_id: "webhook_inbound",
+            timestamp: new Date().toISOString(),
+            custom_fields: {
+              message: message || "",
+              form_type: form_type || "email_signup"
+            },
+            raw_data: req.body
+          };
+          
+          // Send to Google Sheets
+          sendToGoogleSheets(formData).catch(sheetsError => {
+            console.error("Error sending to Google Sheets:", sheetsError);
+          });
+        });
+        
+        // Write data and end request
+        systemeReq.write(postData);
+        systemeReq.end();
+        
+      } catch (apiError) {
+        console.error("Error forwarding to Systeme.io API:", apiError);
+      }
+      
+      // Return success to Webhook.site
+      return res.status(200).json({
+        success: true,
+        message: "Webhook processed successfully",
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      console.error("Webhook processing error:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Error processing webhook",
         error: process.env.NODE_ENV === 'development' 
                ? (error instanceof Error ? error.message : String(error)) 
                : undefined
