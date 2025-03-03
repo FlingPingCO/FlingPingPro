@@ -208,6 +208,39 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl text-center mb-8 text-coral">Why Our Early Adopters Love <span className="inline-flex"><span className="text-teal">FlingPing</span><span className="text-coral">.co</span></span>?</h2>
+          
+          <div className="flex justify-center mb-12">
+            {/* Image removed */}
+          </div>
+          
+          <div className="mx-auto max-w-6xl">
+            <Carousel className="w-full" opts={carouselOptions}>
+              <CarouselContent>
+                {testimonials.map((testimonial, index) => (
+                  <CarouselItem key={index} className="md:basis-1/3 lg:basis-1/3">
+                    <div className="bg-background border-2 border-teal rounded-xl p-6 hover:shadow-xl transition-all duration-300 flex flex-col h-full mx-2">
+                      <div className="flex items-center justify-center mb-4">
+                        <div className="text-yellow text-xl">★★★★★</div>
+                      </div>
+                      <p className="mb-4 italic text-center flex-grow">"{testimonial.text}"</p>
+                      <div className="text-coral text-center">- {testimonial.source}</div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="flex justify-center mt-6 space-x-4">
+                <CarouselPrevious className="relative left-0 right-0 top-0 h-8 w-8 border-coral text-coral hover:bg-coral hover:text-[#3c3c3c]" />
+                <CarouselNext className="relative left-0 right-0 top-0 h-8 w-8 border-coral text-coral hover:bg-coral hover:text-[#3c3c3c]" />
+              </div>
+            </Carousel>
+          </div>
+        </div>
+      </section>
+      
       {/* Founding Flinger Offer */}
       <section id="founding-flinger" className="py-16 bg-background">
         <div className="container mx-auto px-4">
@@ -317,39 +350,6 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-      
-      {/* Testimonials Section */}
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl text-center mb-8 text-coral">Why Our Early Adopters Love <span className="inline-flex"><span className="text-teal">FlingPing</span><span className="text-coral">.co</span></span>?</h2>
-          
-          <div className="flex justify-center mb-12">
-            {/* Image removed */}
-          </div>
-          
-          <div className="mx-auto max-w-6xl">
-            <Carousel className="w-full" opts={carouselOptions}>
-              <CarouselContent>
-                {testimonials.map((testimonial, index) => (
-                  <CarouselItem key={index} className="md:basis-1/3 lg:basis-1/3">
-                    <div className="bg-background border-2 border-teal rounded-xl p-6 hover:shadow-xl transition-all duration-300 flex flex-col h-full mx-2">
-                      <div className="flex items-center justify-center mb-4">
-                        <div className="text-yellow text-xl">★★★★★</div>
-                      </div>
-                      <p className="mb-4 italic text-center flex-grow">"{testimonial.text}"</p>
-                      <div className="text-coral text-center">- {testimonial.source}</div>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <div className="flex justify-center mt-6 space-x-4">
-                <CarouselPrevious className="relative left-0 right-0 top-0 h-8 w-8 border-coral text-coral hover:bg-coral hover:text-[#3c3c3c]" />
-                <CarouselNext className="relative left-0 right-0 top-0 h-8 w-8 border-coral text-coral hover:bg-coral hover:text-[#3c3c3c]" />
-              </div>
-            </Carousel>
           </div>
         </div>
       </section>
