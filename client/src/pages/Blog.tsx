@@ -222,14 +222,14 @@ const Blog = () => {
               {/* Blog post featured image */}
               <div className="h-48 bg-dark overflow-hidden">
                 <img 
-                  src={post.imageUrl || getThemedBlogImage(post.category, post.imageKeywords)}
+                  src={getThemedBlogImage(post.category, post.imageKeywords)}
                   alt={post.title}
                   className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
                   loading="lazy"
                   onError={(e) => {
-                    // Fallback if image fails to load
+                    // If image fails to load, use a fallback image
                     const target = e.target as HTMLImageElement;
-                    target.src = getThemedBlogImage(post.category, "alternative");
+                    target.src = "https://images.pexels.com/photos/6382300/pexels-photo-6382300.jpeg";
                   }}
                 />
               </div>
