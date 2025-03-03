@@ -1,5 +1,6 @@
 import type { Express, Request, Response } from "express";
-import { createServer, type Server } from "http";
+import { createServer, type Server, IncomingMessage } from "http";
+import * as https from "https";
 import { storage } from "./storage";
 import { stripeService } from "./stripe";
 import {
@@ -25,8 +26,57 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const signup = await storage.createEmailSignup(data);
       
-      // Webhook integration removed
-      // Data is still stored locally in the application
+      // Send to webhook.site
+      try {
+        console.log("Sending email signup to webhook.site");
+        
+        // Prepare JSON data
+        const postData = JSON.stringify({
+          form_type: "email_signup",
+          name: data.name,
+          email: data.email,
+          timestamp: new Date().toISOString()
+        });
+        
+        // Define the request options
+        const requestOptions = {
+          hostname: 'webhook.site',
+          port: 443,
+          path: '/00af6027-a80c-4b5f-bd0e-ce5408f954ed',
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': Buffer.byteLength(postData)
+          }
+        };
+        
+        // Create the request using imported https module
+        const req = https.request(requestOptions, (res: IncomingMessage) => {
+          console.log(`Webhook.site Email Signup Response Status Code: ${res.statusCode}`);
+          
+          let responseData = '';
+          res.on('data', (chunk: Buffer) => {
+            responseData += chunk;
+          });
+          
+          res.on('end', () => {
+            console.log(`Webhook.site Email Signup Response Body: ${responseData || 'No response body'}`);
+          });
+        });
+        
+        // Handle errors
+        req.on('error', (e: Error) => {
+          console.error(`Webhook.site Email Signup Request Error: ${e.message}`);
+        });
+        
+        // Write data and end request
+        req.write(postData);
+        req.end();
+        
+      } catch (webhookError) {
+        console.error("Error sending to webhook.site:", webhookError);
+        // Non-blocking error - continue with success response
+      }
       
       return res.status(201).json({ message: "Email registration successful", data: signup });
     } catch (error) {
@@ -43,8 +93,58 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const data = insertContactMessageSchema.parse(req.body);
       const message = await storage.createContactMessage(data);
       
-      // Webhook integration removed
-      // Data is still stored locally in the application
+      // Send to webhook.site
+      try {
+        console.log("Sending contact form to webhook.site");
+        
+        // Prepare JSON data
+        const postData = JSON.stringify({
+          form_type: "contact_form",
+          name: data.name,
+          email: data.email,
+          message: data.message,
+          timestamp: new Date().toISOString()
+        });
+        
+        // Define the request options
+        const requestOptions = {
+          hostname: 'webhook.site',
+          port: 443,
+          path: '/00af6027-a80c-4b5f-bd0e-ce5408f954ed',
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': Buffer.byteLength(postData)
+          }
+        };
+        
+        // Create the request using imported https module
+        const req = https.request(requestOptions, (res: https.IncomingMessage) => {
+          console.log(`Webhook.site Contact Form Response Status Code: ${res.statusCode}`);
+          
+          let responseData = '';
+          res.on('data', (chunk: Buffer) => {
+            responseData += chunk;
+          });
+          
+          res.on('end', () => {
+            console.log(`Webhook.site Contact Form Response Body: ${responseData || 'No response body'}`);
+          });
+        });
+        
+        // Handle errors
+        req.on('error', (e: Error) => {
+          console.error(`Webhook.site Contact Form Request Error: ${e.message}`);
+        });
+        
+        // Write data and end request
+        req.write(postData);
+        req.end();
+        
+      } catch (webhookError) {
+        console.error("Error sending to webhook.site:", webhookError);
+        // Non-blocking error - continue with success response
+      }
       
       return res.status(201).json({ message: "Message sent successfully", data: message });
     } catch (error) {
