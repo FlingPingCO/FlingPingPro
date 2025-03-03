@@ -222,12 +222,12 @@ const Home: React.FC<HomeProps> = ({ paymentSuccess, paymentCancelled }) => {
               <CarouselContent>
                 {testimonials.map((testimonial, index) => (
                   <CarouselItem key={index} className="md:basis-1/3 lg:basis-1/3">
-                    <div className="bg-background border-2 border-teal rounded-xl p-6 hover:shadow-xl transition-all duration-300 flex flex-col h-full mx-2">
+                    <div className="bg-background border-2 border-coral rounded-xl p-6 hover:shadow-xl transition-all duration-300 flex flex-col h-full mx-2">
                       <div className="flex items-center justify-center mb-4">
                         <div className="text-yellow text-xl">★★★★★</div>
                       </div>
-                      <p className="mb-4 italic text-center flex-grow text-teal">"{testimonial.text}"</p>
-                      <div className="text-coral text-center">- {testimonial.source}</div>
+                      <p className="mb-4 italic text-center flex-grow text-sand">"{testimonial.text}"</p>
+                      <div className="text-teal text-center">- {testimonial.source}</div>
                     </div>
                   </CarouselItem>
                 ))}
