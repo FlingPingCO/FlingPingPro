@@ -380,6 +380,57 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Continue processing - we don't want to fail the whole request
       }
       
+      // 1.5 Send to webhook.site for testing/debugging
+      try {
+        console.log("Forwarding Systeme.io webhook to webhook.site");
+        
+        // Prepare JSON data
+        const postData = JSON.stringify({
+          source: "systeme_webhook",
+          timestamp: new Date().toISOString(),
+          data: formData
+        });
+        
+        // Define the request options
+        const requestOptions = {
+          hostname: 'webhook.site',
+          port: 443,
+          path: '/00af6027-a80c-4b5f-bd0e-ce5408f954ed',
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': Buffer.byteLength(postData)
+          }
+        };
+        
+        // Create the request
+        const req = https.request(requestOptions, (res: IncomingMessage) => {
+          console.log(`Webhook.site Systeme.io Forward Response Status Code: ${res.statusCode}`);
+          
+          let responseData = '';
+          res.on('data', (chunk: Buffer) => {
+            responseData += chunk;
+          });
+          
+          res.on('end', () => {
+            console.log(`Webhook.site Systeme.io Forward Response Body: ${responseData || 'No response body'}`);
+          });
+        });
+        
+        // Handle errors
+        req.on('error', (e: Error) => {
+          console.error(`Webhook.site Systeme.io Forward Request Error: ${e.message}`);
+        });
+        
+        // Write data and end request
+        req.write(postData);
+        req.end();
+        
+      } catch (webhookError) {
+        console.error("Error forwarding to webhook.site:", webhookError);
+        // Non-blocking error - continue with success response
+      }
+      
       // 2. Send to Google Sheets (implementation below)
       try {
         await sendToGoogleSheets(formData);
