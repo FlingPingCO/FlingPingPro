@@ -29,13 +29,13 @@ const config = {
 // Test data
 const testEmailSignup = {
   name: 'Test User',
-  email: 'test@example.com',
+  email: 'test.user@gmail.com',
   form_type: 'email_signup'
 };
 
 const testContactForm = {
   name: 'Contact User',
-  email: 'contact@example.com',
+  email: 'contact.user@outlook.com',
   message: 'This is a test contact message',
   form_type: 'contact_form'
 };

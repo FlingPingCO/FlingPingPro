@@ -70,13 +70,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
               // Prepare data for Systeme.io
               const systemeData = JSON.stringify({
                 email: data.email,
-                firstName: data.name.split(' ')[0],
-                lastName: data.name.split(' ').slice(1).join(' '),
+                firstName: data.name.split(' ')[0] || 'Subscriber',
+                lastName: data.name.split(' ').slice(1).join(' ') || '',
                 source: "FlingPing.co Direct Signup",
                 ipAddress: req.ip || "unknown",
                 customFields: {
                   signupType: "email_signup",
-                  signupDate: new Date().toISOString()
+                  signupDate: new Date().toISOString(),
+                  origin: "website_form"
                 }
               });
               
@@ -192,27 +193,101 @@ export async function registerRoutes(app: Express): Promise<Server> {
         };
         
         // Create the request using imported https module
-        const req = https.request(requestOptions, (res: IncomingMessage) => {
-          console.log(`Webhook.site Contact Form Response Status Code: ${res.statusCode}`);
+        const webhookReq = https.request(requestOptions, (webhookRes: IncomingMessage) => {
+          console.log(`Webhook.site Contact Form Response Status Code: ${webhookRes.statusCode}`);
           
           let responseData = '';
-          res.on('data', (chunk: Buffer) => {
+          webhookRes.on('data', (chunk: Buffer) => {
             responseData += chunk;
           });
           
-          res.on('end', () => {
+          webhookRes.on('end', () => {
             console.log(`Webhook.site Contact Form Response Body: ${responseData || 'No response body'}`);
+            
+            // After webhook.site success, send to Systeme.io
+            try {
+              console.log("Sending contact form to Systeme.io");
+              
+              // Prepare data for Systeme.io
+              const systemeData = JSON.stringify({
+                email: data.email,
+                firstName: data.name.split(' ')[0],
+                lastName: data.name.split(' ').slice(1).join(' '),
+                source: "FlingPing.co Contact Form",
+                ipAddress: req.ip || "unknown",
+                customFields: {
+                  contactMessage: data.message,
+                  contactDate: new Date().toISOString(),
+                  formType: "contact_form"
+                }
+              });
+              
+              // Define the Systeme.io API options
+              const systemeOptions = {
+                hostname: 'api.systeme.io',
+                path: '/api/contacts',
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Content-Length': Buffer.byteLength(systemeData),
+                  'X-API-Key': process.env.SYSTEME_API_KEY || '',
+                  'Accept': 'application/json'
+                }
+              };
+              
+              // Send request to Systeme.io
+              const systemeReq = https.request(systemeOptions, (systemeRes: IncomingMessage) => {
+                console.log(`Systeme.io Contact Form Response Status Code: ${systemeRes.statusCode}`);
+                
+                let systemeResponseData = '';
+                systemeRes.on('data', (chunk: Buffer) => {
+                  systemeResponseData += chunk;
+                });
+                
+                systemeRes.on('end', () => {
+                  console.log(`Systeme.io Contact Form Response Body: ${systemeResponseData || 'No response body'}`);
+                  
+                  // Also send to Google Sheets (non-blocking)
+                  sendToGoogleSheets({
+                    name: data.name,
+                    email: data.email,
+                    source: "direct_contact",
+                    form_name: "Contact Form",
+                    form_id: "direct_api",
+                    timestamp: new Date().toISOString(),
+                    custom_fields: {
+                      form_type: "contact_form",
+                      message: data.message
+                    }
+                  }).catch(sheetsError => {
+                    console.error("Error sending contact form to Google Sheets:", sheetsError);
+                  });
+                });
+              });
+              
+              // Handle Systeme.io errors
+              systemeReq.on('error', (e: Error) => {
+                console.error(`Systeme.io Contact Form Request Error: ${e.message}`);
+              });
+              
+              // Send Systeme.io request
+              systemeReq.write(systemeData);
+              systemeReq.end();
+              
+            } catch (systemeError) {
+              console.error("Error sending to Systeme.io:", systemeError);
+            }
           });
         });
         
-        // Handle errors
-        req.on('error', (e: Error) => {
+        // Handle webhook.site errors
+        webhookReq.on('error', (e: Error) => {
           console.error(`Webhook.site Contact Form Request Error: ${e.message}`);
         });
         
-        // Write data and end request
-        req.write(postData);
-        req.end();
+        // Write data and end request to webhook.site
+        webhookReq.write(postData);
+        webhookReq.end();
         
       } catch (webhookError) {
         console.error("Error sending to webhook.site:", webhookError);
