@@ -25,7 +25,7 @@ Replace `[your-domain]` with your actual domain, such as `flingping.co`.
 For the webhook to function properly, you need to set the following environment variables:
 
 ### Core Functionality
-- `SYSTEME_WEBHOOK_SECRET`: A secret value used to verify webhook requests (optional but recommended)
+- `SYSTEME_WEBHOOK_SECRET`: A secret value used to verify webhook requests (**required for production**)
 
 ### Google Sheets Integration (Optional)
 - `GOOGLE_SERVICE_ACCOUNT_EMAIL`: Email address for your Google service account
@@ -44,7 +44,7 @@ For the webhook to function properly, you need to set the following environment 
 3. Create a new webhook
 4. Set the destination URL to your webhook endpoint
 5. Select the events you want to trigger the webhook (form submissions, purchases, etc.)
-6. Configure any headers (if using a webhook secret)
+6. Add a custom header named `X-Webhook-Secret` with your secret value (must match the `SYSTEME_WEBHOOK_SECRET` environment variable)
 7. Save and activate the webhook
 
 ## Data Format
@@ -85,6 +85,9 @@ You can test the webhook integration by:
 ## Security Considerations
 
 - Always use HTTPS for your webhook endpoint
-- Consider using a webhook secret for added security
+- **The webhook requires an `X-Webhook-Secret` header for authentication**
+  - Requests without this header or with an incorrect value will be rejected with a 403 Forbidden response
+  - Generate a random, strong secret (e.g., `openssl rand -hex 32`) and store it in both the environment variable and Systeme.io webhook configuration
 - Restrict permissions for service accounts to only what's necessary
 - Never expose your API keys or secrets in public repositories or client-side code
+- Regularly rotate your webhook secret for enhanced security

@@ -323,6 +323,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Systeme.io webhook handler
   app.post("/webhook/systeme", async (req: Request, res: Response) => {
     try {
+      // Validate webhook request before processing
+      if (!validateWebhookRequest(req)) {
+        console.error('Unauthorized webhook request to /webhook/systeme');
+        return res.status(403).json({ 
+          success: false, 
+          message: "Forbidden: Invalid or missing X-Webhook-Secret header" 
+        });
+      }
+      
       console.log("Received Systeme.io webhook payload:", JSON.stringify(req.body));
       
       // Extract relevant data from Systeme.io payload

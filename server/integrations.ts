@@ -161,13 +161,24 @@ const WEBHOOK_SECRET = process.env.SYSTEME_WEBHOOK_SECRET || '';
 
 export function validateWebhookRequest(req: any): boolean {
   // If no secret is configured, skip validation (not recommended for production)
-  if (!WEBHOOK_SECRET) return true;
+  if (!WEBHOOK_SECRET) {
+    console.warn('WARNING: No SYSTEME_WEBHOOK_SECRET configured. Webhook validation is disabled.');
+    return true;
+  }
 
-  // Get the signature from the headers
-  const signature = req.headers['x-systeme-signature'] as string;
-  if (!signature) return false;
+  // Get the secret from the headers
+  const headerSecret = req.headers['x-webhook-secret'] as string;
+  if (!headerSecret) {
+    console.error('Webhook request rejected: Missing X-Webhook-Secret header');
+    return false;
+  }
 
-  // In a real implementation, you would validate the signature against the request body
-  // This is a placeholder for that logic
-  return true; // For now, we'll assume it's valid
+  // Compare the received secret with the expected secret
+  const isValid = headerSecret === WEBHOOK_SECRET;
+  
+  if (!isValid) {
+    console.error('Webhook request rejected: Invalid X-Webhook-Secret');
+  }
+  
+  return isValid;
 }
