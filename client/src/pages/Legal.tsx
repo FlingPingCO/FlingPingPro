@@ -23,7 +23,7 @@ const Legal = () => {
           <div className="mb-16">
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="terms" id="terms" className="border-b border-coral">
-                <AccordionTrigger className="text-xl font-medium py-4 hover:text-primary">
+                <AccordionTrigger className="text-xl font-medium py-4 text-teal hover:text-primary">
                   Terms of Service
                 </AccordionTrigger>
                 <AccordionContent className="text-sand px-4 pb-4 space-y-4">
@@ -80,7 +80,7 @@ const Legal = () => {
               </AccordionItem>
               
               <AccordionItem value="privacy" id="privacy" className="border-b border-coral">
-                <AccordionTrigger className="text-xl font-medium py-4 hover:text-primary">
+                <AccordionTrigger className="text-xl font-medium py-4 text-teal hover:text-primary">
                   Privacy Policy
                 </AccordionTrigger>
                 <AccordionContent className="text-sand px-4 pb-4 space-y-4">
@@ -132,7 +132,7 @@ const Legal = () => {
               </AccordionItem>
               
               <AccordionItem value="refund" id="refund" className="border-b border-coral">
-                <AccordionTrigger className="text-xl font-medium py-4 hover:text-primary">
+                <AccordionTrigger className="text-xl font-medium py-4 text-teal hover:text-primary">
                   Refund Policy
                 </AccordionTrigger>
                 <AccordionContent className="text-sand px-4 pb-4 space-y-4">
@@ -165,7 +165,7 @@ const Legal = () => {
               </AccordionItem>
               
               <AccordionItem value="cookies" className="border-b border-coral">
-                <AccordionTrigger className="text-xl font-medium py-4 hover:text-primary">
+                <AccordionTrigger className="text-xl font-medium py-4 text-teal hover:text-primary">
                   Cookie Policy
                 </AccordionTrigger>
                 <AccordionContent className="text-sand px-4 pb-4 space-y-4">
@@ -206,7 +206,7 @@ const Legal = () => {
               </AccordionItem>
               
               <AccordionItem value="affiliate" id="affiliate" className="border-b border-coral">
-                <AccordionTrigger className="text-xl font-medium py-4 hover:text-primary">
+                <AccordionTrigger className="text-xl font-medium py-4 text-teal hover:text-primary">
                   Affiliate Disclosure
                 </AccordionTrigger>
                 <AccordionContent className="text-sand px-4 pb-4 space-y-4">
