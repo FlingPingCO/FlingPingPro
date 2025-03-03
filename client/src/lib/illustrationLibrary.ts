@@ -32,16 +32,16 @@ export const illustrations: Illustration[] = [
   // PEOPLE - Diverse representations
   {
     id: 'diverse-group',
-    src: '/illustrations/friends-no-bg.png',
-    alt: 'Diverse group of friends of different ethnicities',
+    src: '/illustrations/no-background--friends-of-different-ethnicity-high.gif',
+    alt: 'Diverse group of friends of different ethnicities high-fiving',
     category: ['People', 'Community'],
-    tags: ['diversity', 'friends', 'group', 'inclusive'],
+    tags: ['diversity', 'friends', 'group', 'inclusive', 'high-five'],
     diversityTags: ['multiethnic', 'group'],
     style: 'flat'
   },
   {
     id: 'students',
-    src: '/illustrations/two-college-kids-no-bg.png',
+    src: '/illustrations/no-background---two-college-kids-with-books-and-a- Background Removed.png',
     alt: 'Two college students with books and backpacks',
     category: ['People', 'Lifestyle'],
     tags: ['students', 'education', 'youth', 'college'],
@@ -50,7 +50,7 @@ export const illustrations: Illustration[] = [
   },
   {
     id: 'person-exit',
-    src: '/illustrations/someone-exiting-door-no-bg.png',
+    src: '/illustrations/no-background--someone-exiting-a-door.gif',
     alt: 'Person exiting a door',
     category: ['People', 'Lifestyle'],
     tags: ['exit', 'door', 'leaving', 'movement'],
@@ -58,7 +58,7 @@ export const illustrations: Illustration[] = [
   },
   {
     id: 'pedestrians',
-    src: '/illustrations/two-people-crossing-street-no-bg.png',
+    src: '/illustrations/no-background--two-people-crossing-a-street.gif',
     alt: 'Two people crossing a street',
     category: ['People', 'Lifestyle'],
     tags: ['walking', 'street', 'city', 'urban'],
@@ -66,7 +66,7 @@ export const illustrations: Illustration[] = [
   },
   {
     id: 'shopper',
-    src: '/illustrations/woman-with-shopping-bags-no-bg.png',
+    src: '/illustrations/no-background--woman-with-shopping-bags Background Removed.png',
     alt: 'Woman with shopping bags',
     category: ['People', 'Lifestyle'],
     tags: ['shopping', 'consumer', 'retail', 'bags'],
@@ -75,7 +75,7 @@ export const illustrations: Illustration[] = [
   },
   {
     id: 'doctor',
-    src: '/illustrations/doctor-no-bg.png',
+    src: '/illustrations/a-doctor Background Removed.png',
     alt: 'Healthcare professional',
     category: ['People', 'Health'],
     tags: ['doctor', 'healthcare', 'medical', 'professional'],
@@ -83,7 +83,7 @@ export const illustrations: Illustration[] = [
   },
   {
     id: 'family-dog',
-    src: '/illustrations/woman-child-dog-no-bg.png',
+    src: '/illustrations/no-background---woman-and-child-walking-a-dog.gif',
     alt: 'Woman and child walking a dog',
     category: ['People', 'Lifestyle', 'Relationships'],
     tags: ['family', 'dog', 'walking', 'pets', 'caregiving'],
@@ -94,7 +94,7 @@ export const illustrations: Illustration[] = [
   // COMMUNICATION & TECHNOLOGY
   {
     id: 'thought-bubbles',
-    src: '/illustrations/thought-bubbles-no-bg.png',
+    src: '/illustrations/THought_Bubbles-noBG.png',
     alt: 'Communication thought bubbles',
     category: ['Communication'],
     tags: ['thoughts', 'speech', 'conversation', 'communication'],
@@ -102,7 +102,7 @@ export const illustrations: Illustration[] = [
   },
   {
     id: 'phone-button',
-    src: '/illustrations/hand-pushing-phone-button.png',
+    src: '/illustrations/a-hand-pushing-a-button-on-a-phone.png',
     alt: 'Hand pushing a button on a phone',
     category: ['Technology', 'Communication'],
     tags: ['phone', 'mobile', 'button', 'digital', 'hand'],
@@ -110,7 +110,7 @@ export const illustrations: Illustration[] = [
   },
   {
     id: 'phones-pairing',
-    src: '/illustrations/wifi-signal-phones-pairing-no-bg.png',
+    src: '/illustrations/wifi-signal-in-two-phones-pairing Background Removed.png',
     alt: 'WiFi signal in two phones pairing',
     category: ['Technology', 'Communication'],
     tags: ['wifi', 'connection', 'phones', 'signal', 'pairing'],
@@ -119,22 +119,21 @@ export const illustrations: Illustration[] = [
   
   // COMMUNITY & RELATIONSHIPS
   {
-    id: 'high-five',
-    src: '/illustrations/friends-high-five-no-bg.png',
-    alt: 'Friends of different ethnicity high-fiving',
-    category: ['People', 'Community', 'Relationships'],
-    tags: ['high-five', 'celebration', 'friendship', 'support'],
-    diversityTags: ['multiethnic'],
+    id: 'delivery-driver',
+    src: '/illustrations/no-background----full-body-shot-of-a-delivery-driv.gif',
+    alt: 'Full body shot of a delivery driver',
+    category: ['People', 'Lifestyle'],
+    tags: ['delivery', 'service', 'work', 'job'],
     style: 'flat'
   },
   
-  // Brand specific
+  // Additional animated people
   {
-    id: 'logo-transparent',
-    src: '/illustrations/FlingPing-logo-tp-bg-removed.png',
-    alt: 'FlingPing.co logo with transparent background',
-    category: ['Technology'],
-    tags: ['logo', 'brand', 'identity'],
+    id: 'animated-people',
+    src: '/illustrations/no-background--lifestyle-shots-of-animated-people-.gif',
+    alt: 'Lifestyle shots of animated people',
+    category: ['People', 'Lifestyle'],
+    tags: ['lifestyle', 'animated', 'illustration', 'diverse'],
     style: 'flat'
   }
 ];
