@@ -7,7 +7,7 @@ A cutting-edge sexual health platform providing inclusive, private, and accessib
 - **Frontend:** React with Tailwind CSS for styling
 - **Backend:** Node.js with Express
 - **Data Storage:** In-memory database with webhook backup
-- **Payments:** Stripe integration
+- **Payments:** Enhanced Stripe integration with local image assets
 - **Form Data Collection:** webhook.site, Google Sheets, and Notion integrations
 - **Email Marketing:** Systeme.io webhook integration
 - **Authentication:** Custom user auth system
@@ -16,7 +16,9 @@ A cutting-edge sexual health platform providing inclusive, private, and accessib
 
 - Email signup form with data collection
 - Contact form with data collection
-- Founding Flinger membership with Stripe payments
+- Founding Flinger membership with enhanced Stripe checkout experience
+- Multiple payment options (direct Stripe link or API-generated checkout)
+- Local image integration for consistent branding in checkout flow
 - Webhook integration for form data backup
 - User account management
 
@@ -29,13 +31,28 @@ A cutting-edge sexual health platform providing inclusive, private, and accessib
 
 ## Integration Documentation
 
+### Payment Integration
 - [Stripe Integration](./STRIPE-INTEGRATION.md)
+- [Stripe Checkout Enhancement Summary](./STRIPE-CHECKOUT-ENHANCEMENT-SUMMARY.md)
+- [Stripe Image Integration Guide](./deploy-guide/STRIPE-IMAGE-INTEGRATION-GUIDE.md)
+- [Payment Integration Guide](./deploy-guide/PAYMENT-INTEGRATION-GUIDE.md)
+- [Stripe Product Configuration](./deploy-guide/STRIPE-PRODUCT-CONFIGURATION.md)
+
+### Webhook & External Services
 - [Webhook Integration](./WEBHOOK-INTEGRATION.md)
 - [Webhook Test Report](./WEBHOOK-TEST-REPORT.md)
-- [Systeme.io Integration](./SYSTEME-INTEGRATION.md)
-- [Systeme.io Test Report](./WEBHOOK-TEST-REPORT-SYSTEME.md)
 - [Comprehensive Webhook Documentation](./WEBHOOK-INTEGRATION-DOCS.md)
 - [Webhook Integration Flow](./WEBHOOK-INTEGRATION-FLOW.md)
+
+### Third-Party Integrations
+- [Systeme.io Integration](./SYSTEME-INTEGRATION.md)
+- [Systeme.io Test Report](./WEBHOOK-TEST-REPORT-SYSTEME.md)
+- [Systeme.io Payment Integration](./deploy-guide/SYSTEME-PAYMENT-INTEGRATION.md)
+
+### Deployment & Verification
+- [Hostinger Deployment Guide](./deploy-guide/HOSTINGER-DEPLOYMENT-GUIDE.md)
+- [Updated Deployment Checklist](./deploy-guide/UPDATED-DEPLOYMENT-CHECKLIST.md)
+- [Post-Deployment Verification](./deploy-guide/POST-DEPLOYMENT-VERIFICATION.md)
 
 ## Getting Started
 
@@ -62,6 +79,7 @@ The following environment variables are used:
 - `STRIPE_SECRET_KEY` - Stripe API secret key
 - `STRIPE_PUBLISHABLE_KEY` - Stripe publishable key
 - `DOMAIN` - Domain for redirects (defaults to http://localhost:5000)
+- `VITE_STRIPE_PRODUCT_LINK` - Optional direct Stripe payment link (for production use)
 
 ### Webhook & Systeme.io Integration Variables
 - `SYSTEME_WEBHOOK_SECRET` - Secret for validating all webhook requests (Systeme.io and inbound webhooks)
