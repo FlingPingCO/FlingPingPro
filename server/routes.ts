@@ -4,6 +4,8 @@ import * as https from "https";
 import fetch from 'node-fetch';
 import { storage } from "./storage";
 import { stripeService } from "./stripe";
+import path from "path";
+import fs from "fs";
 import {
   insertUserSchema,
   insertEmailSignupSchema,
@@ -584,75 +586,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Blog posts endpoint
   app.get("/api/blog-posts", async (_req: Request, res: Response) => {
     try {
-      // Sample blog posts data - in a real application, this would come from a database
-      const blogPosts = [
-        {
-          id: 1,
-          title: "5 Ways to Prioritize Your Sexual Health in 2025",
-          excerpt: "Taking charge of your sexual health has never been more important. Here are our top tips for navigating a healthier, more confident you in 2025.",
-          content: "Full article content would be here...",
-          date: "March 1, 2025",
-          category: "Health Tips",
-          imageUrl: "/images/blog/sexual-health-tips.jpg",
-          readTime: "4 min read",
-          isAffiliate: true
-        },
-        {
-          id: 2,
-          title: "The Evolution of Health Communication: Why Privacy Matters",
-          excerpt: "From awkward face-to-face conversations to anonymous digital notifications, the way we communicate about health has transformed dramatically.",
-          content: "Full article content would be here...",
-          date: "February 25, 2025",
-          category: "Privacy",
-          imageUrl: "/images/blog/health-communication.jpg",
-          readTime: "6 min read",
-          isAffiliate: false
-        },
-        {
-          id: 3,
-          title: "Smart Tech, Smarter Health: Digital Tools You Need to Know About",
-          excerpt: "Discover the cutting-edge technology that's revolutionizing how we approach sexual health and wellness in the digital age.",
-          content: "Full article content would be here...",
-          date: "February 18, 2025",
-          category: "Technology",
-          imageUrl: "/images/blog/health-tech.jpg",
-          readTime: "5 min read",
-          isAffiliate: true
-        },
-        {
-          id: 4,
-          title: "Dating in 2025: Navigating Modern Relationships with Confidence",
-          excerpt: "The dating landscape continues to evolve, but one thing remains constant: the importance of open communication and mutual respect.",
-          content: "Full article content would be here...",
-          date: "February 10, 2025",
-          category: "Relationships",
-          imageUrl: "/images/blog/modern-dating.jpg",
-          readTime: "7 min read",
-          isAffiliate: false
-        },
-        {
-          id: 5,
-          title: "The Best STI Prevention Products of 2025 [Reviewed]",
-          excerpt: "Our comprehensive review of the most effective, user-friendly sexual health products on the market today.",
-          content: "Full article content would be here...",
-          date: "February 3, 2025",
-          category: "Product Reviews",
-          imageUrl: "/images/blog/prevention-products.jpg",
-          readTime: "8 min read",
-          isAffiliate: true
-        },
-        {
-          id: 6,
-          title: "Founding Flingers: Meet the Early Adopters Changing Health Communication",
-          excerpt: "Interviews with our pioneering members who are leading the charge in revolutionizing how we think about sexual health notifications.",
-          content: "Full article content would be here...",
-          date: "January 28, 2025",
-          category: "Community",
-          imageUrl: "/images/blog/founding-flingers.jpg",
-          readTime: "5 min read",
-          isAffiliate: false
-        }
-      ];
+      // Load blog posts from JSON file
+      const blogPostsPath = path.join(__dirname, 'data', 'blog-posts.json');
+      const blogPostsData = await fs.promises.readFile(blogPostsPath, 'utf8');
+      const blogPosts = JSON.parse(blogPostsData);
       
       return res.status(200).json(blogPosts);
     } catch (error) {
