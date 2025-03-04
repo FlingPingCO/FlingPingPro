@@ -11,6 +11,7 @@ A cutting-edge sexual health platform providing inclusive, private, and accessib
 - **Form Data Collection:** webhook.site, Google Sheets, and Notion integrations
 - **Email Marketing:** Systeme.io webhook integration
 - **Authentication:** Custom user auth system
+- **Hosting:** AWS S3 static website hosting
 
 ## Key Features
 
@@ -21,6 +22,8 @@ A cutting-edge sexual health platform providing inclusive, private, and accessib
 - Local image integration for consistent branding in checkout flow
 - Webhook integration for form data backup
 - User account management
+- Comprehensive blog system with categorization
+- Mobile-optimized responsive design
 
 ## Project Structure
 
@@ -28,31 +31,20 @@ A cutting-edge sexual health platform providing inclusive, private, and accessib
 - `server/` - Backend Express server
 - `shared/` - Shared types and schemas
 - `public/` - Static assets
+- `scripts/` - Build and deployment utilities
 
 ## Integration Documentation
 
 ### Payment Integration
 - [Stripe Integration](./STRIPE-INTEGRATION.md)
 - [Stripe Checkout Enhancement Summary](./STRIPE-CHECKOUT-ENHANCEMENT-SUMMARY.md)
-- [Stripe Image Integration Guide](./deploy-guide/STRIPE-IMAGE-INTEGRATION-GUIDE.md)
-- [Payment Integration Guide](./deploy-guide/PAYMENT-INTEGRATION-GUIDE.md)
-- [Stripe Product Configuration](./deploy-guide/STRIPE-PRODUCT-CONFIGURATION.md)
 
 ### Webhook & External Services
 - [Webhook Integration](./WEBHOOK-INTEGRATION.md)
-- [Webhook Test Report](./WEBHOOK-TEST-REPORT.md)
-- [Comprehensive Webhook Documentation](./WEBHOOK-INTEGRATION-DOCS.md)
 - [Webhook Integration Flow](./WEBHOOK-INTEGRATION-FLOW.md)
 
-### Third-Party Integrations
-- [Systeme.io Integration](./SYSTEME-INTEGRATION.md)
-- [Systeme.io Test Report](./WEBHOOK-TEST-REPORT-SYSTEME.md)
-- [Systeme.io Payment Integration](./deploy-guide/SYSTEME-PAYMENT-INTEGRATION.md)
-
-### Deployment & Verification
-- [Hostinger Deployment Guide](./deploy-guide/HOSTINGER-DEPLOYMENT-GUIDE.md)
-- [Updated Deployment Checklist](./deploy-guide/UPDATED-DEPLOYMENT-CHECKLIST.md)
-- [Post-Deployment Verification](./deploy-guide/POST-DEPLOYMENT-VERIFICATION.md)
+### Deployment
+- [AWS S3 Deployment Guide](./AWS-S3-DEPLOYMENT-GUIDE.md) (Primary recommended deployment method)
 
 ## Getting Started
 
@@ -70,6 +62,26 @@ A cutting-edge sexual health platform providing inclusive, private, and accessib
    ```
    http://localhost:5000
    ```
+
+## Build & Deployment
+
+1. To create a production build for AWS S3 deployment:
+   ```
+   node scripts/build-prod.js
+   ```
+
+2. This will:
+   - Clean old deployment files
+   - Generate favicon if needed
+   - Create optimized production build
+   - Structure files for AWS S3 hosting
+   - Create a deployment zip file
+
+3. The build output will be available in:
+   - `/flingping-deployment` directory (organized files)
+   - `flingping-deployment.zip` (compressed for easy upload)
+
+4. Follow the [AWS S3 Deployment Guide](./AWS-S3-DEPLOYMENT-GUIDE.md) for detailed upload instructions
 
 ## Environment Variables
 

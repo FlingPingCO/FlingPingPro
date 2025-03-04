@@ -130,6 +130,12 @@ copyFileIfExists(
   path.join(deploymentDir, 'package-lock.json')
 );
 
+// Copy the AWS-S3-README.md as README.md in the deployment folder
+copyFileIfExists(
+  path.join(rootDir, 'AWS-S3-README.md'),
+  path.join(deploymentDir, 'README.md')
+);
+
 // Copy favicon if it exists
 const faviconSrc = path.join(publicDir, 'favicon.ico');
 if (fs.existsSync(faviconSrc)) {
