@@ -611,36 +611,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "Invalid blog post ID" });
       }
       
-      // Sample blog posts data - in a real application, this would come from a database
-      const blogPosts = [
-        {
-          id: 1,
-          title: "5 Ways to Prioritize Your Sexual Health in 2025",
-          excerpt: "Taking charge of your sexual health has never been more important. Here are our top tips for navigating a healthier, more confident you in 2025.",
-          content: "Full article content would be here...",
-          date: "March 1, 2025",
-          category: "Health Tips",
-          imageUrl: "/images/blog/sexual-health-tips.jpg",
-          readTime: "4 min read",
-          isAffiliate: true,
-          author: "Dr. Jane Smith"
-        },
-        {
-          id: 2,
-          title: "The Evolution of Health Communication: Why Privacy Matters",
-          excerpt: "From awkward face-to-face conversations to anonymous digital notifications, the way we communicate about health has transformed dramatically.",
-          content: "Full article content would be here...",
-          date: "February 25, 2025",
-          category: "Privacy",
-          imageUrl: "/images/blog/health-communication.jpg",
-          readTime: "6 min read",
-          isAffiliate: false,
-          author: "Michael Johnson"
-        }
-        // Other blog posts would be here...
-      ];
+      // Load blog posts from JSON file
+      const blogPostsPath = path.join(__dirname, 'data', 'blog-posts.json');
+      const blogPostsData = await fs.promises.readFile(blogPostsPath, 'utf8');
+      const blogPosts = JSON.parse(blogPostsData);
       
-      const post = blogPosts.find(post => post.id === postId);
+      const post = blogPosts.find((post) => post.id === postId);
       if (!post) {
         return res.status(404).json({ message: "Blog post not found" });
       }
@@ -660,16 +636,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Blog categories endpoint
   app.get("/api/blog-categories", async (_req: Request, res: Response) => {
     try {
-      // Sample categories - in a real application, this would be dynamically generated from the posts
-      const categories = [
-        "All Posts",
-        "Health Tips",
-        "Privacy",
-        "Technology",
-        "Relationships",
-        "Product Reviews",
-        "Community"
-      ];
+      // Load categories from JSON file
+      const categoriesPath = path.join(__dirname, 'data', 'blog-categories.json');
+      const categoriesData = await fs.promises.readFile(categoriesPath, 'utf8');
+      const categories = JSON.parse(categoriesData);
       
       return res.status(200).json(categories);
     } catch (error) {
