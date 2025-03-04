@@ -1,0 +1,339 @@
+Last login: Sat Mar  1 22:14:26 on console
+bkerwood@Brad-Kerwood ~ % curl -X POST "https://api.systeme.io/contact" \
+     -H "Content-Type: application/json" \
+     -H "X-API-KEY: wvgcm9cnghcikkxc7z1uily25jhetiz7w8yn1dbep4nrniqtfcrawsjz3v6px5ky" \   
+     -d '{                            
+       "email": "brad@hnmloft.com",   
+       "first_name": "Test",
+       "last_name": "User"                                                  
+      }'                                                 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+    <title>An Error Occurred: Not Found</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>❌</text></svg>" />
+    <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; }
+.container { margin: 30px; max-width: 600px; }
+h1 { color: #dc3545; font-size: 24px; }
+h2 { font-size: 18px; }</style>
+</head>
+<body>
+<div class="container">
+    <h1>Oops! An Error Occurred</h1>
+    <h2>The server returned a "404 Not Found".</h2>
+
+    <p>
+        Something is broken. Please let us know what you were doing when this error occurred.
+        We will fix it as soon as possible. Sorry for any inconvenience caused.
+    </p>
+</div>
+</body>
+</html>%                                                                        bkerwood@Brad-Kerwood ~ % curl -X POST "https://api.systeme.io/users" \
+     -H "Content-Type: application/json" \
+     -H "X-API-KEY: wvgcm9cnghcikkxc7z1uily25jhetiz7w8yn1dbep4nrniqtfcrawsjz3v6px5ky" \
+     -d '{
+       "email": "brad@hnmloft.com",
+       "first_name": "Test",
+       "last_name": "User"
+     }'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+    <title>An Error Occurred: Not Found</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>❌</text></svg>" />
+    <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; }
+.container { margin: 30px; max-width: 600px; }
+h1 { color: #dc3545; font-size: 24px; }
+h2 { font-size: 18px; }</style>
+</head>
+<body>
+<div class="container">
+    <h1>Oops! An Error Occurred</h1>
+    <h2>The server returned a "404 Not Found".</h2>
+
+    <p>
+        Something is broken. Please let us know what you were doing when this error occurred.
+        We will fix it as soon as possible. Sorry for any inconvenience caused.
+    </p>
+</div>
+</body>
+</html>%                                                                        bkerwood@Brad-Kerwood ~ % curl -X GET "https://api.systeme.io/contacts" \
+     -H "Authorization: Bearer rjpsticpr77m2o0k5hf5ml7utir4qfqnglwlzgl33ksxn039wk7ipy5pkmja83gg"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+    <title>An Error Occurred: Not Found</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>❌</text></svg>" />
+    <style>body { background-color: #fff; color: #222; font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; }
+.container { margin: 30px; max-width: 600px; }
+h1 { color: #dc3545; font-size: 24px; }
+h2 { font-size: 18px; }</style>
+</head>
+<body>
+<div class="container">
+    <h1>Oops! An Error Occurred</h1>
+    <h2>The server returned a "404 Not Found".</h2>
+
+    <p>
+        Something is broken. Please let us know what you were doing when this error occurred.
+        We will fix it as soon as possible. Sorry for any inconvenience caused.
+    </p>
+</div>
+</body>
+</html>%                                                                        bkerwood@Brad-Kerwood ~ % 
+  [Restored Mar 3, 2025 at 6:04:52 PM]
+Last login: Mon Mar  3 05:01:18 on ttys000
+Restored session: Mon Mar  3 18:03:18 EST 2025
+bkerwood@Brad-Kerwood ~ % npm run build
+npm error code ENOENT
+npm error syscall open
+npm error path /Users/bkerwood/package.json
+npm error errno -2
+npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open '/Users/bkerwood/package.json'
+npm error enoent This is related to npm not being able to find a file.
+npm error enoent
+npm error A complete log of this run can be found in: /Users/bkerwood/.npm/_logs/2025-03-03T23_05_02_612Z-debug-0.log
+bkerwood@Brad-Kerwood ~ %              
+bkerwood@Brad-Kerwood ~ % pwd
+/Users/bkerwood
+bkerwood@Brad-Kerwood ~ % cd /Users/bkerwood/flingping
+cd: no such file or directory: /Users/bkerwood/flingping
+bkerwood@Brad-Kerwood ~ % ls
+AI Learning- Futurepedia
+Applications
+COMPANY LOGOS
+Calibre Library
+CascadeProjects
+Desktop
+Documents
+Downloads
+FP.co Loan Agreement: John Lloyd.pages
+FP.co Loan Agreement: John Lloyd.pdf
+FP.co Loan Agreement:John Lloyd - Final.pdf
+FP.co+Loan+Agreement_3A+John+Lloyd.pages
+HNM:Jonathan Baker Loan Agreement - FIN.pages
+Library
+Movies
+Movies alias
+Music
+My Drive
+Notion Exports (Templates)
+Pictures
+Postman
+Public
+SaaS Ideas
+Taskade AI Agent Downloads
+Untitled.ipynb
+Wordpress
+fetch_airtable_data.py.rtf
+flingerfp@gmail.com - Google Drive
+hnmloft@gmail.com - Google Drive
+myenv
+~
+bkerwood@Brad-Kerwood ~ % npm install
+npm error code ENOENT
+npm error syscall open
+npm error path /Users/bkerwood/package.json
+npm error errno -2
+npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open '/Users/bkerwood/package.json'
+npm error enoent This is related to npm not being able to find a file.
+npm error enoent
+npm error A complete log of this run can be found in: /Users/bkerwood/.npm/_logs/2025-03-03T23_09_03_367Z-debug-0.log
+bkerwood@Brad-Kerwood ~ % npm build
+Unknown command: "build"
+
+To see a list of supported npm commands, run:
+  npm help
+bkerwood@Brad-Kerwood ~ % npm help
+npm <command>
+
+Usage:
+
+npm install        install all the dependencies in your project
+npm install <foo>  add the <foo> dependency to your project
+npm test           run this project's tests
+npm run <foo>      run the script named <foo>
+npm <command> -h   quick help on <command>
+npm -l             display usage info for all commands
+npm help <term>    search for help on <term>
+npm help npm       more involved overview
+
+All commands:
+
+    access, adduser, audit, bugs, cache, ci, completion,
+    config, dedupe, deprecate, diff, dist-tag, docs, doctor,
+    edit, exec, explain, explore, find-dupes, fund, get, help,
+    help-search, hook, init, install, install-ci-test,
+    install-test, link, ll, login, logout, ls, org, outdated,
+    owner, pack, ping, pkg, prefix, profile, prune, publish,
+    query, rebuild, repo, restart, root, run-script, sbom,
+    search, set, shrinkwrap, star, stars, start, stop, team,
+    test, token, uninstall, unpublish, unstar, update, version,
+    view, whoami
+
+Specify configs in the ini-formatted file:
+    /Users/bkerwood/.npmrc
+or on the command line via: npm <command> --key=value
+
+More configuration info: npm help config
+Configuration fields: npm help 7 config
+
+npm@10.9.2 /opt/homebrew/lib/node_modules/npm
+bkerwood@Brad-Kerwood ~ % npm run
+npm error code ENOENT
+npm error syscall open
+npm error path /Users/bkerwood/package.json
+npm error errno -2
+npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open '/Users/bkerwood/package.json'
+npm error enoent This is related to npm not being able to find a file.
+npm error enoent
+npm error A complete log of this run can be found in: /Users/bkerwood/.npm/_logs/2025-03-03T23_23_03_844Z-debug-0.log
+bkerwood@Brad-Kerwood ~ % npm run
+npm error code ENOENT
+npm error syscall open
+npm error path /Users/bkerwood/package.json
+npm error errno -2
+npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open '/Users/bkerwood/package.json'
+npm error enoent This is related to npm not being able to find a file.
+npm error enoent
+npm error A complete log of this run can be found in: /Users/bkerwood/.npm/_logs/2025-03-03T23_43_31_501Z-debug-0.log
+bkerwood@Brad-Kerwood ~ % ls
+AI Learning- Futurepedia
+Applications
+COMPANY LOGOS
+Calibre Library
+CascadeProjects
+Desktop
+Documents
+Downloads
+FP.co Loan Agreement: John Lloyd.pages
+FP.co Loan Agreement: John Lloyd.pdf
+FP.co Loan Agreement:John Lloyd - Final.pdf
+FP.co+Loan+Agreement_3A+John+Lloyd.pages
+HNM:Jonathan Baker Loan Agreement - FIN.pages
+Library
+Movies
+Movies alias
+Music
+My Drive
+Notion Exports (Templates)
+Pictures
+Postman
+Public
+SaaS Ideas
+Taskade AI Agent Downloads
+Untitled.ipynb
+Wordpress
+fetch_airtable_data.py.rtf
+flingerfp@gmail.com - Google Drive
+hnmloft@gmail.com - Google Drive
+myenv
+package-lock.json
+~
+bkerwood@Brad-Kerwood ~ % cd /Users/bkerwood/flingping
+cd: no such file or directory: /Users/bkerwood/flingping
+bkerwood@Brad-Kerwood ~ % find ~/ -type d -name "flingping" 2>/dev/null
+/Users/bkerwood//CascadeProjects/personal-website/flingping
+/Users/bkerwood//CascadeProjects/flingping
+ls
+bkerwood@Brad-Kerwood ~ % ls
+AI Learning- Futurepedia
+Applications
+COMPANY LOGOS
+Calibre Library
+CascadeProjects
+Desktop
+Documents
+Downloads
+FP.co Loan Agreement: John Lloyd.pages
+FP.co Loan Agreement: John Lloyd.pdf
+FP.co Loan Agreement:John Lloyd - Final.pdf
+FP.co+Loan+Agreement_3A+John+Lloyd.pages
+HNM:Jonathan Baker Loan Agreement - FIN.pages
+Library
+Movies
+Movies alias
+Music
+My Drive
+Notion Exports (Templates)
+Pictures
+Postman
+Public
+SaaS Ideas
+Taskade AI Agent Downloads
+Untitled.ipynb
+Wordpress
+fetch_airtable_data.py.rtf
+flingerfp@gmail.com - Google Drive
+hnmloft@gmail.com - Google Drive
+myenv
+package-lock.json
+~
+bkerwood@Brad-Kerwood ~ % npm install
+npm error code ENOENT
+npm error syscall open
+npm error path /Users/bkerwood/package.json
+npm error errno -2
+npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open '/Users/bkerwood/package.json'
+npm error enoent This is related to npm not being able to find a file.
+npm error enoent
+npm error A complete log of this run can be found in: /Users/bkerwood/.npm/_logs/2025-03-03T23_46_28_472Z-debug-0.log
+bkerwood@Brad-Kerwood ~ % npm run
+npm error code ENOENT
+npm error syscall open
+npm error path /Users/bkerwood/package.json
+npm error errno -2
+npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open '/Users/bkerwood/package.json'
+npm error enoent This is related to npm not being able to find a file.
+npm error enoent
+npm error A complete log of this run can be found in: /Users/bkerwood/.npm/_logs/2025-03-03T23_53_53_852Z-debug-0.log
+bkerwood@Brad-Kerwood ~ % npm run
+npm error code ENOENT
+npm error syscall open
+npm error path /Users/bkerwood/package.json
+npm error errno -2
+npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open '/Users/bkerwood/package.json'
+npm error enoent This is related to npm not being able to find a file.
+npm error enoent
+npm error A complete log of this run can be found in: /Users/bkerwood/.npm/_logs/2025-03-04T00_00_31_872Z-debug-0.log
+bkerwood@Brad-Kerwood ~ % npm run
+npm error code ENOENT
+npm error syscall open
+npm error path /Users/bkerwood/package.json
+npm error errno -2
+npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open '/Users/bkerwood/package.json'
+npm error enoent This is related to npm not being able to find a file.
+npm error enoent
+npm error A complete log of this run can be found in: /Users/bkerwood/.npm/_logs/2025-03-04T00_00_38_756Z-debug-0.log
+bkerwood@Brad-Kerwood ~ % nano /Users/bkerwood/.npm/_logs/2025-03-04T00_00_38_756Z-debug-0.log
+
+  File: /Users/bkerwood/.npm/_logs/2025-03-04T00_00_38_756Z-debug-0.log         
+
+0 verbose cli /opt/homebrew/Cellar/node/23.7.0/bin/node /opt/homebrew/bin/npm
+1 info using npm@10.9.2
+2 info using node@v23.7.0
+3 silly config load:file:/opt/homebrew/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/bkerwood/.npmrc
+5 silly config load:file:/opt/homebrew/etc/npmrc
+6 verbose title npm run
+7 verbose argv "run"
+8 verbose logfile logs-max:10 dir:/Users/bkerwood/.npm/_logs/2025-03-04T00_00_3$
+9 verbose logfile /Users/bkerwood/.npm/_logs/2025-03-04T00_00_38_756Z-debug-0.l$
+10 silly logfile start cleaning logs, removing 2 files
+11 verbose stack Error: Could not read package.json: Error: ENOENT: no such fil$
+11 verbose stack     at async open (node:internal/fs/promises:639:25)
+11 verbose stack     at async readFile (node:internal/fs/promises:1243:14)
+11 verbose stack     at async read (/opt/homebrew/lib/node_modules/npm/node_mod$
+11 verbose stack     at async PackageJson.load (/opt/homebrew/lib/node_modules/$
+11 verbose stack     at async PackageJson.normalize (/opt/homebrew/lib/node_mod$
+11 verbose stack     at async #list (/opt/homebrew/lib/node_modules/npm/lib/com$
+11 verbose stack     at async RunScript.exec (/opt/homebrew/lib/node_modules/np$
+
+^G Get Help  ^O WriteOut  ^R Read File ^Y Prev Pg   ^K Cut Text  ^C Cur Pos   
+^X Exit      ^J Justify   ^W Where is  ^V Next Pg   ^U UnCut Text^T To Spell  
