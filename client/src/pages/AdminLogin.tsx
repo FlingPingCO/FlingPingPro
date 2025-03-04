@@ -1,59 +1,27 @@
 import { useState } from "react";
-import { useLocation, useNavigate } from "wouter";
+import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { LockKeyhole } from "lucide-react";
-
-// In a real app, we would use proper auth storage like localStorage or a secure cookie
-// For demo purposes only - this variable persists during the session
-let isAuthenticated = false;
-
-// Simple admin authentication for demo purposes
-export function useAdminAuth() {
-  const [, navigate] = useLocation();
-  
-  const checkAuth = () => {
-    if (!isAuthenticated) {
-      navigate("/admin/login");
-      return false;
-    }
-    return true;
-  };
-  
-  const login = (password: string) => {
-    // In a real app, this would be a secure backend call
-    const isValid = password === "flingping-admin-2025"; // Simple hard-coded password for demo
-    if (isValid) {
-      isAuthenticated = true;
-    }
-    return isValid;
-  };
-  
-  const logout = () => {
-    isAuthenticated = false;
-    navigate("/admin/login");
-  };
-  
-  return { checkAuth, login, logout, isAuthenticated };
-}
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 
 export default function AdminLogin() {
   const { toast } = useToast();
   const [, navigate] = useLocation();
   const { login } = useAdminAuth();
+  const [username, setUsername] = useState("admin");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate network delay for a more realistic feel
-    setTimeout(() => {
-      const isSuccess = login(password);
+    try {
+      const isSuccess = await login(username, password);
       
       if (isSuccess) {
         toast({
@@ -64,13 +32,20 @@ export default function AdminLogin() {
       } else {
         toast({
           title: "Authentication failed",
-          description: "Incorrect password. Please try again.",
+          description: "Incorrect username or password. Please try again.",
           variant: "destructive",
         });
       }
-      
+    } catch (error) {
+      console.error("Login error:", error);
+      toast({
+        title: "Login failed",
+        description: "An error occurred. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
       setIsLoading(false);
-    }, 800);
+    }
   };
   
   return (
@@ -82,12 +57,23 @@ export default function AdminLogin() {
           </div>
           <CardTitle className="text-2xl">Admin Login</CardTitle>
           <CardDescription>
-            Enter your admin password to access the blog management interface
+            Enter your admin credentials to access the blog management interface
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleLogin}>
           <CardContent>
             <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="username">Username</Label>
+                <Input
+                  id="username"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Enter admin username"
+                  required
+                />
+              </div>
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
                 <Input
