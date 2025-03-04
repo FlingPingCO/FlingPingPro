@@ -8,38 +8,59 @@ const IMAGE_MAP: Record<string, string[]> = {
   'Health Tips': [
     '/illustrations/a-doctor Background Removed.png', 
     '/illustrations/THought_Bubbles-noBG.png', 
-    '/illustrations/Friends_NoBG.png', 
+    '/illustrations/Friends_NoBG.png',
+    '/illustrations/no-background--lifestyle-shots-of-animated-people-.gif',
+    '/illustrations/no-background---two-college-kids-with-books-and-a- Background Removed.png',
+    '/illustrations/thought-bubbles.png'
   ],
   'Privacy': [
     '/illustrations/wifi-signal-in-two-phones-pairing Background Removed.png', 
     '/illustrations/a-hand-pushing-a-button-on-a-phone.png', 
-    '/illustrations/THought_Bubbles-noBG.png', 
+    '/illustrations/THought_Bubbles-noBG.png',
+    '/illustrations/no-background--someone-exiting-a-door.gif',
+    '/illustrations/no-background--two-people-crossing-a-street.gif',
+    '/illustrations/no-background---two-college-kids-with-books-and-a- Background Removed.png'
   ],
   'Technology': [
     '/illustrations/a-hand-pushing-a-button-on-a-phone.png', 
     '/illustrations/wifi-signal-in-two-phones-pairing Background Removed.png', 
-    '/illustrations/no-background--lifestyle-shots-of-animated-people-.gif', 
+    '/illustrations/no-background--lifestyle-shots-of-animated-people-.gif',
+    '/illustrations/no-background--two-people-crossing-a-street.gif',
+    '/illustrations/no-background--someone-exiting-a-door.gif',
+    '/illustrations/sign-up-form Background Removed.png'
   ],
   'Relationships': [
     '/illustrations/no-background--friends-of-different-ethnicity-high.gif', 
     '/illustrations/no-background---woman-and-child-walking-a-dog.gif', 
-    '/illustrations/no-background---two-college-kids-with-books-and-a- Background Removed.png', 
+    '/illustrations/no-background---two-college-kids-with-books-and-a- Background Removed.png',
+    '/illustrations/Friends_NoBG.png',
+    '/illustrations/no-background--lifestyle-shots-of-animated-people-.gif',
+    '/illustrations/no-background--two-people-crossing-a-street.gif'
   ],
   'Product Reviews': [
     '/illustrations/no-background--woman-with-shopping-bags Background Removed.png', 
     '/illustrations/a-hand-pushing-a-button-on-a-phone.png', 
-    '/illustrations/no-background----full-body-shot-of-a-delivery-driv.gif', 
+    '/illustrations/no-background----full-body-shot-of-a-delivery-driv.gif',
+    '/illustrations/no-background--woman-with-shopping-bags Background Removed 2.png',
+    '/illustrations/sign-up-form Background Removed.png',
+    '/illustrations/no-background--someone-exiting-a-door.gif'
   ],
   'Community': [
     '/illustrations/no-background--friends-of-different-ethnicity-high.gif', 
     '/illustrations/no-background---two-college-kids-with-books-and-a- Background Removed.png', 
-    '/illustrations/no-background--two-people-crossing-a-street.gif', 
+    '/illustrations/no-background--two-people-crossing-a-street.gif',
+    '/illustrations/Friends_NoBG.png',
+    '/illustrations/no-background---woman-and-child-walking-a-dog.gif',
+    '/illustrations/no-background--lifestyle-shots-of-animated-people-.gif'
   ],
   // Fallback category
   'Default': [
     '/illustrations/THought_Bubbles-noBG.png', 
     '/illustrations/no-background--lifestyle-shots-of-animated-people-.gif', 
-    '/illustrations/no-background--friends-of-different-ethnicity-high.gif', 
+    '/illustrations/no-background--friends-of-different-ethnicity-high.gif',
+    '/illustrations/Friends_NoBG.png',
+    '/illustrations/no-background--two-people-crossing-a-street.gif',
+    '/illustrations/thought-bubbles.png'
   ]
 };
 
