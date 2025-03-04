@@ -587,7 +587,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/blog-posts", async (_req: Request, res: Response) => {
     try {
       // Load blog posts from JSON file
-      const blogPostsPath = path.join(__dirname, 'data', 'blog-posts.json');
+      const blogPostsPath = path.resolve('./server/data/blog-posts.json');
       const blogPostsData = await fs.promises.readFile(blogPostsPath, 'utf8');
       const blogPosts = JSON.parse(blogPostsData);
       
@@ -612,7 +612,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Load blog posts from JSON file
-      const blogPostsPath = path.join(__dirname, 'data', 'blog-posts.json');
+      const blogPostsPath = path.resolve('./server/data/blog-posts.json');
       const blogPostsData = await fs.promises.readFile(blogPostsPath, 'utf8');
       const blogPosts = JSON.parse(blogPostsData);
       
@@ -637,7 +637,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/blog-categories", async (_req: Request, res: Response) => {
     try {
       // Load categories from JSON file
-      const categoriesPath = path.join(__dirname, 'data', 'blog-categories.json');
+      const categoriesPath = path.resolve('./server/data/blog-categories.json');
       const categoriesData = await fs.promises.readFile(categoriesPath, 'utf8');
       const categories = JSON.parse(categoriesData);
       

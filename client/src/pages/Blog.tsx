@@ -129,8 +129,59 @@ const Blog = () => {
     );
   };
 
+  // State to store blog posts
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  
+  // Fetch blog posts from API
+  useEffect(() => {
+    const fetchBlogPosts = async () => {
+      try {
+        const response = await fetch('/api/blog-posts');
+        if (response.ok) {
+          const posts: BlogPost[] = await response.json();
+          setBlogPosts(posts);
+        } else {
+          console.error('Failed to fetch blog posts');
+          // Use default posts as fallback
+          setBlogPosts(defaultBlogPosts);
+        }
+      } catch (error) {
+        console.error('Error fetching blog posts:', error);
+        // Use default posts as fallback
+        setBlogPosts(defaultBlogPosts);
+      }
+    };
+    
+    fetchBlogPosts();
+  }, []);
+  
+  // Fetch blog categories from API
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch('/api/blog-categories');
+        if (response.ok) {
+          const apiCategories: string[] = await response.json();
+          if (apiCategories && apiCategories.length > 0) {
+            const allCategories = ["All Posts", ...apiCategories];
+            const initialCategories = allCategories.map(cat => ({
+              name: cat,
+              isActive: cat === "All Posts"
+            }));
+            setCategories(initialCategories);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+        // Default categories are already set in the initial useEffect
+      }
+    };
+    
+    fetchCategories();
+  }, []);
+  
   // Filter posts by selected category
-  const filteredPosts = defaultBlogPosts.filter(post => 
+  const filteredPosts = blogPosts.filter((post) => 
     selectedCategory === "All Posts" || post.category === selectedCategory
   );
 
@@ -254,9 +305,11 @@ const Blog = () => {
                 
                 <div className="flex justify-between items-center mt-auto">
                   <span className="text-xs text-sand">{post.date}</span>
-                  <Button variant="link" className="text-teal p-0 hover:text-coral">
-                    Read More →
-                  </Button>
+                  <Link href={`/blog/${post.id}`}>
+                    <Button variant="link" className="text-teal p-0 hover:text-coral">
+                      Read More →
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>
