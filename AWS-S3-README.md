@@ -1,33 +1,56 @@
-# FlingPing.co AWS S3 Deployment Files
+# FlingPing.co AWS S3 Deployment
 
-This package contains the optimized production build of FlingPing.co for AWS S3 deployment.
+This package contains the optimized files for deploying FlingPing.co to Amazon S3 static website hosting.
 
-## File Structure
+## Package Contents
+
+- `index.html` - Main HTML file
+- `styles.css` - Main stylesheet
+- `index.js` - Main JavaScript file
+- `public/` - Directory containing assets, images, and favicon
+  - `public/assets/` - SVG and other assets
+  - `public/images/` - Website images
+  - `public/favicon.ico` - Website favicon
+
+## Deployment Structure
+
+The deployment structure is designed specifically for AWS S3 static website hosting:
 
 ```
-/ (root)
-├── index.html         # Main HTML file
-├── styles.css         # Main CSS styles
-├── index.js           # Main JavaScript file
-├── package.json       # Package info and dependencies
-├── package-lock.json  # Dependency lock file
-└── public/            # Static assets
-    ├── assets/        # Icons, logos and other UI assets
-    ├── images/        # Image assets and illustrations
-    └── favicon.ico    # Site favicon
+/
+├── index.html
+├── styles.css
+├── index.js
+├── public/
+│   ├── assets/
+│   │   └── [asset files]
+│   ├── images/
+│   │   └── [image files]
+│   └── favicon.ico
 ```
 
-## Deployment Instructions
+## Quick Deployment Steps
 
-For detailed deployment instructions, please refer to the AWS-S3-DEPLOYMENT-GUIDE.md file in the repository.
+1. Create an S3 bucket with static website hosting enabled
+2. Upload all files maintaining the exact structure shown above
+3. Set bucket permissions to allow public read access
+4. Set the index document to `index.html`
+5. Optionally create a CloudFront distribution for improved performance
 
-## Important Notes
+## Content Types
 
-- This build is specifically optimized for AWS S3 static website hosting
-- All paths are relative, making it suitable for deployment in the root of an S3 bucket
-- The structure follows AWS best practices for static site hosting
-- CSS and JS files must be served with appropriate content types
+Ensure the correct Content-Type headers when uploading:
+
+- HTML files: `text/html`
+- CSS files: `text/css`
+- JavaScript files: `application/javascript`
+- PNG images: `image/png`
+- JPEG images: `image/jpeg`
+- SVG files: `image/svg+xml`
+- ICO files: `image/x-icon`
 
 ## Support
 
-For support or questions about this deployment package, please contact the FlingPing.co team.
+For detailed deployment instructions, refer to the full AWS-S3-DEPLOYMENT-GUIDE.md in the root directory of the source repository.
+
+For technical support, please contact the FlingPing.co development team.
