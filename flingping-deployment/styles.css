@@ -1,0 +1,21 @@
+/* FlingPing.co main stylesheet */
+:root {
+  --primary: #2DD4BF;
+  --secondary: #FF695E;
+  --background: #f4e9d9;
+  --foreground: #1a1a1a;
+  --accent: #FFCA28;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+#root {
+  min-height: 100vh;
+}

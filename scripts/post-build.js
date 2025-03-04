@@ -73,9 +73,30 @@ function copyFileIfExists(src, dest) {
 
 // Check for and copy main HTML file from dist
 const indexHtmlSrc = path.join(distDir, 'index.html');
+const publicHtmlSrc = path.join(distDir, 'public', 'index.html');
+
 if (fs.existsSync(indexHtmlSrc)) {
   console.log('Copying index.html to deployment directory...');
   fs.copyFileSync(indexHtmlSrc, path.join(deploymentDir, 'index.html'));
+} else if (fs.existsSync(publicHtmlSrc)) {
+  console.log('Copying public/index.html to deployment directory...');
+  fs.copyFileSync(publicHtmlSrc, path.join(deploymentDir, 'index.html'));
+} else {
+  console.log('Creating placeholder index.html...');
+  const placeholder = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlingPing.co</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="index.js"></script>
+</body>
+</html>`;
+  fs.writeFileSync(path.join(deploymentDir, 'index.html'), placeholder);
 }
 
 // Find and copy main CSS file to root as styles.css
@@ -110,6 +131,20 @@ if (fs.existsSync(assetsDir)) {
       );
     }
   });
+} else {
+  console.log('Creating placeholder styles.css...');
+  const placeholderCSS = `/* FlingPing.co main stylesheet */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#root {
+  min-height: 100vh;
+}`;
+  fs.writeFileSync(path.join(deploymentDir, 'styles.css'), placeholderCSS);
 }
 
 // Copy server-side index.js if it exists

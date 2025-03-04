@@ -1,141 +1,177 @@
 # FlingPing.co AWS S3 Deployment Guide
 
-This guide provides step-by-step instructions for deploying the FlingPing.co website to AWS S3 static website hosting.
+This guide provides step-by-step instructions for deploying the FlingPing.co website to Amazon S3 static website hosting.
 
-## Prerequisites
+## Preparation
 
-- AWS account with access to S3
-- AWS CLI installed and configured (optional, for command-line deployment)
-- The production build zip file (flingping-deployment.zip)
+### 1. Generate the Deployment Package
 
-## Step 1: Generate the Production Build
+There are two ways to generate the deployment package:
 
-1. Run the production build script:
-   ```
-   node scripts/build-prod.js
-   ```
+#### Option A: Quick Setup (Recommended for testing)
 
-2. This will:
-   - Clean old deployment files
-   - Generate a favicon if needed
-   - Create the production build
-   - Organize files into the proper structure
-   - Create a `flingping-deployment.zip` file
-   - Show the final file structure
+This creates a lightweight placeholder site with proper structure:
 
-## Step 2: Create an S3 Bucket
+```bash
+node scripts/setup-deployment-structure.js
+```
 
-1. Sign in to the AWS Management Console and open the [S3 console](https://console.aws.amazon.com/s3/)
-2. Choose **Create bucket**
-3. Enter a bucket name (e.g., `flingping-website` or your domain name)
-4. Select your preferred AWS Region
-5. Uncheck **Block all public access** (since this is a public website)
-6. Acknowledge that the bucket will be public
-7. Keep other settings as default and click **Create bucket**
+#### Option B: Full Production Build
 
-## Step 3: Configure the Bucket for Static Website Hosting
+This builds the complete site with all features (may take longer):
 
-1. Select your new bucket from the list
-2. Go to the **Properties** tab
-3. Scroll down to **Static website hosting** and click **Edit**
-4. Select **Enable**
-5. Set **Index document** to `index.html`
-6. Set **Error document** to `index.html` (for SPA routing)
-7. Click **Save changes**
+```bash
+node scripts/build-prod.js
+```
 
-## Step 4: Set Bucket Permissions
+Both options will create a `flingping-deployment.zip` file in the root directory.
 
-1. Go to the **Permissions** tab
-2. Under **Bucket policy**, click **Edit**
-3. Enter the following policy (replace `YOUR-BUCKET-NAME` with your actual bucket name):
+## AWS S3 Deployment Steps
+
+### 1. Log into AWS Console
+
+- Go to [AWS Management Console](https://aws.amazon.com/console/)
+- Log in with your credentials
+
+### 2. Create an S3 Bucket
+
+1. Navigate to S3 service
+2. Click "Create bucket"
+3. Enter a bucket name (e.g., `flingping-website`)
+4. Select your region
+5. Uncheck "Block all public access"
+6. Check the acknowledgment box
+7. Keep other settings as default
+8. Click "Create bucket"
+
+### 3. Configure the Bucket for Static Website Hosting
+
+1. Click on your newly created bucket
+2. Go to the "Properties" tab
+3. Scroll down to "Static website hosting"
+4. Click "Edit"
+5. Select "Enable"
+6. Enter `index.html` for both the Index document and Error document
+7. Click "Save changes"
+
+### 4. Set Bucket Policy for Public Access
+
+1. Go to the "Permissions" tab
+2. Scroll down to "Bucket policy"
+3. Click "Edit"
+4. Copy and paste the following policy (replace `YOUR-BUCKET-NAME` with your actual bucket name):
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "PublicReadGetObject",
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::YOUR-BUCKET-NAME/*"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::YOUR-BUCKET-NAME/*"
+    }
+  ]
 }
 ```
 
-4. Click **Save changes**
+5. Click "Save changes"
 
-## Step 5: Upload the Website Files
+### 5. Upload the Deployment Files
 
-### Option 1: Using AWS Console
+#### Method 1: Using AWS Console (simpler)
 
-1. Go to the **Objects** tab of your bucket
-2. Click **Upload**
-3. Unzip `flingping-deployment.zip` on your local machine
-4. Upload all the files and folders, maintaining the structure
-5. Click **Upload**
+1. Click on the "Objects" tab
+2. Click "Upload"
+3. Extract the `flingping-deployment.zip` file locally
+4. Upload all the extracted files and folders
+5. For each file, ensure the correct Content-Type is set:
+   - HTML files: `text/html`
+   - CSS files: `text/css`
+   - JavaScript files: `application/javascript`
+   - Images: `image/png`, `image/jpeg`, or appropriate type
+   - SVG files: `image/svg+xml`
 
-### Option 2: Using AWS CLI
+#### Method 2: Using AWS CLI (recommended for efficiency)
 
-1. Unzip the deployment package:
-   ```
-   unzip flingping-deployment.zip -d flingping-deployment
-   ```
+1. Install AWS CLI if not already installed
+2. Configure AWS CLI with your credentials
+3. Extract the `flingping-deployment.zip` file
+4. Navigate to the extracted directory
+5. Run the following commands:
 
-2. Upload the files using AWS CLI (replace `YOUR-BUCKET-NAME` with your bucket name):
-   ```
-   aws s3 sync flingping-deployment s3://YOUR-BUCKET-NAME
-   ```
+```bash
+# Upload HTML, CSS, and JS files with proper content types
+aws s3 cp index.html s3://YOUR-BUCKET-NAME/ --content-type "text/html"
+aws s3 cp styles.css s3://YOUR-BUCKET-NAME/ --content-type "text/css"
+aws s3 cp index.js s3://YOUR-BUCKET-NAME/ --content-type "application/javascript"
 
-## Step 6: Set Content-Type Metadata (Optional but Recommended)
-
-For proper serving of CSS and JavaScript files, set the correct content types:
-
+# Upload remaining files with appropriate content types
+aws s3 cp public/favicon.ico s3://YOUR-BUCKET-NAME/public/ --content-type "image/x-icon"
+aws s3 sync public/ s3://YOUR-BUCKET-NAME/public/ --exclude "favicon.ico"
 ```
-aws s3 cp s3://YOUR-BUCKET-NAME/styles.css s3://YOUR-BUCKET-NAME/styles.css --content-type "text/css" --metadata-directive REPLACE
-aws s3 cp s3://YOUR-BUCKET-NAME/index.js s3://YOUR-BUCKET-NAME/index.js --content-type "application/javascript" --metadata-directive REPLACE
-```
 
-## Step 7: Access Your Website
+### 6. Verify the Deployment
 
-1. Go to the **Properties** tab of your bucket
-2. Scroll down to **Static website hosting**
-3. Find the **Bucket website endpoint** URL
-4. Click the URL to visit your deployed website
+1. Go back to the "Properties" tab
+2. Scroll down to "Static website hosting"
+3. Copy the "Bucket website endpoint" URL
+4. Open the URL in your browser to verify the website is working correctly
 
-## Step 8: Set Up CloudFront for HTTPS (Optional)
+### 7. Set Up CloudFront (Optional but Recommended)
 
-For HTTPS support and better performance, consider setting up CloudFront:
+For improved performance and HTTPS:
 
-1. Open the [CloudFront console](https://console.aws.amazon.com/cloudfront/)
-2. Click **Create Distribution**
-3. For **Origin Domain Name**, enter your S3 website endpoint
+1. Go to CloudFront in AWS Console
+2. Click "Create distribution"
+3. For "Origin domain," select your S3 website endpoint
 4. Configure other settings as needed
-5. Click **Create Distribution**
-6. Wait for the distribution to deploy
-7. Use the CloudFront domain name to access your website with HTTPS
-
-## Step 9: Set Up Custom Domain (Optional)
-
-To use a custom domain with your website:
-
-1. Register your domain with Route 53 or another domain registrar
-2. Create a new record set pointing to your CloudFront distribution or S3 website endpoint
-3. For HTTPS with a custom domain, request an SSL certificate through AWS Certificate Manager
+5. Click "Create distribution"
+6. Use the provided CloudFront domain to access your website
 
 ## Troubleshooting
 
-- **404 Errors**: Ensure your bucket policy is set correctly
-- **CSS/JS Not Loading**: Check that content types are set correctly
-- **Routing Issues**: Make sure error document is set to index.html
+### Common Issues
 
-## Maintenance and Updates
+1. **403 Forbidden errors:**
+   - Check that the bucket policy is configured correctly
+   - Verify that all files have the appropriate permissions
 
-For future updates:
+2. **CSS or JavaScript not loading:**
+   - Ensure correct content types are set for all files
+   - Check for any CORS issues
 
-1. Run the build script again: `node scripts/build-prod.js`
-2. Re-upload the new files to S3
-3. Consider setting up a CI/CD pipeline for automated deployments
+3. **Images not displaying:**
+   - Verify paths are correct (should be `public/images/...`)
+   - Ensure proper content types are set
 
-For more information, refer to the [AWS S3 documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html).
+### Content Type Reference
+
+Here's a reference of common content types:
+
+- HTML: `text/html`
+- CSS: `text/css`
+- JavaScript: `application/javascript`
+- PNG images: `image/png`
+- JPEG images: `image/jpeg`
+- SVG images: `image/svg+xml`
+- ICO files: `image/x-icon`
+- Font files:
+  - WOFF: `font/woff`
+  - WOFF2: `font/woff2`
+  - TTF: `font/ttf`
+  - OTF: `font/otf`
+
+## Updating the Website
+
+To update the website:
+
+1. Make your changes locally
+2. Generate a new deployment package using one of the methods above
+3. Upload the new files to your S3 bucket, replacing the old ones
+4. If using CloudFront, you may need to create an invalidation to clear the cache
+
+## Support
+
+If you encounter any issues during deployment, please contact the development team or open an issue in the repository.
