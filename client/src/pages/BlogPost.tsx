@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useRoute, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { getThemedBlogImage } from "@/lib/imageService";
+import { getThemedBlogImage, getAlternativeBlogImage } from "@/lib/imageService";
 
 // Interface for blog post data
 interface BlogPost {
