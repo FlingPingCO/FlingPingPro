@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
+import { useLocation } from "wouter";
+import { useAdminAuth } from "./AdminLogin";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -38,6 +40,8 @@ function formatDate(date: string) {
 export default function BlogAdmin() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const [, navigate] = useLocation();
+  const { checkAuth, logout } = useAdminAuth();
   const [activeTab, setActiveTab] = useState("posts");
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -371,6 +375,12 @@ export default function BlogAdmin() {
     setActiveTab("posts");
   };
 
+  // Check authentication on component mount
+  useEffect(() => {
+    // Redirect to login if not authenticated
+    checkAuth();
+  }, []);
+
   useEffect(() => {
     // Reset form when switching away from editor tab
     if (activeTab !== "editor") {
@@ -384,7 +394,17 @@ export default function BlogAdmin() {
   return (
     <div className="container mx-auto py-8">
       <div className="mb-8 flex flex-col space-y-2">
-        <h1 className="text-3xl font-bold text-primary-600">Blog Admin</h1>
+        <div className="flex justify-between items-center">
+          <h1 className="text-3xl font-bold text-primary-600">Blog Admin</h1>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={logout}
+            className="flex items-center gap-1"
+          >
+            Logout
+          </Button>
+        </div>
         <p className="text-muted-foreground">Manage blog posts and categories for FlingPing.co</p>
       </div>
 

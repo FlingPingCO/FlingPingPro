@@ -15,6 +15,7 @@ import Legal from "@/pages/Legal";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
 import BlogAdmin from "@/pages/BlogAdmin";
+import AdminLogin from "@/pages/AdminLogin";
 import Illustrations from "@/pages/Illustrations";
 import PaymentSuccess from "@/pages/PaymentSuccess";
 import PaymentCancelled from "@/pages/PaymentCancelled";
@@ -57,6 +58,9 @@ function Router() {
       </Route>
       <Route path="/payment-cancelled">
         {() => <PaymentCancelled />}
+      </Route>
+      <Route path="/admin/login">
+        {() => <AdminLogin />}
       </Route>
       <Route path="/admin/blog">
         {() => <BlogAdmin />}
