@@ -13,6 +13,17 @@ import {
 } from "@shared/schema";
 import { ZodError } from "zod";
 import { sendToGoogleSheets, validateWebhookRequest, validateInboundWebhookRequest } from "./integrations";
+
+// Authentication middleware for admin routes
+function requireAuth(req: Request, res: Response, next: NextFunction) {
+  const session = req.session as any;
+  
+  if (!session || !session.isAuthenticated) {
+    return res.status(401).json({ message: "Unauthorized - Authentication required" });
+  }
+  
+  next();
+}
 import {
   getAllBlogPosts,
   getBlogPostById,
@@ -371,6 +382,69 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Admin login endpoint
+  app.post("/api/admin/login", async (req: Request, res: Response) => {
+    try {
+      const { username, password } = req.body;
+      
+      if (!username || !password) {
+        return res.status(400).json({ message: "Username and password are required" });
+      }
+      
+      // Admin credentials from environment variables with fallback
+      const adminUsername = process.env.ADMIN_USERNAME || "admin";
+      const adminPassword = process.env.ADMIN_PASSWORD || "flingping";
+      
+      // Check credentials
+      if (username === adminUsername && password === adminPassword) {
+        const session = req.session as any;
+        session.isAuthenticated = true;
+        
+        return res.status(200).json({ 
+          message: "Login successful",
+          isAuthenticated: true
+        });
+      } else {
+        return res.status(401).json({ message: "Invalid credentials" });
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      return res.status(500).json({ message: "Server error" });
+    }
+  });
+  
+  // Admin logout endpoint
+  app.post("/api/admin/logout", async (req: Request, res: Response) => {
+    try {
+      const session = req.session as any;
+      session.isAuthenticated = false;
+      req.session.destroy((err) => {
+        if (err) {
+          console.error("Session destruction error:", err);
+          return res.status(500).json({ message: "Logout failed" });
+        }
+        
+        return res.status(200).json({ message: "Logout successful" });
+      });
+    } catch (error) {
+      console.error("Logout error:", error);
+      return res.status(500).json({ message: "Server error" });
+    }
+  });
+  
+  // Admin auth check endpoint
+  app.get("/api/admin/auth-check", async (req: Request, res: Response) => {
+    try {
+      const session = req.session as any;
+      return res.status(200).json({ 
+        isAuthenticated: session && session.isAuthenticated === true 
+      });
+    } catch (error) {
+      console.error("Auth check error:", error);
+      return res.status(500).json({ message: "Server error" });
+    }
+  });
+  
   // Get remaining Founding Flinger spots
   app.get("/api/founding-flinger-count", async (req: Request, res: Response) => {
     try {
@@ -390,7 +464,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get all email sign-ups (admin endpoint)
-  app.get("/api/email-signups", async (req: Request, res: Response) => {
+  app.get("/api/email-signups", requireAuth, async (req: Request, res: Response) => {
     try {
       const signups = await storage.getAllEmailSignups();
       return res.status(200).json({ 
@@ -636,7 +710,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Create a new blog post
-  app.post("/api/blog-posts", async (req: Request, res: Response) => {
+  app.post("/api/blog-posts", requireAuth, async (req: Request, res: Response) => {
     try {
       // Extract blog post data from request body
       const { title, excerpt, category, imageKeywords, readTime, isAffiliate, content } = req.body;
@@ -677,7 +751,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Update an existing blog post
-  app.put("/api/blog-posts/:id", async (req: Request, res: Response) => {
+  app.put("/api/blog-posts/:id", requireAuth, async (req: Request, res: Response) => {
     try {
       const postId = parseInt(req.params.id);
       if (isNaN(postId)) {
@@ -718,7 +792,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Delete a blog post
-  app.delete("/api/blog-posts/:id", async (req: Request, res: Response) => {
+  app.delete("/api/blog-posts/:id", requireAuth, async (req: Request, res: Response) => {
     try {
       const postId = parseInt(req.params.id);
       if (isNaN(postId)) {
@@ -764,7 +838,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Create a new blog category
-  app.post("/api/blog-categories", async (req: Request, res: Response) => {
+  app.post("/api/blog-categories", requireAuth, async (req: Request, res: Response) => {
     try {
       const { category } = req.body;
       
@@ -795,7 +869,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Delete a blog category
-  app.delete("/api/blog-categories/:category", async (req: Request, res: Response) => {
+  app.delete("/api/blog-categories/:category", requireAuth, async (req: Request, res: Response) => {
     try {
       const { category } = req.params;
       
