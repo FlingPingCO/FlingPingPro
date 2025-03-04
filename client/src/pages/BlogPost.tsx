@@ -153,8 +153,18 @@ const BlogPost = () => {
               alt={post.title}
               className="w-full h-full object-contain p-6 bg-gradient-to-br from-teal/10 to-coral/10"
               onError={(e) => {
+                // If the primary image fails to load, try an alternative
                 const target = e.target as HTMLImageElement;
-                target.src = "/illustrations/THought_Bubbles-noBG.png";
+                const alternativeImage = getAlternativeBlogImage(post.category, post.imageKeywords);
+                target.src = alternativeImage;
+                console.log(`Using alternative featured image for post ${post.id}`);
+                
+                // Add a second error handler in case the alternative also fails
+                target.onerror = () => {
+                  target.src = "/illustrations/THought_Bubbles-noBG.png";
+                  console.log(`Alternative featured image also failed, using default fallback`);
+                  target.onerror = null; // Remove handler to prevent infinite loop
+                };
               }}
             />
           </div>
@@ -233,8 +243,18 @@ const BlogPost = () => {
                       className="w-full h-full object-contain p-2 transition-all duration-500 hover:scale-105 z-10 relative"
                       loading="lazy"
                       onError={(e) => {
+                        // Try alternative image for related posts
                         const target = e.target as HTMLImageElement;
-                        target.src = "/illustrations/THought_Bubbles-noBG.png";
+                        const alternativeImage = getAlternativeBlogImage(relatedPost.category, relatedPost.imageKeywords);
+                        target.src = alternativeImage;
+                        console.log(`Using alternative image for related post ${relatedPost.id}`);
+                        
+                        // Add second error handler for fallback
+                        target.onerror = () => {
+                          target.src = "/illustrations/THought_Bubbles-noBG.png";
+                          console.log(`Alternative image failed for related post ${relatedPost.id}, using default`);
+                          target.onerror = null;
+                        };
                       }}
                     />
                   </div>
