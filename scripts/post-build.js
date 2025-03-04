@@ -76,6 +76,24 @@ const indexHtmlSrc = path.join(distDir, 'index.html');
 if (fs.existsSync(indexHtmlSrc)) {
   console.log('Copying index.html to deployment directory...');
   fs.copyFileSync(indexHtmlSrc, path.join(deploymentDir, 'index.html'));
+} else {
+  // Create a placeholder index.html file
+  console.log('Creating placeholder index.html file...');
+  const placeholderHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlingPing.co</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="icon" href="/public/favicon.ico">
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/index.js"></script>
+</body>
+</html>`;
+  fs.writeFileSync(path.join(deploymentDir, 'index.html'), placeholderHtml);
 }
 
 // Find and copy main CSS file to root as styles.css
@@ -88,6 +106,33 @@ if (fs.existsSync(assetsDir)) {
       path.join(assetsDir, cssFiles[0]), 
       path.join(deploymentDir, 'styles.css')
     );
+  } else {
+    // Create a placeholder styles.css file
+    console.log('Creating placeholder styles.css file...');
+    const placeholderCss = `/* FlingPing.co Styles */
+:root {
+  --primary: #00A9A5;
+  --primary-hover: #008F8B;
+  --secondary: #FF695E;
+  --secondary-hover: #FF5449;
+  --background: #f4e9d9;
+  --text: #333333;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+}
+
+#root {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}`;
+    fs.writeFileSync(path.join(deploymentDir, 'styles.css'), placeholderCss);
   }
   
   // Copy the JS file to root as index.js
