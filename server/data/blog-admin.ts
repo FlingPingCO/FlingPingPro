@@ -1,16 +1,9 @@
 import fs from 'fs';
 import path from 'path';
-import { promisify } from 'util';
+import { promises as fsPromises } from 'fs';
+import { fileURLToPath } from 'url';
 
-// Convert callback-based fs methods to promise-based
-const readFile = promisify(fs.readFile);
-const writeFile = promisify(fs.writeFile);
-
-// Base paths for blog data files
-const blogPostsPath = path.resolve('./server/data/blog-posts.json');
-const blogCategoriesPath = path.resolve('./server/data/blog-categories.json');
-
-// Interface for blog post
+// Define the blog post interface
 export interface BlogPost {
   id: number;
   title: string;
@@ -23,30 +16,90 @@ export interface BlogPost {
   content?: string;
 }
 
+// Get the directory path for ES modules (replacing __dirname)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// File paths
+const postsFilePath = path.join(__dirname, 'blog-posts.json');
+const categoriesFilePath = path.join(__dirname, 'blog-categories.json');
+const backupDir = path.join(__dirname, 'backups');
+
+// Helper function to ensure backup directory exists
+async function ensureBackupDirExists() {
+  try {
+    await fsPromises.access(backupDir);
+  } catch (err) {
+    await fsPromises.mkdir(backupDir, { recursive: true });
+  }
+}
+
+// Helper function to read posts from file
+async function readPosts(): Promise<BlogPost[]> {
+  try {
+    const data = await fsPromises.readFile(postsFilePath, 'utf-8');
+    return JSON.parse(data);
+  } catch (err) {
+    console.error('Error reading blog posts:', err);
+    return [];
+  }
+}
+
+// Helper function to write posts to file
+async function writePosts(posts: BlogPost[]): Promise<boolean> {
+  try {
+    await fsPromises.writeFile(
+      postsFilePath,
+      JSON.stringify(posts, null, 2),
+      'utf-8'
+    );
+    return true;
+  } catch (err) {
+    console.error('Error writing blog posts:', err);
+    return false;
+  }
+}
+
+// Helper function to read categories from file
+async function readCategories(): Promise<string[]> {
+  try {
+    const data = await fsPromises.readFile(categoriesFilePath, 'utf-8');
+    return JSON.parse(data);
+  } catch (err) {
+    console.error('Error reading blog categories:', err);
+    return [];
+  }
+}
+
+// Helper function to write categories to file
+async function writeCategories(categories: string[]): Promise<boolean> {
+  try {
+    await fsPromises.writeFile(
+      categoriesFilePath,
+      JSON.stringify(categories, null, 2),
+      'utf-8'
+    );
+    return true;
+  } catch (err) {
+    console.error('Error writing blog categories:', err);
+    return false;
+  }
+}
+
 /**
  * Get all blog posts
  */
 export async function getAllBlogPosts(): Promise<BlogPost[]> {
-  try {
-    const data = await readFile(blogPostsPath, 'utf8');
-    return JSON.parse(data);
-  } catch (error) {
-    console.error('Error reading blog posts file:', error);
-    return [];
-  }
+  return await readPosts();
 }
 
 /**
  * Get a single blog post by ID
  */
 export async function getBlogPostById(id: number): Promise<BlogPost | null> {
-  try {
-    const posts = await getAllBlogPosts();
-    return posts.find(post => post.id === id) || null;
-  } catch (error) {
-    console.error('Error getting blog post by ID:', error);
-    return null;
-  }
+  const posts = await readPosts();
+  const post = posts.find(p => p.id === id);
+  return post || null;
 }
 
 /**
@@ -54,29 +107,27 @@ export async function getBlogPostById(id: number): Promise<BlogPost | null> {
  */
 export async function createBlogPost(post: Omit<BlogPost, 'id' | 'date'>): Promise<BlogPost | null> {
   try {
-    // Get existing posts
-    const posts = await getAllBlogPosts();
+    const posts = await readPosts();
     
-    // Create new post with generated ID and date
+    // Calculate next ID
+    const maxId = posts.length > 0 
+      ? Math.max(...posts.map(p => p.id)) 
+      : 0;
+    
     const newPost: BlogPost = {
-      id: Math.max(0, ...posts.map(p => p.id)) + 1,
-      title: post.title,
-      excerpt: post.excerpt,
-      category: post.category,
-      imageKeywords: post.imageKeywords,
-      readTime: post.readTime,
-      isAffiliate: post.isAffiliate,
-      content: post.content,
-      date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+      id: maxId + 1,
+      date: new Date().toISOString(),
+      ...post
     };
     
-    // Add to posts and save
     posts.push(newPost);
-    await writeFile(blogPostsPath, JSON.stringify(posts, null, 2), 'utf8');
     
-    return newPost;
-  } catch (error) {
-    console.error('Error creating blog post:', error);
+    if (await writePosts(posts)) {
+      return newPost;
+    }
+    return null;
+  } catch (err) {
+    console.error('Error creating blog post:', err);
     return null;
   }
 }
@@ -86,27 +137,29 @@ export async function createBlogPost(post: Omit<BlogPost, 'id' | 'date'>): Promi
  */
 export async function updateBlogPost(id: number, updates: Partial<BlogPost>): Promise<BlogPost | null> {
   try {
-    // Get existing posts
-    const posts = await getAllBlogPosts();
+    const posts = await readPosts();
+    const index = posts.findIndex(p => p.id === id);
     
-    // Find post to update
-    const postIndex = posts.findIndex(post => post.id === id);
-    if (postIndex === -1) return null;
+    if (index === -1) {
+      return null;
+    }
     
-    // Create updated post
+    // Don't allow changing id or date
+    const { id: _, date: __, ...validUpdates } = updates;
+    
     const updatedPost: BlogPost = {
-      ...posts[postIndex],
-      ...updates,
-      id // Ensure ID doesn't change
+      ...posts[index],
+      ...validUpdates
     };
     
-    // Update post and save
-    posts[postIndex] = updatedPost;
-    await writeFile(blogPostsPath, JSON.stringify(posts, null, 2), 'utf8');
+    posts[index] = updatedPost;
     
-    return updatedPost;
-  } catch (error) {
-    console.error('Error updating blog post:', error);
+    if (await writePosts(posts)) {
+      return updatedPost;
+    }
+    return null;
+  } catch (err) {
+    console.error('Error updating blog post:', err);
     return null;
   }
 }
@@ -116,21 +169,17 @@ export async function updateBlogPost(id: number, updates: Partial<BlogPost>): Pr
  */
 export async function deleteBlogPost(id: number): Promise<boolean> {
   try {
-    // Get existing posts
-    const posts = await getAllBlogPosts();
+    const posts = await readPosts();
+    const filteredPosts = posts.filter(p => p.id !== id);
     
-    // Filter out the post to delete
-    const filteredPosts = posts.filter(post => post.id !== id);
+    if (filteredPosts.length === posts.length) {
+      // No post was filtered out
+      return false;
+    }
     
-    // If no post was removed, return false
-    if (filteredPosts.length === posts.length) return false;
-    
-    // Save updated posts
-    await writeFile(blogPostsPath, JSON.stringify(filteredPosts, null, 2), 'utf8');
-    
-    return true;
-  } catch (error) {
-    console.error('Error deleting blog post:', error);
+    return await writePosts(filteredPosts);
+  } catch (err) {
+    console.error('Error deleting blog post:', err);
     return false;
   }
 }
@@ -139,13 +188,7 @@ export async function deleteBlogPost(id: number): Promise<boolean> {
  * Get all blog categories
  */
 export async function getAllCategories(): Promise<string[]> {
-  try {
-    const data = await readFile(blogCategoriesPath, 'utf8');
-    return JSON.parse(data);
-  } catch (error) {
-    console.error('Error reading blog categories file:', error);
-    return [];
-  }
+  return await readCategories();
 }
 
 /**
@@ -153,19 +196,17 @@ export async function getAllCategories(): Promise<string[]> {
  */
 export async function addCategory(category: string): Promise<boolean> {
   try {
-    // Get existing categories
-    const categories = await getAllCategories();
+    const categories = await readCategories();
     
-    // Check if category already exists
-    if (categories.includes(category)) return false;
+    // Don't add duplicate categories
+    if (categories.includes(category)) {
+      return true; // Already exists, consider it a success
+    }
     
-    // Add category and save
     categories.push(category);
-    await writeFile(blogCategoriesPath, JSON.stringify(categories, null, 2), 'utf8');
-    
-    return true;
-  } catch (error) {
-    console.error('Error adding category:', error);
+    return await writeCategories(categories);
+  } catch (err) {
+    console.error('Error adding category:', err);
     return false;
   }
 }
@@ -175,21 +216,17 @@ export async function addCategory(category: string): Promise<boolean> {
  */
 export async function deleteCategory(category: string): Promise<boolean> {
   try {
-    // Get existing categories
-    const categories = await getAllCategories();
+    const categories = await readCategories();
+    const index = categories.indexOf(category);
     
-    // Filter out the category to delete
-    const filteredCategories = categories.filter(c => c !== category);
+    if (index === -1) {
+      return false;
+    }
     
-    // If no category was removed, return false
-    if (filteredCategories.length === categories.length) return false;
-    
-    // Save updated categories
-    await writeFile(blogCategoriesPath, JSON.stringify(filteredCategories, null, 2), 'utf8');
-    
-    return true;
-  } catch (error) {
-    console.error('Error deleting category:', error);
+    categories.splice(index, 1);
+    return await writeCategories(categories);
+  } catch (err) {
+    console.error('Error deleting category:', err);
     return false;
   }
 }
@@ -199,22 +236,19 @@ export async function deleteCategory(category: string): Promise<boolean> {
  */
 export async function backupBlogData(): Promise<boolean> {
   try {
-    // Read current data
-    const postsData = await readFile(blogPostsPath, 'utf8');
-    const categoriesData = await readFile(blogCategoriesPath, 'utf8');
+    await ensureBackupDirExists();
     
-    // Create backup filenames with timestamps
-    const timestamp = new Date().toISOString().replace(/[:\.]/g, '-');
-    const postsBackupPath = path.resolve(`./server/data/blog-posts.${timestamp}.bak.json`);
-    const categoriesBackupPath = path.resolve(`./server/data/blog-categories.${timestamp}.bak.json`);
+    const timestamp = new Date().toISOString().replace(/:/g, '-');
+    const postsBackupPath = path.join(backupDir, `blog-posts-${timestamp}.json`);
+    const categoriesBackupPath = path.join(backupDir, `blog-categories-${timestamp}.json`);
     
-    // Write backup files
-    await writeFile(postsBackupPath, postsData, 'utf8');
-    await writeFile(categoriesBackupPath, categoriesData, 'utf8');
+    // Make copies of current files
+    await fsPromises.copyFile(postsFilePath, postsBackupPath);
+    await fsPromises.copyFile(categoriesFilePath, categoriesBackupPath);
     
     return true;
-  } catch (error) {
-    console.error('Error backing up blog data:', error);
+  } catch (err) {
+    console.error('Error backing up blog data:', err);
     return false;
   }
 }
