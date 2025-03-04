@@ -89,12 +89,18 @@ try {
   // 1. Clean old files
   cleanOldFiles();
   
-  // 2. Run the standard build
+  // 2. Generate favicon if it doesn't exist
+  if (!fs.existsSync(path.join(rootDir, 'public', 'favicon.ico'))) {
+    console.log('\nGenerating favicon...');
+    execSync('node scripts/generate-favicon.js', { cwd: rootDir, stdio: 'inherit' });
+  }
+  
+  // 3. Run the standard build
   console.log('\nRunning production build...');
   execSync('npm run build', { cwd: rootDir, stdio: 'inherit' });
   console.log('Build completed successfully.\n');
 
-  // 3. Run post-build script
+  // 4. Run post-build script
   console.log('Running post-build script to organize files...');
   execSync('node scripts/post-build.js', { cwd: rootDir, stdio: 'inherit' });
   console.log('Post-build process completed successfully.\n');
