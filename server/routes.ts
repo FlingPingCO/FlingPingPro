@@ -13,6 +13,17 @@ import {
 } from "@shared/schema";
 import { ZodError } from "zod";
 import { sendToGoogleSheets, validateWebhookRequest, validateInboundWebhookRequest } from "./integrations";
+import {
+  getAllBlogPosts,
+  getBlogPostById,
+  createBlogPost,
+  updateBlogPost,
+  deleteBlogPost,
+  getAllCategories,
+  addCategory,
+  deleteCategory,
+  backupBlogData
+} from './data/blog-admin';
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // API routes - all prefixed with /api
@@ -582,15 +593,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
   });
-
+  
   // Blog posts endpoint
   app.get("/api/blog-posts", async (_req: Request, res: Response) => {
     try {
-      // Load blog posts from JSON file
-      const blogPostsPath = path.resolve('./server/data/blog-posts.json');
-      const blogPostsData = await fs.promises.readFile(blogPostsPath, 'utf8');
-      const blogPosts = JSON.parse(blogPostsData);
-      
+      const blogPosts = await getAllBlogPosts();
       return res.status(200).json(blogPosts);
     } catch (error) {
       console.error("Error fetching blog posts:", error);
@@ -611,12 +618,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "Invalid blog post ID" });
       }
       
-      // Load blog posts from JSON file
-      const blogPostsPath = path.resolve('./server/data/blog-posts.json');
-      const blogPostsData = await fs.promises.readFile(blogPostsPath, 'utf8');
-      const blogPosts = JSON.parse(blogPostsData);
-      
-      const post = blogPosts.find((post: { id: number }) => post.id === postId);
+      const post = await getBlogPostById(postId);
       if (!post) {
         return res.status(404).json({ message: "Blog post not found" });
       }
@@ -632,15 +634,123 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
   });
+  
+  // Create a new blog post
+  app.post("/api/blog-posts", async (req: Request, res: Response) => {
+    try {
+      // Extract blog post data from request body
+      const { title, excerpt, category, imageKeywords, readTime, isAffiliate, content } = req.body;
+      
+      // Validate required fields
+      if (!title || !excerpt || !category || !content) {
+        return res.status(400).json({ message: "Missing required fields" });
+      }
+      
+      // Create a backup of current blog data before making changes
+      await backupBlogData();
+      
+      // Create the new blog post
+      const newPost = await createBlogPost({
+        title,
+        excerpt,
+        category,
+        imageKeywords,
+        readTime: readTime || "5 min read",
+        isAffiliate: !!isAffiliate,
+        content
+      });
+      
+      if (!newPost) {
+        return res.status(500).json({ message: "Failed to create blog post" });
+      }
+      
+      return res.status(201).json(newPost);
+    } catch (error) {
+      console.error("Error creating blog post:", error);
+      return res.status(500).json({
+        message: "Error creating blog post",
+        error: process.env.NODE_ENV === 'development' 
+               ? (error instanceof Error ? error.message : String(error)) 
+               : undefined
+      });
+    }
+  });
+  
+  // Update an existing blog post
+  app.put("/api/blog-posts/:id", async (req: Request, res: Response) => {
+    try {
+      const postId = parseInt(req.params.id);
+      if (isNaN(postId)) {
+        return res.status(400).json({ message: "Invalid blog post ID" });
+      }
+      
+      // Extract blog post data from request body
+      const { title, excerpt, category, imageKeywords, readTime, isAffiliate, content } = req.body;
+      
+      // Create a backup of current blog data before making changes
+      await backupBlogData();
+      
+      // Update the blog post
+      const updatedPost = await updateBlogPost(postId, {
+        title,
+        excerpt,
+        category,
+        imageKeywords,
+        readTime,
+        isAffiliate,
+        content
+      });
+      
+      if (!updatedPost) {
+        return res.status(404).json({ message: "Blog post not found" });
+      }
+      
+      return res.status(200).json(updatedPost);
+    } catch (error) {
+      console.error("Error updating blog post:", error);
+      return res.status(500).json({
+        message: "Error updating blog post",
+        error: process.env.NODE_ENV === 'development' 
+               ? (error instanceof Error ? error.message : String(error)) 
+               : undefined
+      });
+    }
+  });
+  
+  // Delete a blog post
+  app.delete("/api/blog-posts/:id", async (req: Request, res: Response) => {
+    try {
+      const postId = parseInt(req.params.id);
+      if (isNaN(postId)) {
+        return res.status(400).json({ message: "Invalid blog post ID" });
+      }
+      
+      // Create a backup of current blog data before making changes
+      await backupBlogData();
+      
+      // Delete the blog post
+      const success = await deleteBlogPost(postId);
+      
+      if (!success) {
+        return res.status(404).json({ message: "Blog post not found" });
+      }
+      
+      return res.status(200).json({ message: "Blog post deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting blog post:", error);
+      return res.status(500).json({
+        message: "Error deleting blog post",
+        error: process.env.NODE_ENV === 'development' 
+               ? (error instanceof Error ? error.message : String(error)) 
+               : undefined
+      });
+    }
+  });
 
   // Blog categories endpoint
   app.get("/api/blog-categories", async (_req: Request, res: Response) => {
     try {
-      // Load categories from JSON file
-      const categoriesPath = path.resolve('./server/data/blog-categories.json');
-      const categoriesData = await fs.promises.readFile(categoriesPath, 'utf8');
-      const categories = JSON.parse(categoriesData);
-      
+      const categories = await getAllCategories();
       return res.status(200).json(categories);
     } catch (error) {
       console.error("Error fetching blog categories:", error);
@@ -649,6 +759,68 @@ export async function registerRoutes(app: Express): Promise<Server> {
         error: process.env.NODE_ENV === 'development' 
                ? (error instanceof Error ? error.message : String(error)) 
                : undefined
+      });
+    }
+  });
+  
+  // Create a new blog category
+  app.post("/api/blog-categories", async (req: Request, res: Response) => {
+    try {
+      const { category } = req.body;
+      
+      if (!category || typeof category !== 'string') {
+        return res.status(400).json({ message: "Invalid category" });
+      }
+      
+      // Create a backup of current blog data before making changes
+      await backupBlogData();
+      
+      // Add the new category
+      const success = await addCategory(category);
+      
+      if (!success) {
+        return res.status(400).json({ message: "Category already exists" });
+      }
+      
+      return res.status(201).json({ message: "Category added successfully", category });
+    } catch (error) {
+      console.error("Error adding blog category:", error);
+      return res.status(500).json({
+        message: "Error adding blog category",
+        error: process.env.NODE_ENV === 'development' 
+                ? (error instanceof Error ? error.message : String(error)) 
+                : undefined
+      });
+    }
+  });
+  
+  // Delete a blog category
+  app.delete("/api/blog-categories/:category", async (req: Request, res: Response) => {
+    try {
+      const { category } = req.params;
+      
+      if (!category) {
+        return res.status(400).json({ message: "Invalid category" });
+      }
+      
+      // Create a backup of current blog data before making changes
+      await backupBlogData();
+      
+      // Delete the category
+      const success = await deleteCategory(category);
+      
+      if (!success) {
+        return res.status(404).json({ message: "Category not found" });
+      }
+      
+      return res.status(200).json({ message: "Category deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting blog category:", error);
+      return res.status(500).json({
+        message: "Error deleting blog category",
+        error: process.env.NODE_ENV === 'development' 
+                ? (error instanceof Error ? error.message : String(error)) 
+                : undefined
       });
     }
   });
