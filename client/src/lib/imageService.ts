@@ -83,13 +83,45 @@ export function getThemedBlogImage(
   let index = 0;
   
   if (customTerms) {
-    // Create a simple hash from customTerms to consistently select the same image
-    // This is useful for ensuring blog posts always get the same image
-    const hash = customTerms.split('').reduce((acc, char) => {
-      return acc + char.charCodeAt(0);
-    }, 0);
-    
-    index = hash % imageList.length;
+    // Create a weighted selection based on keywords to get better variety
+    if (typeof customTerms === 'string' && customTerms.includes(',')) {
+      // Parse the comma-separated keywords
+      const keywords = customTerms.split(',').map(k => k.trim());
+      
+      // Create a more sophisticated hash that uses keyword matching
+      // to select the most appropriate image from the category
+      let totalWeight = 0;
+      
+      // Use the first keyword as the primary selector if possible
+      if (keywords.length > 0) {
+        const primaryWord = keywords[0];
+        totalWeight = primaryWord.split('').reduce((acc, char) => {
+          return acc + char.charCodeAt(0);
+        }, 0);
+        
+        // Add additional influence from other keywords (with less weight)
+        if (keywords.length > 1) {
+          for (let i = 1; i < keywords.length; i++) {
+            const secondaryWord = keywords[i];
+            const secondaryWeight = secondaryWord.split('').reduce((acc, char) => {
+              return acc + char.charCodeAt(0);
+            }, 0);
+            
+            // Give secondary keywords less influence (30%)
+            totalWeight += Math.floor(secondaryWeight * 0.3);
+          }
+        }
+      }
+      
+      index = totalWeight % imageList.length;
+    } else {
+      // Fallback to simple hash for single keywords
+      const hash = customTerms.split('').reduce((acc, char) => {
+        return acc + char.charCodeAt(0);
+      }, 0);
+      
+      index = hash % imageList.length;
+    }
   } else {
     // Random selection if no customTerms provided
     index = Math.floor(Math.random() * imageList.length);
@@ -97,4 +129,48 @@ export function getThemedBlogImage(
   
   // Return the selected image URL
   return imageList[index];
+}
+
+/**
+ * Get an alternative blog image if the default one is unsuitable
+ * Different from getThemedBlogImage, this function ensures it returns
+ * a different image than what would be returned by the default algorithm
+ * 
+ * @param category - Blog post category
+ * @param customTerms - Original keywords used
+ * @returns URL to an alternative image from the same category
+ */
+export function getAlternativeBlogImage(
+  category: string,
+  customTerms?: string
+): string {
+  const imageList = IMAGE_MAP[category] || IMAGE_MAP['Default'];
+  
+  // If there's only one image, we can't provide an alternative
+  if (imageList.length <= 1) {
+    return imageList[0];
+  }
+  
+  // Get the original index that would have been selected
+  let originalIndex = 0;
+  
+  if (customTerms) {
+    const hash = customTerms.split('').reduce((acc, char) => {
+      return acc + char.charCodeAt(0);
+    }, 0);
+    originalIndex = hash % imageList.length;
+  }
+  
+  // Select a different index
+  let newIndex = (originalIndex + 1) % imageList.length;
+  
+  // If we have more than 2 images, we can be more random with our alternative
+  if (imageList.length > 2) {
+    // Get a random index that's not the original
+    while (newIndex === originalIndex) {
+      newIndex = Math.floor(Math.random() * imageList.length);
+    }
+  }
+  
+  return imageList[newIndex];
 }

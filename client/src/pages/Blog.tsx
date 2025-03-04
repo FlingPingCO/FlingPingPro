@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { apiRequest } from "@/lib/queryClient";
 import { useQuery } from "@tanstack/react-query";
-import { getThemedBlogImage } from "@/lib/imageService";
+import { getThemedBlogImage, getAlternativeBlogImage } from "@/lib/imageService";
 
 // Interface for blog post data
 interface BlogPost {
@@ -280,10 +280,20 @@ const Blog = () => {
                   className="w-full h-full object-contain p-2 transition-all duration-500 hover:scale-105 z-10 relative"
                   loading="lazy"
                   onError={(e) => {
-                    // If image fails to load, use a fallback image
+                    // If image fails to load, try an alternative image from the same category
                     const target = e.target as HTMLImageElement;
-                    target.src = "/illustrations/THought_Bubbles-noBG.png";
-                    console.log(`Failed to load blog image: ${post.imageKeywords}, using fallback`);
+                    // Try to get an alternative image from the same category
+                    const alternativeImage = getAlternativeBlogImage(post.category, post.imageKeywords);
+                    target.src = alternativeImage;
+                    console.log(`Using alternative image for post ${post.id} from ${post.category}`);
+                    
+                    // Add a second error handler in case the alternative also fails
+                    target.onerror = () => {
+                      target.src = "/illustrations/THought_Bubbles-noBG.png";
+                      console.log(`Alternative image also failed, using default fallback for post ${post.id}`);
+                      // Remove error handler to prevent infinite loop
+                      target.onerror = null;
+                    };
                   }}
                 />
               </div>
