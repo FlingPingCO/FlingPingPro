@@ -616,7 +616,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const blogPostsData = await fs.promises.readFile(blogPostsPath, 'utf8');
       const blogPosts = JSON.parse(blogPostsData);
       
-      const post = blogPosts.find((post) => post.id === postId);
+      const post = blogPosts.find((post: { id: number }) => post.id === postId);
       if (!post) {
         return res.status(404).json({ message: "Blog post not found" });
       }
