@@ -2,7 +2,7 @@
 import express2 from "express";
 import path4 from "path";
 import { dirname as dirname3 } from "path";
-import { fileURLToPath as fileURLToPath3 } from "url";
+import { fileURLToPath as fileURLToPath4 } from "url";
 
 // server/routes.ts
 import { createServer } from "http";
@@ -238,10 +238,6 @@ var StripeService = class {
 };
 var stripeService = new StripeService();
 
-// server/routes.ts
-import path from "path";
-import fs from "fs";
-
 // shared/schema.ts
 import { pgTable, text, serial, integer, boolean, timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
@@ -407,7 +403,181 @@ function validateWebhookRequest(req) {
   return isValid;
 }
 
+// server/data/blog-admin.ts
+import path from "path";
+import { promises as fsPromises } from "fs";
+import { fileURLToPath } from "url";
+var __filename = fileURLToPath(import.meta.url);
+var __dirname = path.dirname(__filename);
+var postsFilePath = path.join(__dirname, "blog-posts.json");
+var categoriesFilePath = path.join(__dirname, "blog-categories.json");
+var backupDir = path.join(__dirname, "backups");
+async function ensureBackupDirExists() {
+  try {
+    await fsPromises.access(backupDir);
+  } catch (err) {
+    await fsPromises.mkdir(backupDir, { recursive: true });
+  }
+}
+async function readPosts() {
+  try {
+    const data = await fsPromises.readFile(postsFilePath, "utf-8");
+    return JSON.parse(data);
+  } catch (err) {
+    console.error("Error reading blog posts:", err);
+    return [];
+  }
+}
+async function writePosts(posts) {
+  try {
+    await fsPromises.writeFile(
+      postsFilePath,
+      JSON.stringify(posts, null, 2),
+      "utf-8"
+    );
+    return true;
+  } catch (err) {
+    console.error("Error writing blog posts:", err);
+    return false;
+  }
+}
+async function readCategories() {
+  try {
+    const data = await fsPromises.readFile(categoriesFilePath, "utf-8");
+    return JSON.parse(data);
+  } catch (err) {
+    console.error("Error reading blog categories:", err);
+    return [];
+  }
+}
+async function writeCategories(categories) {
+  try {
+    await fsPromises.writeFile(
+      categoriesFilePath,
+      JSON.stringify(categories, null, 2),
+      "utf-8"
+    );
+    return true;
+  } catch (err) {
+    console.error("Error writing blog categories:", err);
+    return false;
+  }
+}
+async function getAllBlogPosts() {
+  return await readPosts();
+}
+async function getBlogPostById(id) {
+  const posts = await readPosts();
+  const post = posts.find((p) => p.id === id);
+  return post || null;
+}
+async function createBlogPost(post) {
+  try {
+    const posts = await readPosts();
+    const maxId = posts.length > 0 ? Math.max(...posts.map((p) => p.id)) : 0;
+    const newPost = {
+      id: maxId + 1,
+      date: (/* @__PURE__ */ new Date()).toISOString(),
+      ...post
+    };
+    posts.push(newPost);
+    if (await writePosts(posts)) {
+      return newPost;
+    }
+    return null;
+  } catch (err) {
+    console.error("Error creating blog post:", err);
+    return null;
+  }
+}
+async function updateBlogPost(id, updates) {
+  try {
+    const posts = await readPosts();
+    const index = posts.findIndex((p) => p.id === id);
+    if (index === -1) {
+      return null;
+    }
+    const { id: _, date: __, ...validUpdates } = updates;
+    const updatedPost = {
+      ...posts[index],
+      ...validUpdates
+    };
+    posts[index] = updatedPost;
+    if (await writePosts(posts)) {
+      return updatedPost;
+    }
+    return null;
+  } catch (err) {
+    console.error("Error updating blog post:", err);
+    return null;
+  }
+}
+async function deleteBlogPost(id) {
+  try {
+    const posts = await readPosts();
+    const filteredPosts = posts.filter((p) => p.id !== id);
+    if (filteredPosts.length === posts.length) {
+      return false;
+    }
+    return await writePosts(filteredPosts);
+  } catch (err) {
+    console.error("Error deleting blog post:", err);
+    return false;
+  }
+}
+async function getAllCategories() {
+  return await readCategories();
+}
+async function addCategory(category) {
+  try {
+    const categories = await readCategories();
+    if (categories.includes(category)) {
+      return true;
+    }
+    categories.push(category);
+    return await writeCategories(categories);
+  } catch (err) {
+    console.error("Error adding category:", err);
+    return false;
+  }
+}
+async function deleteCategory(category) {
+  try {
+    const categories = await readCategories();
+    const index = categories.indexOf(category);
+    if (index === -1) {
+      return false;
+    }
+    categories.splice(index, 1);
+    return await writeCategories(categories);
+  } catch (err) {
+    console.error("Error deleting category:", err);
+    return false;
+  }
+}
+async function backupBlogData() {
+  try {
+    await ensureBackupDirExists();
+    const timestamp2 = (/* @__PURE__ */ new Date()).toISOString().replace(/:/g, "-");
+    const postsBackupPath = path.join(backupDir, `blog-posts-${timestamp2}.json`);
+    const categoriesBackupPath = path.join(backupDir, `blog-categories-${timestamp2}.json`);
+    await fsPromises.copyFile(postsFilePath, postsBackupPath);
+    await fsPromises.copyFile(categoriesFilePath, categoriesBackupPath);
+    return true;
+  } catch (err) {
+    console.error("Error backing up blog data:", err);
+    return false;
+  }
+}
+
 // server/routes.ts
+function requireAuth(req, res, next) {
+  const session = req.session;
+  if (!session || !session.isAuthenticated) {
+    return res.status(401).json({ message: "Unauthorized - Authentication required" });
+  }
+  next();
+}
 async function registerRoutes(app2) {
   app2.post("/api/email-signup", async (req, res) => {
     try {
@@ -664,6 +834,56 @@ async function registerRoutes(app2) {
       return res.status(500).json({ message: "Webhook handler failed" });
     }
   });
+  app2.post("/api/admin/login", async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      if (!username || !password) {
+        return res.status(400).json({ message: "Username and password are required" });
+      }
+      const adminUsername = process.env.ADMIN_USERNAME || "admin";
+      const adminPassword = process.env.ADMIN_PASSWORD || "flingping";
+      if (username === adminUsername && password === adminPassword) {
+        const session = req.session;
+        session.isAuthenticated = true;
+        return res.status(200).json({
+          message: "Login successful",
+          isAuthenticated: true
+        });
+      } else {
+        return res.status(401).json({ message: "Invalid credentials" });
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      return res.status(500).json({ message: "Server error" });
+    }
+  });
+  app2.post("/api/admin/logout", async (req, res) => {
+    try {
+      const session = req.session;
+      session.isAuthenticated = false;
+      req.session.destroy((err) => {
+        if (err) {
+          console.error("Session destruction error:", err);
+          return res.status(500).json({ message: "Logout failed" });
+        }
+        return res.status(200).json({ message: "Logout successful" });
+      });
+    } catch (error) {
+      console.error("Logout error:", error);
+      return res.status(500).json({ message: "Server error" });
+    }
+  });
+  app2.get("/api/admin/auth-check", async (req, res) => {
+    try {
+      const session = req.session;
+      return res.status(200).json({
+        isAuthenticated: session && session.isAuthenticated === true
+      });
+    } catch (error) {
+      console.error("Auth check error:", error);
+      return res.status(500).json({ message: "Server error" });
+    }
+  });
   app2.get("/api/founding-flinger-count", async (req, res) => {
     try {
       const totalSpots = 250;
@@ -679,7 +899,7 @@ async function registerRoutes(app2) {
       return res.status(500).json({ message: "Failed to get count" });
     }
   });
-  app2.get("/api/email-signups", async (req, res) => {
+  app2.get("/api/email-signups", requireAuth, async (req, res) => {
     try {
       const signups = await storage.getAllEmailSignups();
       return res.status(200).json({
@@ -837,9 +1057,7 @@ async function registerRoutes(app2) {
   });
   app2.get("/api/blog-posts", async (_req, res) => {
     try {
-      const blogPostsPath = path.resolve("./server/data/blog-posts.json");
-      const blogPostsData = await fs.promises.readFile(blogPostsPath, "utf8");
-      const blogPosts = JSON.parse(blogPostsData);
+      const blogPosts = await getAllBlogPosts();
       return res.status(200).json(blogPosts);
     } catch (error) {
       console.error("Error fetching blog posts:", error);
@@ -855,10 +1073,7 @@ async function registerRoutes(app2) {
       if (isNaN(postId)) {
         return res.status(400).json({ message: "Invalid blog post ID" });
       }
-      const blogPostsPath = path.resolve("./server/data/blog-posts.json");
-      const blogPostsData = await fs.promises.readFile(blogPostsPath, "utf8");
-      const blogPosts = JSON.parse(blogPostsData);
-      const post = blogPosts.find((post2) => post2.id === postId);
+      const post = await getBlogPostById(postId);
       if (!post) {
         return res.status(404).json({ message: "Blog post not found" });
       }
@@ -871,16 +1086,131 @@ async function registerRoutes(app2) {
       });
     }
   });
+  app2.post("/api/blog-posts", requireAuth, async (req, res) => {
+    try {
+      const { title, excerpt, category, imageKeywords, readTime, isAffiliate, content } = req.body;
+      if (!title || !excerpt || !category || !content) {
+        return res.status(400).json({ message: "Missing required fields" });
+      }
+      await backupBlogData();
+      const newPost = await createBlogPost({
+        title,
+        excerpt,
+        category,
+        imageKeywords,
+        readTime: readTime || "5 min read",
+        isAffiliate: !!isAffiliate,
+        content
+      });
+      if (!newPost) {
+        return res.status(500).json({ message: "Failed to create blog post" });
+      }
+      return res.status(201).json(newPost);
+    } catch (error) {
+      console.error("Error creating blog post:", error);
+      return res.status(500).json({
+        message: "Error creating blog post",
+        error: process.env.NODE_ENV === "development" ? error instanceof Error ? error.message : String(error) : void 0
+      });
+    }
+  });
+  app2.put("/api/blog-posts/:id", requireAuth, async (req, res) => {
+    try {
+      const postId = parseInt(req.params.id);
+      if (isNaN(postId)) {
+        return res.status(400).json({ message: "Invalid blog post ID" });
+      }
+      const { title, excerpt, category, imageKeywords, readTime, isAffiliate, content } = req.body;
+      await backupBlogData();
+      const updatedPost = await updateBlogPost(postId, {
+        title,
+        excerpt,
+        category,
+        imageKeywords,
+        readTime,
+        isAffiliate,
+        content
+      });
+      if (!updatedPost) {
+        return res.status(404).json({ message: "Blog post not found" });
+      }
+      return res.status(200).json(updatedPost);
+    } catch (error) {
+      console.error("Error updating blog post:", error);
+      return res.status(500).json({
+        message: "Error updating blog post",
+        error: process.env.NODE_ENV === "development" ? error instanceof Error ? error.message : String(error) : void 0
+      });
+    }
+  });
+  app2.delete("/api/blog-posts/:id", requireAuth, async (req, res) => {
+    try {
+      const postId = parseInt(req.params.id);
+      if (isNaN(postId)) {
+        return res.status(400).json({ message: "Invalid blog post ID" });
+      }
+      await backupBlogData();
+      const success = await deleteBlogPost(postId);
+      if (!success) {
+        return res.status(404).json({ message: "Blog post not found" });
+      }
+      return res.status(200).json({ message: "Blog post deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting blog post:", error);
+      return res.status(500).json({
+        message: "Error deleting blog post",
+        error: process.env.NODE_ENV === "development" ? error instanceof Error ? error.message : String(error) : void 0
+      });
+    }
+  });
   app2.get("/api/blog-categories", async (_req, res) => {
     try {
-      const categoriesPath = path.resolve("./server/data/blog-categories.json");
-      const categoriesData = await fs.promises.readFile(categoriesPath, "utf8");
-      const categories = JSON.parse(categoriesData);
+      const categories = await getAllCategories();
       return res.status(200).json(categories);
     } catch (error) {
       console.error("Error fetching blog categories:", error);
       return res.status(500).json({
         message: "Error fetching blog categories",
+        error: process.env.NODE_ENV === "development" ? error instanceof Error ? error.message : String(error) : void 0
+      });
+    }
+  });
+  app2.post("/api/blog-categories", requireAuth, async (req, res) => {
+    try {
+      const { category } = req.body;
+      if (!category || typeof category !== "string") {
+        return res.status(400).json({ message: "Invalid category" });
+      }
+      await backupBlogData();
+      const success = await addCategory(category);
+      if (!success) {
+        return res.status(400).json({ message: "Category already exists" });
+      }
+      return res.status(201).json({ message: "Category added successfully", category });
+    } catch (error) {
+      console.error("Error adding blog category:", error);
+      return res.status(500).json({
+        message: "Error adding blog category",
+        error: process.env.NODE_ENV === "development" ? error instanceof Error ? error.message : String(error) : void 0
+      });
+    }
+  });
+  app2.delete("/api/blog-categories/:category", requireAuth, async (req, res) => {
+    try {
+      const { category } = req.params;
+      if (!category) {
+        return res.status(400).json({ message: "Invalid category" });
+      }
+      await backupBlogData();
+      const success = await deleteCategory(category);
+      if (!success) {
+        return res.status(404).json({ message: "Category not found" });
+      }
+      return res.status(200).json({ message: "Category deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting blog category:", error);
+      return res.status(500).json({
+        message: "Error deleting blog category",
         error: process.env.NODE_ENV === "development" ? error instanceof Error ? error.message : String(error) : void 0
       });
     }
@@ -891,9 +1221,9 @@ async function registerRoutes(app2) {
 
 // server/vite.ts
 import express from "express";
-import fs2 from "fs";
+import fs from "fs";
 import path3, { dirname as dirname2 } from "path";
-import { fileURLToPath as fileURLToPath2 } from "url";
+import { fileURLToPath as fileURLToPath3 } from "url";
 import { createServer as createViteServer, createLogger } from "vite";
 
 // vite.config.ts
@@ -902,9 +1232,9 @@ import react from "@vitejs/plugin-react";
 import themePlugin from "@replit/vite-plugin-shadcn-theme-json";
 import path2, { dirname } from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
-import { fileURLToPath } from "url";
-var __filename = fileURLToPath(import.meta.url);
-var __dirname = dirname(__filename);
+import { fileURLToPath as fileURLToPath2 } from "url";
+var __filename2 = fileURLToPath2(import.meta.url);
+var __dirname2 = dirname(__filename2);
 var vite_config_default = defineConfig({
   plugins: [
     react(),
@@ -918,21 +1248,21 @@ var vite_config_default = defineConfig({
   ],
   resolve: {
     alias: {
-      "@": path2.resolve(__dirname, "client", "src"),
-      "@shared": path2.resolve(__dirname, "shared")
+      "@": path2.resolve(__dirname2, "client", "src"),
+      "@shared": path2.resolve(__dirname2, "shared")
     }
   },
-  root: path2.resolve(__dirname, "client"),
+  root: path2.resolve(__dirname2, "client"),
   build: {
-    outDir: path2.resolve(__dirname, "dist/public"),
+    outDir: path2.resolve(__dirname2, "dist/public"),
     emptyOutDir: true
   }
 });
 
 // server/vite.ts
 import { nanoid } from "nanoid";
-var __filename2 = fileURLToPath2(import.meta.url);
-var __dirname2 = dirname2(__filename2);
+var __filename3 = fileURLToPath3(import.meta.url);
+var __dirname3 = dirname2(__filename3);
 var viteLogger = createLogger();
 function log(message, source = "express") {
   const formattedTime = (/* @__PURE__ */ new Date()).toLocaleTimeString("en-US", {
@@ -967,12 +1297,12 @@ async function setupVite(app2, server) {
     const url = req.originalUrl;
     try {
       const clientTemplate = path3.resolve(
-        __dirname2,
+        __dirname3,
         "..",
         "client",
         "index.html"
       );
-      let template = await fs2.promises.readFile(clientTemplate, "utf-8");
+      let template = await fs.promises.readFile(clientTemplate, "utf-8");
       template = template.replace(
         `src="/src/main.tsx"`,
         `src="/src/main.tsx?v=${nanoid()}"`
@@ -986,8 +1316,8 @@ async function setupVite(app2, server) {
   });
 }
 function serveStatic(app2) {
-  const distPath = path3.resolve(__dirname2, "public");
-  if (!fs2.existsSync(distPath)) {
+  const distPath = path3.resolve(__dirname3, "public");
+  if (!fs.existsSync(distPath)) {
     throw new Error(
       `Could not find the build directory: ${distPath}, make sure to build the client first`
     );
@@ -999,12 +1329,12 @@ function serveStatic(app2) {
 }
 
 // server/index.ts
-var __filename3 = fileURLToPath3(import.meta.url);
-var __dirname3 = dirname3(__filename3);
+var __filename4 = fileURLToPath4(import.meta.url);
+var __dirname4 = dirname3(__filename4);
 var app = express2();
 app.use(express2.json());
 app.use(express2.urlencoded({ extended: false }));
-app.use(express2.static(path4.join(__dirname3, "..", "public")));
+app.use(express2.static(path4.join(__dirname4, "..", "public")));
 app.use((req, res, next) => {
   const start = Date.now();
   const path5 = req.path;
